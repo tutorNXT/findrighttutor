@@ -98,7 +98,6 @@
                         <a href="#join-community" class="text-slate-600 hover:text-brandBlue transition-colors">Community</a>
                         <a href="#contact" class="text-slate-600 hover:text-brandBlue transition-colors">Contact Support</a>
                     </div>
-                   
                 </div>
             </div>
         </nav>
@@ -123,8 +122,7 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                   <a href="https://docs.google.com/forms/d/e/1FAIpQLSccWANhdT8BrBPtrMvvCeka-WUK3xlS9hzCSZCD8Fhx-Os4PA/viewform" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-brandBlue
-                    text-white rounded-2xl font-bold text-base shadow-xl shadow-brandBlue/20 hover:bg-brandBlue-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3">
+                   <a href="https://docs.google.com/forms/d/e/1FAIpQLSccWANhdT8BrBPtrMvvCeka-WUK3xlS9hzCSZCD8Fhx-Os4PA/viewform" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-brandBlue text-white rounded-2xl font-bold text-base shadow-xl shadow-brandBlue/20 hover:bg-brandBlue-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3">
                         <i class="fa-brands fa-wpforms text-xl"></i>
                         Register Now
                     </a>
@@ -203,7 +201,7 @@
 
                 <!-- Featured Tutors Grid -->
                 <div id="featured-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                    <!-- Dynamic home featured grid injected here -->
+                    <!-- Dynamic home featured grid injected here (Limit 4) -->
                 </div>
 
                 <!-- EXPLORE MORE TUTORS BUTTON -->
@@ -337,7 +335,7 @@
             </div>
         </section>
 
-        <!-- Footer Restored -->
+        <!-- Footer -->
         <footer class="py-12 border-t border-slate-100 px-4 sm:px-6 lg:px-8 bg-slate-50 text-center">
             <div class="max-w-4xl mx-auto space-y-6">
                 <p class="text-base text-slate-500 italic">
@@ -353,7 +351,7 @@
 
     </div>
 
-    <!-- SEPARATE TUTOR EXPLORER DIRECTORY VIEW -->
+    <!-- SEPARATE TUTOR EXPLORER DIRECTORY VIEW (SPA) -->
     <div id="explorer-view" class="hidden">
         
         <!-- Explorer Navigation -->
@@ -391,6 +389,7 @@
                             <option value="Chemistry">Chemistry</option>
                             <option value="Computer Science">Computer Science</option>
                             <option value="Physics">Physics</option>
+                            <option value="English and Hindi">English & Hindi</option>
                         </select>
 
                         <select id="sort-selector" onchange="filterAndSortTutors()" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue outline-none cursor-pointer w-full sm:w-48 text-slate-600 font-medium">
@@ -408,7 +407,7 @@
         <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white min-h-[50vh]">
             <div class="max-w-6xl mx-auto">
                 <div id="tutors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Dynamically populated directory cards -->
+                    <!-- Dynamically populated directory cards (All Tutors) -->
                 </div>
             </div>
         </section>
@@ -426,7 +425,7 @@
         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeTeacherModal()"></div>
         <!-- Modal Container -->
         <div class="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] border border-slate-100 animate-slide-up">
-            <!-- Modal Header / Intro Details -->
+            <!-- Modal Header -->
             <div class="p-6 md:p-8 border-b border-slate-100 flex flex-col sm:flex-row gap-6 items-center sm:items-start bg-slate-50">
                 <img id="modal-teacher-img" src="" alt="Teacher Profile" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover shadow-lg border-2 border-white shrink-0">
                 <div class="text-center sm:text-left flex-1 space-y-2">
@@ -558,7 +557,7 @@
                 role: "Computer Science Specialist",
                 exp: "2+ Years",
                 rating: "4.9 (180+ Reviews)",
-                qualifications: "Purshuing B.Tech in Computer Science & Engineering",
+                qualifications: "Pursuing B.Tech in Computer Science & Engineering",
                 history: "Mr. Shaswat has mentored hundreds of students aiming for competitive entrance exams, specializing in computer science fundamentals, algorithmic thinking, and software development practices.",
                 bio: "Through personalized guidance, practical examples, and hands-on learning, I aim to make programming easy to understand and enjoyable for learners of all levels. My goal is to empower students with the technical skills and confidence needed to excel in academics, competitive exams, and future careers in technology.",
                 img: "shaswat.jpeg"
@@ -629,10 +628,13 @@
             return matches ? parseInt(matches[1], 10) : 0;
         }
 
-        // Render Home View Featured Grid (Static 4 for Homepage aesthetics)
+        // Render Home View Featured Grid (LIMIT 4 for Homepage aesthetics)
         function renderFeaturedTutors() {
             const grid = document.getElementById('featured-grid');
-            grid.innerHTML = teachersData.map(teacher => `
+            // Take only the first 4 registered teachers for the featured home view
+            const featuredTutors = teachersData.slice(0, 4);
+            
+            grid.innerHTML = featuredTutors.map(teacher => `
                 <div onclick="openTeacherModal(${teacher.id})" class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-lift flex flex-col items-center text-center cursor-pointer group relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-full h-1.5 bg-brandBlue transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                     
@@ -659,7 +661,7 @@
             `).join('');
         }
 
-        // Render Tutors into Directory Grid
+        // Render Tutors into Directory Grid (Shows All Tutors)
         function renderDirectoryTutors(tutors) {
             const grid = document.getElementById('tutors-grid');
             if (tutors.length === 0) {
@@ -731,7 +733,7 @@
             document.getElementById('home-view').classList.add('hidden');
             document.getElementById('explorer-view').classList.remove('hidden');
             window.scrollTo(0, 0);
-            renderDirectoryTutors(teachersData);
+            renderDirectoryTutors(teachersData); // Shows all 5+ tutors in directory grid
         }
 
         function switchToHome() {
