@@ -557,21 +557,35 @@
             </div>
 
             <!-- Modal Footer Actions -->
-            <div class="p-6 bg-slate-50 border-t border-slate-100 flex gap-4">
-                <button onclick="closeTeacherModal()" class="w-1/2 py-3 bg-slate-200 hover:bg-slate-300 rounded-xl text-slate-700 font-bold transition-all text-sm">Close Details</button>
-                <button onclick="bookTeacherClass()" class="w-1/2 py-3 bg-brandBlue hover:bg-brandBlue-dark text-white rounded-xl font-bold transition-all shadow-lg shadow-brandBlue/20 text-sm flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp"></i> Book Demo Class
+            <div class="p-6 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <button onclick="closeTeacherModal()" class="w-full sm:w-1/2 py-3 bg-slate-200 hover:bg-slate-300 rounded-xl text-slate-700 font-bold transition-all text-sm">Close Details</button>
+                <button onclick="bookTeacherClass()" class="w-full sm:w-1/2 py-3 bg-brandBlue hover:bg-brandBlue-dark text-white rounded-xl font-bold transition-all shadow-lg shadow-brandBlue/20 text-sm flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-base shrink-0"></i> <span class="whitespace-nowrap">Book Demo Class</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- JS Core Engine -->
+    <!-- Onboarding / Registration Modal -->
     <script>
         // Registered Tutors Data Model
         const teachersData = [
-            {
+
+           {
                 id: 1,
+                name: "Ms M.Meena",
+                subject: "Hindi",
+                role: "Hindi Teacher Upto 12th Grade",
+                exp: "20+ Years",
+                rating: "4.9 (50+ Reviews)",
+                qualifications: "12th Pass",
+                history: "Ms. Meena is an experienced educator who has mentored hundreds of students from Grades 1 to 12, specializing in Hindi. She can teach all subjects up to Grade 6 and also teaches Bengali for students in Grades 6 to 8. With her years of teaching experience, she focuses on building strong fundamentals, conceptual clarity, and effective exam preparation to help students achieve academic success. Through personalized guidance, patience, and engaging teaching methods, she nurtures confidence and a love for learning in her students.",
+                bio: "Through personalized guidance, real-life examples, and interactive learning methods, I aim to make Hindi easy to understand and enjoyable for students of all levels. Along with Hindi, I also teach English and Mathematics, helping students build strong conceptual foundations and problem-solving skills. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
+                img: "mmeena.jpeg"
+            },
+
+            {
+                id: 2,
                 name: "Mr Shaswat Sharma",
                 subject: "Computer Science",
                 role: "Computer Science Specialist",
@@ -583,7 +597,7 @@
                 img: "shaswat.jpeg"
             },
             {
-                id: 2,
+                id: 3,
                 name: "Mr Sahil Sonkar",
                 subject: "Physics",
                 role: "Physics Expert",
@@ -595,7 +609,7 @@
                 img: "sahil.jpeg"
             },
             {
-                id: 3,
+                id: 4,
                 name: "Mr Amrit Kumar",
                 subject: "Physics",
                 role: "Physics Specialist",
@@ -607,7 +621,7 @@
                 img: "amrit.jpg"
             },
             {
-                id: 4,
+                id: 5,
                 name: "Mr Arjock Bose",
                 subject: "Mathematics",
                 role: "Mathematics Teacher for 6 to 10th Grade",
@@ -619,7 +633,7 @@
                 img: "arjock.jpeg"
             },
             {
-                id: 5,
+                id: 6,
                 name: "Ms Neer Kumari",
                 subject: "English and Hindi",
                 role: "English And Hindi Teacher Upto 8th Grade",
@@ -630,6 +644,7 @@
                 bio: "Through personalized guidance, real-life examples, and interactive learning methods, I aim to make English, Hindi, and Mathematics easy to understand and enjoyable for students of all levels. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
                 img: "neer.jpeg"
             }
+            
         ];
 
         // Mobile Menu Toggler
