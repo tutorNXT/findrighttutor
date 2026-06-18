@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="icon" type="image/png" href="logo.png">
+    <title>Meet Our Founders | TutorNxt</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlue: {
+                            light: '#3b82f6',
+                            DEFAULT: '#1e40af',
+                            dark: '#1e3a8a'
+                        },
+                        brandSky: '#38bdf8',
+                        brandGreen: '#10b981',
+                        brandGold: '#f59e0b'
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            background-color: #fafcfd;
+        }
+
+        /* Ambient backdrop lights */
+        .ambient-glow-1 {
+            background: radial-gradient(circle, rgba(30, 64, 175, 0.08) 0%, transparent 70%);
+        }
+        .ambient-glow-2 {
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 60%);
+        }
+
+        /* Premium card transitions */
+        .founder-card {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+        }
+        .founder-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px -10px rgba(30, 64, 175, 0.15);
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden min-h-screen text-slate-800">
+
+    <!-- Ambient Glow Graphic Elements -->
+    <div class="absolute top-0 right-0 w-[60vw] h-[60vw] ambient-glow-1 -z-10 rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-10 left-[-10vw] w-[50vw] h-[50vw] ambient-glow-2 -z-10 rounded-full pointer-events-none"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-slate-100 py-5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <!-- Back Button -->
+            <a href="index.html" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-brandBlue font-bold rounded-2xl text-sm hover:border-brandBlue hover:bg-brandBlue/5 transition-all shadow-sm group">
+                <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                <span>Back to Home</span>
+            </a>
+            <!-- Logo Section -->
+            <div class="flex items-center gap-2">
+                <span class="text-xl font-extrabold tracking-tight text-brandBlue">Tutor<span class="text-brandSky">Nxt</span></span>
+                <span class="px-2.5 py-0.5 bg-indigo-50 text-brandBlue rounded-full text-[10px] font-bold uppercase tracking-widest">About Us</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero / Story Section -->
+    <header class="py-16 px-4 sm:px-6 lg:px-8 text-center max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-50 text-brandBlue border border-indigo-100 rounded-full text-xs font-bold mb-6">
+            <i class="fa-solid fa-fire-flame-simple text-brandGold"></i>
+            Meet the Builders
+        </div>
+        
+        <h1 class="text-4xl sm:text-6xl font-black text-slate-900 leading-tight mb-8">
+            The Visionaries Behind <br>
+            <span class="bg-gradient-to-r from-brandBlue to-brandGreen bg-clip-text text-transparent">TutorNxt Ecosystem</span>
+        </h1>
+
+        <!-- High Fidelity Kharagpur Origin Pitch Box -->
+        <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-[2.5rem] p-8 md:p-12 text-left relative overflow-hidden shadow-2xl shadow-indigo-950/20 mb-12 border border-white/10">
+            <div class="absolute -right-10 -bottom-10 opacity-5 text-[15rem] font-black pointer-events-none">KGP</div>
+            
+            <div class="relative z-10 space-y-6">
+                <div class="inline-block px-3 py-1 bg-white/10 border border-white/20 rounded-full text-[10px] tracking-widest uppercase font-bold text-brandSky">
+                    The Origin Story
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold leading-tight">
+                    "3 Boys from Kharagpur Started This."
+                </h2>
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed font-light">
+                    What happens when three visionary engineering minds cross paths in the prestigious academic and industrial hub of 'Kharagpur' ? They decide to systematically redefine rural and local academic discovery. 
+                </p>
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed font-light">
+                    Frustrated by how difficult it was for students in local neighborhoods to access verified study support, Shaswat, Sahil, and Amrit engineered 'TutorNxt'. This isn't just a directory—it is a centralized learning bridge built with extreme technical passion and academic discipline.
+                </p>
+                <div class="pt-4 flex flex-wrap gap-6 text-xs sm:text-sm font-semibold text-brandSky">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-microchip"></i> High-Fidelity Infrastructure</span>
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-shield-halved"></i> 100% Student-First Security</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Founders Grid -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Founder 1: Shaswat Sharma -->
+            <div class="bg-white rounded-[2rem] p-6 border border-slate-100 shadow-xl flex flex-col justify-between founder-card">
+                <div class="space-y-6">
+                    <!-- Photo Frame with custom initial fallback helper -->
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden shadow-inner border border-slate-100 bg-slate-50 flex items-center justify-center">
+                        <img src="shaswat.jpeg" alt="Shaswat Sharma" class="w-full h-full object-cover" onerror="handleFounderImageError(this, 'Shaswat Sharma')">
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <span class="text-[10px] tracking-widest font-extrabold text-brandBlue uppercase block">Founder</span>
+                        <h3 class="text-2xl font-extrabold text-slate-900">Shaswat Sharma</h3>
+                        <p class="text-xs font-bold text-brandGreen bg-emerald-50 inline-block px-3 py-1 rounded-full border border-emerald-100">B.Tech, CSE</p>
+                    </div>
+
+                    <div class="h-px bg-slate-100 w-full"></div>
+
+                    <!-- Details -->
+                    <div class="space-y-4 text-sm leading-relaxed text-slate-600">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-graduation-cap text-brandBlue mt-1"></i>
+                            <p><strong>Education:</strong> Pursuing B.Tech in Computer Science & Engineering, Centurion University of Technology and Management.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-briefcase text-brandBlue mt-1"></i>
+                            <p><strong>Core Focus:</strong> Coordinates strategic roadmaps, front-end visual architecture, community outreach, and investor communications.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-quote-left text-slate-300 mt-1"></i>
+                            <p class="italic">" Our vision is to build a trusted education network where every student can find the right mentor quickly and confidently."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-8 flex gap-3 border-t border-slate-50 mt-8">
+                    <a href="mailto:shaswat@tutornxt.com" class="flex-1 py-3 text-center bg-slate-100 hover:bg-brandBlue hover:text-white rounded-xl text-slate-700 font-bold transition-all text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-envelope"></i> Email
+                    </a>
+                    <a href="https://www.linkedin.com/in/shaswat-sharma-7050b1309/" class="w-12 h-11 bg-slate-100 hover:bg-brandBlue hover:text-white rounded-xl flex items-center justify-center text-slate-700 transition-all">
+                        <i class="fa-brands fa-linkedin-in text-sm"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Founder 2: Sahil Sonkar -->
+            <div class="bg-white rounded-[2rem] p-6 border border-slate-100 shadow-xl flex flex-col justify-between founder-card">
+                <div class="space-y-6">
+                    <!-- Photo Frame with custom initial fallback helper -->
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden shadow-inner border border-slate-100 bg-slate-50 flex items-center justify-center">
+                        <img src="sahil.jpeg" alt="Sahil Sonkar" class="w-full h-full object-cover" onerror="handleFounderImageError(this, 'Sahil Sonkar')">
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <span class="text-[10px] tracking-widest font-extrabold text-brandBlue uppercase block">Founder & Marketing Lead</span>
+                        <h3 class="text-2xl font-extrabold text-slate-900">Sahil Sonkar</h3>
+                        <p class="text-xs font-bold text-brandBlue bg-blue-50 inline-block px-3 py-1 rounded-full border border-blue-100">B.Tech, CSE</p>
+                    </div>
+
+                    <div class="h-px bg-slate-100 w-full"></div>
+
+                    <!-- Details -->
+                    <div class="space-y-4 text-sm leading-relaxed text-slate-600">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-graduation-cap text-brandBlue mt-1"></i>
+                            <p><strong>Education:</strong> Pursuing B.Tech in Computer Science & Engineering.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-briefcase text-brandBlue mt-1"></i>
+                            <p><strong>Core Focus:</strong> Heads tutor verification workflows, local network operations, and support quality assurance.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-quote-left text-slate-300 mt-1"></i>
+                            <p class="italic">"Verification is the heart of TutorNxt. We personally ensure that every educator profile is authentic, secure, and ready."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-8 flex gap-3 border-t border-slate-50 mt-8">
+                    <a href="mailto:sahilsonkar11205@gmail.com" class="flex-1 py-3 text-center bg-slate-100 hover:bg-brandBlue hover:text-white rounded-xl text-slate-700 font-bold transition-all text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-envelope"></i> Email
+                    </a>
+                    <a href="https://www.linkedin.com/in/sahil-sonkar-887035418/" class="w-12 h-11 bg-slate-100 hover:bg-brandBlue hover:text-white rounded-xl flex items-center justify-center text-slate-700 transition-all">
+                        <i class="fa-brands fa-linkedin-in text-sm"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Founder 3: Amrit Kumar -->
+            <div class="bg-white rounded-[2rem] p-6 border border-slate-100 shadow-xl flex flex-col justify-between founder-card">
+                <div class="space-y-6">
+                    <!-- Photo Frame with custom initial fallback helper -->
+                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden shadow-inner border border-slate-100 bg-slate-50 flex items-center justify-center">
+                        <img src="amrit.jpg" alt="Amrit Kumar" class="w-full h-full object-cover" onerror="handleFounderImageError(this, 'Amrit Kumar')">
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <span class="text-[10px] tracking-widest font-extrabold text-brandBlue uppercase block">Founder & Tech Lead</span>
+                        <h3 class="text-2xl font-extrabold text-slate-900">Amrit Kumar</h3>
+                        <p class="text-xs font-bold text-brandBlue bg-blue-50 inline-block px-3 py-1 rounded-full border border-blue-100">B.Tech, CSE</p>
+                    </div>
+
+                    <div class="h-px bg-slate-100 w-full"></div>
+
+                    <!-- Details -->
+                    <div class="space-y-4 text-sm leading-relaxed text-slate-600">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-graduation-cap text-brandBlue mt-1"></i>
+                            <p><strong>Education:</strong> Pursuing B.Tech in Computer Science & Engineering, Dr. Hari Singh Gour Central University and BS in Data Science and Applications, IIT Madras. </p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-briefcase text-brandBlue mt-1"></i>
+                            <p><strong>Core Focus:</strong> Full-stack development, user experience design, and technical strategy.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-quote-left text-slate-300 mt-1"></i>
+                            <p class="italic">"Our vision is to build a trusted education network where every student can find the right mentor quickly and confidently."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-8 flex gap-3 border-t border-slate-50 mt-8">
+                    <a href="mailto:amritkumar01ak15@gmail.com" class="flex-1 py-3 text-center bg-slate-100 hover:bg-brandBlue hover:text-white rounded-xl text-slate-700 font-bold transition-all text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-envelope"></i> Email
+                    </a>
+                    <a href="https://www.linkedin.com/in/amrit-kumar-8b8276370/" class="w-12 h-11 bg-slate-100 hover:bg-brandBlue hover:text-white rounded-xl flex items-center justify-center text-slate-700 transition-all">
+                        <i class="fa-brands fa-linkedin-in text-sm"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Simple Footer -->
+    <footer class="py-12 border-t border-slate-100 bg-white text-center">
+        <p class="text-xs text-slate-400 tracking-widest">&copy; 2026 TutorNxt Technologies. | Managed by Amrit Kumar.</p>
+    </footer>
+
+    <!-- Fallback Avatar Script -->
+    <script>
+        function handleFounderImageError(imgElement, name) {
+            const parent = imgElement.parentElement;
+            if (!parent) return;
+            const initial = name.charAt(0);
+            parent.innerHTML = `
+                <div class="w-full h-full bg-gradient-to-br from-brandBlue to-indigo-600 text-white flex items-center justify-center font-black text-6xl select-none">
+                    ${initial}
+                </div>
+            `;
+        }
+    </script>
+
+</body>
+</html>
