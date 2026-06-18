@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo.png">
     <title>TutorNxt | Connecting Students & Teachers</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -60,6 +61,7 @@
         /* Custom Scrollbar for Details Modal */
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
+            height: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
             background: #f1f1f1;
@@ -117,7 +119,7 @@
                         <a href="#why-join" class="nav-link text-slate-600 hover:text-brandBlue transition-colors">Why TutorNxt</a>
                         <a href="#featured-tutors-section" class="nav-link text-slate-600 hover:text-brandBlue transition-colors">Featured Tutors</a>
                         <a href="#join-community" class="nav-link text-slate-600 hover:text-brandBlue transition-colors">Community</a>
-                        <a href="#contact" class="nav-link text-slate-600 hover:text-brandBlue transition-colors">Contact Support</a>
+                        <a href="founder.html" class="nav-link text-slate-600 hover:text-brandBlue transition-colors">Founders</a>
                     </div>
 
                     <!-- Desktop Actions -->
@@ -172,39 +174,51 @@
                     </span>
                 </h1>
                 
-                <p class="max-w-2xl mx-auto text-slate-500 text-base sm:text-lg mb-10 leading-relaxed">
+                <p class="max-w-2xl mx-auto text-slate-500 text-base sm:text-lg mb-12 leading-relaxed">
                     Connect directly with eager learners in your local area or online. Build your professional reputation, manage your hours seamlessly, and maximize your income on a verified platform.
                 </p>
 
-                <!-- Dual Onboarding Selector Cards inside the Hero -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
-                    <!-- Student Registration Card -->
-                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/50 flex flex-col justify-between hover-lift">
-                        <div class="mb-6">
-                            <div class="w-12 h-12 bg-blue-50 text-brandBlue rounded-2xl flex items-center justify-center mb-6">
+                <!-- Restored Side-by-Side Dual Card Portals from Screenshot -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-10 text-left">
+                    <!-- Student Card (Left) -->
+                    <div class="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-xl flex flex-col justify-between hover-lift">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 bg-blue-100 text-brandBlue rounded-xl flex items-center justify-center shadow-md">
                                 <i class="fa-solid fa-user-graduate text-xl"></i>
                             </div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Are you a Student or Parent?</h3>
-                            <p class="text-slate-500 text-sm leading-relaxed">Match with verified, highly experienced local or online home educators who match your budget and study schedules perfectly.</p>
+                            <h3 class="text-xl sm:text-2xl font-bold text-slate-900">Are you a Student or Parent?</h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">
+                                Match with verified, highly experienced local or online home educators who match your budget and study schedules perfectly.
+                            </p>
                         </div>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd939Yihqfr7ZLSLSDYfKYuIIkXyCNWiLTrtltaJVpyitMq1w/viewform" target="_blank" class="w-full py-3.5 bg-brandBlue text-white rounded-xl font-bold text-sm text-center shadow-lg shadow-brandBlue/20 hover:bg-brandBlue-dark transition-all flex items-center justify-center gap-2">
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd939Yihqfr7ZLSLSDYfKYuIIkXyCNWiLTrtltaJVpyitMq1w/viewform" target="_blank" class="w-full mt-8 py-4 bg-brandBlue text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-brandBlue-dark transition-all">
                             <i class="fa-solid fa-user-graduate"></i> Register as Student
                         </a>
                     </div>
-                    
-                    <!-- Teacher Registration Card -->
-                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/50 flex flex-col justify-between hover-lift">
-                        <div class="mb-6">
-                            <div class="w-12 h-12 bg-emerald-50 text-brandGreen rounded-2xl flex items-center justify-center mb-6">
+
+                    <!-- Teacher Card (Right) -->
+                    <div class="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-xl flex flex-col justify-between hover-lift">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 bg-emerald-100 text-brandGreen rounded-xl flex items-center justify-center shadow-md">
                                 <i class="fa-solid fa-chalkboard-user text-xl"></i>
                             </div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Are you a Teacher or Educator?</h3>
-                            <p class="text-slate-500 text-sm leading-relaxed">Choose your own hours, connect with real student requirements, build your professional reputation, and secure transparent monthly earnings.</p>
+                            <h3 class="text-xl sm:text-2xl font-bold text-slate-900">Are you a Teacher or Educator?</h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">
+                                Choose your own hours, connect with real student requirements, build your professional reputation, and secure transparent monthly earnings.
+                            </p>
                         </div>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSccWANhdT8BrBPtrMvvCeka-WUK3xlS9hzCSZCD8Fhx-Os4PA/viewform" target="_blank" class="w-full py-3.5 bg-brandGreen text-white rounded-xl font-bold text-sm text-center shadow-lg shadow-brandGreen/20 hover:bg-emerald-600 transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-user-plus"></i> Join as Verified Tutor
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSccWANhdT8BrBPtrMvvCeka-WUK3xlS9hzCSZCD8Fhx-Os4PA/viewform" target="_blank" class="w-full mt-8 py-4 bg-brandGreen text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-600 transition-all">
+                            <i class="fa-solid fa-chalkboard-user"></i> Join as Verified Tutor
                         </a>
                     </div>
+                </div>
+
+                <!-- Meet Our Founder Button Center Aligned Below Cards -->
+                <div class="flex justify-center mt-6">
+                    <button onclick="window.location.href = 'founder.html'" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-700 font-bold rounded-2xl text-sm border border-slate-200 hover:border-brandBlue hover:text-brandBlue shadow-md transition-all hover:-translate-y-0.5 active:translate-y-0 group">
+                        <i class="fa-solid fa-user-tie text-brandGold group-hover:scale-110 transition-transform"></i>
+                        <span>Meet Our Founder</span>
+                    </button>
                 </div>
             </div>
         </header>
@@ -217,11 +231,11 @@
                     <div class="w-16 h-1 bg-brandBlue mx-auto rounded-full"></div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <!-- Benefit 1 -->
-                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm hover-lift text-center flex flex-col items-center">
-                        <div class="w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 text-brandBlue rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fa-solid fa-users-viewfinder text-xl sm:text-2xl"></i>
+                    <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover-lift text-center flex flex-col items-center">
+                        <div class="w-16 h-16 bg-blue-50 text-brandBlue rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-users-viewfinder text-2xl"></i>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 mb-3">Reach More Students</h3>
                         <p class="text-slate-500 text-sm leading-relaxed">
@@ -230,9 +244,9 @@
                     </div>
 
                     <!-- Benefit 2 -->
-                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm hover-lift text-center flex flex-col items-center">
-                        <div class="w-14 h-14 sm:w-16 sm:h-16 bg-emerald-50 text-brandGreen rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fa-solid fa-chart-line text-xl sm:text-2xl"></i>
+                    <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover-lift text-center flex flex-col items-center">
+                        <div class="w-16 h-16 bg-emerald-50 text-brandGreen rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-chart-line text-2xl"></i>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 mb-3">Grow Your Career</h3>
                         <p class="text-slate-500 text-sm leading-relaxed">
@@ -241,9 +255,9 @@
                     </div>
 
                     <!-- Benefit 3 -->
-                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm hover-lift text-center flex flex-col items-center">
-                        <div class="w-14 h-14 sm:w-16 sm:h-16 bg-amber-50 text-brandGold rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fa-solid fa-calendar-days text-xl sm:text-2xl"></i>
+                    <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover-lift text-center flex flex-col items-center">
+                        <div class="w-16 h-16 bg-amber-50 text-brandGold rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-calendar-days text-2xl"></i>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 mb-3">Flexible Schedule</h3>
                         <p class="text-slate-500 text-sm leading-relaxed">
@@ -252,9 +266,9 @@
                     </div>
 
                     <!-- Benefit 4 -->
-                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm hover-lift text-center flex flex-col items-center">
-                        <div class="w-14 h-14 sm:w-16 sm:h-16 bg-indigo-50 text-indigo-500 rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fa-solid fa-shield-halved text-xl sm:text-2xl"></i>
+                    <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover-lift text-center flex flex-col items-center">
+                        <div class="w-16 h-16 bg-indigo-50 text-indigo-500 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-shield-halved text-2xl"></i>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 mb-3">Trusted & Secure</h3>
                         <p class="text-slate-500 text-sm leading-relaxed">
@@ -275,7 +289,7 @@
                 </div>
 
                 <!-- Featured Tutors Grid -->
-                <div id="featured-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12">
+                <div id="featured-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                     <!-- Dynamic home featured grid injected here (Limit 4) -->
                 </div>
 
@@ -291,26 +305,24 @@
 
         <!-- Interactive Registration / QR Code Section -->
         <section id="join-community" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-            <div class="max-w-5xl mx-auto bg-gradient-to-br from-brandBlue/5 to-indigo-500/5 rounded-[2.5rem] p-6 sm:p-8 md:p-12 border border-brandBlue/10 shadow-2xl shadow-indigo-500/5 relative overflow-hidden">
+            <div class="max-w-5xl mx-auto bg-gradient-to-br from-brandBlue/5 to-indigo-500/5 rounded-[2.5rem] p-8 md:p-12 border border-brandBlue/10 shadow-2xl shadow-indigo-500/5 relative overflow-hidden">
                 
                 <div class="grid lg:grid-cols-12 gap-12 items-center">
                     <!-- Text CTA -->
                     <div class="lg:col-span-7 space-y-6">
-                        <div class="w-14 h-14 sm:w-16 sm:h-16 bg-brandBlue text-white rounded-2xl flex items-center justify-center shadow-lg shadow-brandBlue/20">
+                        <div class="w-16 h-16 bg-brandBlue text-white rounded-2xl flex items-center justify-center shadow-lg shadow-brandBlue/20">
                             <i class="fa-solid fa-graduation-cap text-2xl"></i>
                         </div>
-                        <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Join Our Active Community</h3>
-                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                            Whether you are a student/parent looking for custom guidance or an expert educator aiming to grow your professional career, TutorNxt bridges the gap. Scan the QR code or tap the links below to register.
+                        <h3 class="text-3xl font-extrabold text-slate-900">Join Our Active Community</h3>
+                        <p class="text-slate-600 text-base leading-relaxed">
+                            Whether you are a student looking for custom guidance or an expert educator aiming to grow your professional career, TutorNxt bridges the gap. Scan the QR code or tap the links below to register.
                         </p>
 
                         <div class="pt-4 flex flex-col sm:flex-row gap-4">
-                            <!-- Student Google Form Registration Path -->
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSd939Yihqfr7ZLSLSDYfKYuIIkXyCNWiLTrtltaJVpyitMq1w/viewform" target="_blank" class="bg-brandBlue text-white font-bold px-6 py-3.5 rounded-xl shadow-lg hover:bg-brandBlue-dark transition-all flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSd939Yihqfr7ZLSLSDYfKYuIIkXyCNWiLTrtltaJVpyitMq1w/viewform" target="_blank" class="bg-brandBlue text-white font-bold px-6 py-3.5 rounded-xl shadow-lg hover:bg-brandBlue-dark transition-all flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-user-graduate"></i> Student Registration
                             </a>
-                            <!-- Teacher Google Form Registration Path -->
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSccWANhdT8BrBPtrMvvCeka-WUK3xlS9hzCSZCD8Fhx-Os4PA/viewform" target="_blank" class="border-2 border-brandBlue text-brandBlue font-bold px-6 py-3.5 rounded-xl hover:bg-brandBlue hover:text-white transition-all flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSccWANhdT8BrBPtrMvvCeka-WUK3xlS9hzCSZCD8Fhx-Os4PA/viewform" target="_blank" class="border-2 border-brandBlue text-brandBlue font-bold px-6 py-3.5 rounded-xl hover:bg-brandBlue hover:text-white transition-all flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-chalkboard-user"></i> Teacher Registration
                             </a>
                         </div>
@@ -322,7 +334,7 @@
                             <!-- Student QR -->
                             <div class="flex flex-col items-center group">
                                 <div class="relative w-24 h-24 sm:w-32 sm:h-32 mb-3 border border-slate-100 rounded-2xl overflow-hidden p-2 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
-                                    <img src="studentqr.jpeg" alt="Student QR Code" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/150x150/1e40af/ffffff?text=Student+QR';">
+                                    <img src="studentqr.jpeg" alt="Student QR Code" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/150x150/1e40af/ffffff?text=Scan+to+Register';">
                                 </div>
                                 <span class="text-[10px] sm:text-[11px] font-extrabold text-brandBlue uppercase tracking-wider text-center">Student Scan</span>
                             </div>
@@ -343,47 +355,47 @@
             </div>
         </section>
 
-        <!-- Trust Badges Row (Verified Teachers Badge Restored) -->
+        <!-- Trust Badges Row (Verified Teachers Badge Restored & Formatted as 2x2 Grid on Mobile) -->
         <section class="py-12 bg-slate-50 border-y border-slate-100 px-4 sm:px-6 lg:px-8">
             <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                 
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-slate-700">
+                <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 text-slate-700">
                     <div class="w-10 h-10 bg-brandGreen/10 text-brandGreen rounded-full flex items-center justify-center shrink-0">
                         <i class="fa-solid fa-circle-check"></i>
                     </div>
                     <div class="text-center sm:text-left">
-                        <p class="font-bold text-sm">Verified Teachers Only</p>
-                        <p class="text-xs text-slate-400">Security guaranteed</p>
+                        <p class="font-bold text-sm leading-tight">Verified Teachers Only</p>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Security guaranteed</p>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-slate-700">
+                <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 text-slate-700">
                     <div class="w-10 h-10 bg-brandBlue/10 text-brandBlue rounded-full flex items-center justify-center shrink-0">
                         <i class="fa-solid fa-arrows-split-up-and-left"></i>
                     </div>
                     <div class="text-center sm:text-left">
-                        <p class="font-bold text-sm">Smart Matching</p>
-                        <p class="text-xs text-slate-400">Right student, right space</p>
+                        <p class="font-bold text-sm leading-tight">Smart Matching</p>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Right student & space</p>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-slate-700">
+                <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 text-slate-700">
                     <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center shrink-0">
                         <i class="fa-solid fa-hand-holding-dollar"></i>
                     </div>
                     <div class="text-center sm:text-left">
-                        <p class="font-bold text-sm">Timely Payouts & Transparency</p>
-                        <p class="text-xs text-slate-400">Transparent accounts</p>
+                        <p class="font-bold text-sm leading-tight">Timely Payouts</p>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Transparent accounts</p>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-slate-700">
+                <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 text-slate-700">
                     <div class="w-10 h-10 bg-amber-50 text-brandGold rounded-full flex items-center justify-center shrink-0">
                         <i class="fa-solid fa-star"></i>
                     </div>
                     <div class="text-center sm:text-left">
-                        <p class="font-bold text-sm">Support Every Step</p>
-                        <p class="text-xs text-slate-400">Every single step</p>
+                        <p class="font-bold text-sm leading-tight">Support Every Step</p>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Every single step</p>
                     </div>
                 </div>
 
@@ -401,24 +413,24 @@
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- WhatsApp Card -->
-                    <a href="https://wa.me/919749160796" target="_blank" class="p-6 sm:p-8 rounded-3xl border border-slate-100 bg-[#f8fafc]/50 hover:bg-[#f8fafc] transition-all flex items-start gap-5 hover:border-brandGreen/30 shadow-sm">
-                        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20">
-                            <i class="fa-brands fa-whatsapp text-xl sm:text-2xl"></i>
+                    <a href="https://wa.me/919749160796" target="_blank" class="p-8 rounded-3xl border border-slate-100 bg-[#f8fafc]/50 hover:bg-[#f8fafc] transition-all flex items-start gap-5 hover:border-brandGreen/30 shadow-sm">
+                        <div class="w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-base sm:text-lg text-slate-900 mb-1">+91 97491 60796</h4>
+                            <h4 class="font-bold text-lg text-slate-900 mb-1">+91 97491 60796</h4>
                             <p class="text-slate-500 text-sm mb-3">Live chat with our team on WhatsApp anytime for fast onboarding support.</p>
                             <span class="text-brandGreen text-xs font-bold uppercase tracking-wider">Start Chatting &rarr;</span>
                         </div>
                     </a>
 
                     <!-- Email Card -->
-                    <a href="mailto:connecttutornxt@gmail.com" class="p-6 sm:p-8 rounded-3xl border border-slate-100 bg-[#f8fafc]/50 hover:bg-[#f8fafc] transition-all flex items-start gap-5 hover:border-brandBlue/30 shadow-sm">
-                        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-brandBlue text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-brandBlue/20">
-                            <i class="fa-solid fa-envelope text-xl sm:text-2xl"></i>
+                    <a href="mailto:connecttutornxt@gmail.com" class="p-8 rounded-3xl border border-slate-100 bg-[#f8fafc]/50 hover:bg-[#f8fafc] transition-all flex items-start gap-5 hover:border-brandBlue/30 shadow-sm">
+                        <div class="w-14 h-14 bg-brandBlue text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-brandBlue/20">
+                            <i class="fa-solid fa-envelope text-2xl"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-base sm:text-lg text-slate-900 mb-1">connecttutornxt@gmail.com</h4>
+                            <h4 class="font-bold text-lg text-slate-900 mb-1">connecttutornxt@gmail.com</h4>
                             <p class="text-slate-500 text-sm mb-3">Drop us an email. Our operations team will respond back within 24 hours.</p>
                             <span class="text-brandBlue text-xs font-bold uppercase tracking-wider">Send Email &rarr;</span>
                         </div>
@@ -430,13 +442,13 @@
         <!-- Footer -->
         <footer class="py-12 border-t border-slate-100 px-4 sm:px-6 lg:px-8 bg-slate-50 text-center">
             <div class="max-w-4xl mx-auto space-y-6">
-                <p class="text-sm sm:text-base text-slate-500 italic">
+                <p class="text-base text-slate-500 italic">
                     <i class="fa-solid fa-heart text-rose-500 mr-1"></i> "Empower Minds. Shape Futures. Be a Tutor, Be the Difference."
                 </p>
                 <div class="h-[1px] w-20 bg-slate-200 mx-auto"></div>
                 <div>
                     <p class="text-sm font-bold text-slate-900 uppercase tracking-widest">Team TutorNxt <i class="fa-solid fa-graduation-cap text-brandBlue"></i></p>
-                    <p class="text-xs text-slate-400 mt-2">&copy; 2026 TutorNxt Technologies. All rights reserved. | Managed by Amrit Kumar</p>
+                    <p class="text-xs text-slate-400 mt-2">&copy; 2026 TutorNxt Technologies. All rights reserved. | Managed by Amrit Kumar.</p>
                 </div>
             </div>
         </footer>
@@ -444,25 +456,25 @@
     </div>
 
     <!-- SEPARATE TUTOR EXPLORER DIRECTORY VIEW (SPA) -->
-    <div id="explorer-view" class="hidden animate-fade-in">
+    <div id="explorer-view" class="hidden animate-fade-in relative pb-16">
         
         <!-- Explorer Navigation -->
-        <nav class="sticky top-0 z-40 bg-white border-b border-slate-100 py-6 px-4 sm:px-6 lg:px-8 shadow-sm">
+        <nav class="sticky top-0 z-40 bg-white border-b border-slate-100 py-6 px-4 sm:px-6 lg:px-8">
             <div class="max-w-6xl mx-auto flex items-center justify-between">
                 <button onclick="switchToHome()" class="flex items-center gap-2 text-brandBlue font-bold hover:text-brandBlue-dark transition-all text-sm group">
                     <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
                     <span>Back to Home</span>
                 </button>
-                <span class="font-extrabold text-brandBlue tracking-tight text-base sm:text-lg">Tutor<span class="text-brandSky">Nxt</span> Directory</span>
+                <span class="font-extrabold text-brandBlue tracking-tight">Tutor<span class="text-brandSky">Nxt</span> Directory</span>
                 <div class="w-10"></div>
             </div>
         </nav>
 
         <!-- Search, Filter & Sort Hub -->
         <section class="py-10 px-4 sm:px-6 lg:px-8 bg-slate-50 border-b border-slate-100">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2 text-center">Find Your Perfect Match</h2>
-                <p class="text-slate-500 text-xs sm:text-sm text-center mb-8">Search registered subject experts, filter by specialty areas, or sort based on verified reviews and years of experience.</p>
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">Find Your Perfect Match</h2>
+                <p class="text-slate-500 text-xs sm:text-sm mb-8">Search registered subject experts, filter by specialty areas, or sort based on verified reviews and years of experience.</p>
                 
                 <div class="bg-white p-4 sm:p-6 rounded-3xl border border-slate-100 shadow-sm flex flex-col lg:flex-row gap-4 sm:gap-6 justify-between items-center">
                     <!-- Search Input -->
@@ -511,12 +523,12 @@
 
     </div>
 
-    <!-- Detailed Teacher View Modal -->
+    <!-- Detailed Teacher View Modal (with Interactive Timeslot Scheduler) -->
     <div id="teacher-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
         <!-- Backdrop -->
         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeTeacherModal()"></div>
         <!-- Modal Container -->
-        <div class="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] border border-slate-100">
+        <div class="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] border border-slate-100 animate-slide-up">
             <!-- Modal Header -->
             <div class="p-6 md:p-8 border-b border-slate-100 flex flex-col sm:flex-row gap-6 items-center sm:items-start bg-slate-50">
                 <img id="modal-teacher-img" src="" alt="Teacher Profile" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover shadow-lg border-2 border-white shrink-0">
@@ -554,25 +566,60 @@
                     <h4 class="text-xs uppercase font-bold text-slate-400 tracking-wider mb-2">Teaching Philosophy</h4>
                     <p id="modal-teacher-bio" class="text-slate-600 text-sm leading-relaxed italic border-l-2 border-brandBlue pl-4"></p>
                 </div>
+
+                <!-- Highly Interactive Dynamic Time Slot Selector Widget -->
+                <div class="bg-slate-50 border border-slate-100 p-4 rounded-2xl space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-xs uppercase font-bold text-slate-400 tracking-wider">Choose Demo Time Slot</h4>
+                        <span id="slot-selected-indicator" class="text-[11px] font-bold text-brandGreen bg-emerald-50 px-2.5 py-0.5 rounded border border-brandGreen/25"></span>
+                    </div>
+                    
+                    <!-- Dynamic Next 7 Days Selection Row -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Select Date (Next 7 Days)</label>
+                        <div class="flex gap-2 overflow-x-auto pb-2 custom-scrollbar" id="slot-day-row">
+                            <!-- Populated dynamically via javascript -->
+                        </div>
+                    </div>
+
+                    <!-- Custom Student Time Input -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Select Time</label>
+                        <input type="time" id="custom-time-picker" onchange="selectStudyTime(this.value)" value="16:00" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue outline-none cursor-pointer text-slate-700 font-semibold">
+                    </div>
+                </div>
             </div>
 
-            <!-- Modal Footer Actions -->
+            <!-- Modal Footer Actions (Fixed Mobile Overflow) -->
             <div class="p-6 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button onclick="closeTeacherModal()" class="w-full sm:w-1/2 py-3 bg-slate-200 hover:bg-slate-300 rounded-xl text-slate-700 font-bold transition-all text-sm">Close Details</button>
                 <button onclick="bookTeacherClass()" class="w-full sm:w-1/2 py-3 bg-brandBlue hover:bg-brandBlue-dark text-white rounded-xl font-bold transition-all shadow-lg shadow-brandBlue/20 text-sm flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-base shrink-0"></i> <span class="whitespace-nowrap">Book Demo Class</span>
+                    <i class="fa-brands fa-whatsapp text-base shrink-0"></i> <span class="whitespace-nowrap" id="booking-btn-text">Book Demo slot</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Onboarding / Registration Modal -->
-    <script>
-        // Registered Tutors Data Model
-        const teachersData = [
 
+
+    <!-- JS Core Engine -->
+    <script>
+        // Registered Tutors Data Model (Original complete dataset preserved exactly)
+        const teachersData = [
            {
                 id: 1,
+                name: "Mr Shubham Kumar",
+                subject: "Mathematics and Science",
+                role: "Mathematics and Science Teacher Upto 10th Grade",
+                exp: "1+ Years",
+                rating: "4.6 (40+ Reviews)",
+                qualifications: "Fourth Year B.Tech Student at IIT Kharagpur",
+                history: "Mr. Shubham Kumar is a dedicated educator with over 1 year of experience, specializing in teaching Mathematics and Science to students up to Grade 10. He is passionate about making learning engaging and accessible for all students.",
+                bio: "I specialize in teaching Mathematics and Science to students up to Grade 10 and am passionate about helping young learners build strong analytical and problem-solving skills through simple, engaging, and interactive lessons. My goal is to make these subjects easy to understand and enjoyable for every student. I focus on developing critical thinking, logical reasoning, and practical application of concepts while creating a positive and supportive learning environment. With my background in engineering and a student-centered teaching approach, I strive to build confidence, strengthen fundamentals, and help students achieve academic success.",
+                img: "shubham.jpeg"
+           },
+           {
+                id: 2,
                 name: "Ms M.Meena",
                 subject: "Hindi",
                 role: "Hindi Teacher Upto 12th Grade",
@@ -584,22 +631,34 @@
                 img: "mmeena.jpeg"
             },
             {
-                id: 2,
+                id: 3,
+                name: "Mr Ajay Bhola",
+                subject: "English and Hindi",
+                role: "English, History and Geography Teacher Upto 12th Grade",
+                exp: "10+ Years",
+                rating: "4.8 (95+ Reviews)",
+                qualifications: "Graduate | Bachelors of Commerce (B.Com)",
+                history: "Mr. Ajay Bhola is a dedicated educator with over 10 years of experience, specializing in teaching English Language, Literature, History, and Geography to students up to Grade 12. He is passionate about making learning engaging and accessible for all students.",
+                bio: "I specialize in teaching English Language, Literature, History, and Geography to students up to Grade 12 and am passionate about helping young learners build strong language and analytical skills through simple, engaging, and interactive lessons. My goal is to make these subjects easy to understand and enjoyable for every student. I focus on developing reading, writing, grammar, vocabulary, critical thinking, and communication skills while creating a positive and supportive learning environment. With a Bachelor's degree in Commerce and a student-centered teaching approach, I strive to build confidence, strengthen fundamentals, and help students achieve academic success.",
+                img: "ajay.jpeg"
+            },
+            {
+                id: 4,
                 name: "Ms Sheela Devi",
                 subject: "Hindi",
                 role: "Hindi Teacher Upto 6th Grade",
                 exp: "5+ Years",
-                rating: "4.6 (50+ Reviews)",
+                rating: "4.7 (50+ Reviews)",
                 qualifications: "Graduate | BA (HISTORY)",
                 history: "Ms. Sheela Devi is a dedicated Hindi teacher with over 5 years of experience, specializing in teaching Hindi to students up to Grade 6. She is passionate about making learning engaging and accessible for all students.",
                 bio: "I specialize in teaching Hindi to students up to Grade 6 and am passionate about helping young learners build strong language skills through simple, engaging, and interactive lessons. My goal is to make Hindi easy to understand and enjoyable for every student. I focus on developing reading, writing, grammar, vocabulary, and communication skills while creating a positive and supportive learning environment. With a Bachelor's degree in History and a student-centered teaching approach, I strive to build confidence, strengthen fundamentals, and help students achieve academic success.",
                 img: "sheeladevi.jpg"
             },
             {
-                id: 3,
+                id: 5,
                 name: "Mr Shaswat Sharma",
                 subject: "Computer Science",
-                role: "Computer Science Specialist",
+                role: "Computer Science upto 12th Grade",
                 exp: "2+ Years",
                 rating: "4.9 (180+ Reviews)",
                 qualifications: "Pursuing B.Tech in Computer Science & Engineering",
@@ -608,10 +667,10 @@
                 img: "shaswat.jpeg"
             },
             {
-                id: 4,
+                id: 6,
                 name: "Mr Amrit Kumar",
                 subject: "Physics",
-                role: "Physics Specialist",
+                role: "Physics Teacher for JEE and NEET Aspirants",
                 exp: "3+ Years",
                 rating: "4.9 (95+ Reviews)",
                 qualifications: "B.Tech in Computer Science & Engineering",
@@ -620,10 +679,10 @@
                 img: "amrit.jpg"
             },
             {
-                id: 5,
+                id: 7,
                 name: "Mr Sahil Sonkar",
                 subject: "Physics",
-                role: "Physics Expert",
+                role: "Physics Teacher upto 12th Grade",
                 exp: "2+ Years",
                 rating: "4.8 (120+ Reviews)",
                 qualifications: "B.Tech in Computer Science & Engineering",
@@ -632,20 +691,9 @@
                 img: "sahil.jpeg"
                 
             },
+
             {
-                id: 6,
-                name: "Mr Arjock Bose",
-                subject: "Mathematics",
-                role: "Mathematics Teacher for 6 to 10th Grade",
-                exp: "2+ Years",
-                rating: "4.7 (140+ Reviews)",
-                qualifications: "Pursuing B.Tech in Computer Science & Engineering",
-                history: "Mr. Arjock has mentored hundreds of students in the 6th to 10th grade range, specializing in Mathematics concepts, problem-solving techniques, and analytical thinking. His teaching approach focuses on building strong fundamentals, conceptual clarity, and exam-oriented strategies to help students excel in academic pursuits.",
-                bio: "Through personalized guidance, real-life examples, and interactive learning methods, I aim to make Mathematics easy to understand and enjoyable for students of all levels. Along with Mathematics, I also teach Physics and Chemistry, helping students build strong conceptual foundations and problem-solving skills. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
-                img: "arjock.jpeg"
-            },
-            {
-                id: 7,
+                id: 8,
                 name: "Ms Neer Kumari",
                 subject: "English and Hindi",
                 role: "English And Hindi Teacher Upto 8th Grade",
@@ -655,6 +703,19 @@
                 history: "Ms. Neer has mentored hundreds of students in the 6th to 8th grade range, specializing in English, Hindi, and Mathematics concepts, problem-solving techniques, and analytical thinking. Her teaching approach focuses on building strong fundamentals, conceptual clarity, and exam-oriented strategies to help students excel in academic pursuits.",
                 bio: "Through personalized guidance, real-life examples, and interactive learning methods, I aim to make English, Hindi, and Mathematics easy to understand and enjoyable for students of all levels. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
                 img: "neer.jpeg"
+            },
+
+            {
+                id: 9,
+                name: "Mr Arjock Bose",
+                subject: "Mathematics",
+                role: "Mathematics Teacher for 6 to 10th Grade",
+                exp: "2+ Years",
+                rating: "4.7 (140+ Reviews)",
+                qualifications: "Pursuing B.Tech in Computer Science & Engineering",
+                history: "Mr. Arjock has mentored hundreds of students in the 6th to 10th grade range, specializing in Mathematics concepts, problem-solving techniques, and analytical thinking. His teaching approach focuses on building strong fundamentals, conceptual clarity, and exam-oriented strategies to help students excel in academic pursuits.",
+                bio: "Through personalized guidance, real-life examples, and interactive learning methods, I aim to make Mathematics easy to understand and enjoyable for students of all levels. Along with Mathematics, I also teach Physics and Chemistry, helping students build strong conceptual foundations and problem-solving skills. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
+                img: "arjock.jpeg"
             }
             
         ];
@@ -674,22 +735,52 @@
             }
         }
 
+        // Active scheduling details
+        let selectedDate = "";
+        let selectedHour = "4:00 PM";
+
         // Defensive parse helpers for sort values
         function parseRating(str) {
             const matches = str.match(/[\d.]+/);
             return matches ? parseFloat(matches[0]) : 0;
         }
 
-        // Experience parser
         function parseExperience(str) {
             const matches = str.match(/\d+/);
             return matches ? parseInt(matches[0], 10) : 0;
         }
 
-        // Reviews parser
+        // Parse review metrics
         function parseReviews(str) {
             const matches = str.match(/\((\d+)\+/);
             return matches ? parseInt(matches[1], 10) : 0;
+        }
+
+        // Fallback generator for grid images
+        function handleGridImageError(imgElement, name) {
+            const parent = imgElement.parentElement;
+            if (!parent) return;
+            const initial = name.replace("Mr ", "").replace("Ms ", "").replace("Prof. ", "").charAt(0);
+            parent.innerHTML = `
+                <div class="w-full h-full bg-gradient-to-br from-brandBlue to-brandGreen text-white flex items-center justify-center font-black text-2xl select-none">
+                    ${initial}
+                </div>
+            `;
+        }
+
+        // Generate the list of next 7 days relative to current device date
+        function getNextSevenDays() {
+            const days = [];
+            const options = { weekday: 'short', month: 'short', day: 'numeric' };
+            const today = new Date();
+            for (let i = 1; i <= 7; i++) {
+                const nextDate = new Date();
+                nextDate.setDate(today.getDate() + i);
+                days.push({
+                    formatted: nextDate.toLocaleDateString('en-US', options)
+                });
+            }
+            return days;
         }
 
         // Render Home View Featured Grid (LIMIT 4 for Homepage aesthetics)
@@ -702,7 +793,7 @@
                     <div class="absolute top-0 left-0 w-full h-1.5 bg-brandBlue transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                     
                     <div class="relative w-28 h-28 mb-5 rounded-2xl overflow-hidden shadow-md border-2 border-slate-50 group-hover:scale-105 transition-transform duration-300">
-                        <img src="${teacher.img}" alt="${teacher.name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffffff/1e40af?text=${encodeURIComponent(teacher.name)}';">
+                        <img src="${teacher.img}" alt="${teacher.name}" class="w-full h-full object-cover" onerror="handleGridImageError(this, '${teacher.name}')">
                     </div>
                     
                     <span class="text-[10px] uppercase tracking-widest font-extrabold text-brandBlue mb-2 px-2.5 py-1 bg-blue-50 rounded-full">${teacher.subject}</span>
@@ -724,7 +815,7 @@
             `).join('');
         }
 
-        // Render Tutors into Directory Grid (Shows All Tutors)
+        // Render Tutors into Directory Grid (All Tutors)
         function renderDirectoryTutors(tutors) {
             const grid = document.getElementById('tutors-grid');
             if (tutors.length === 0) {
@@ -738,27 +829,30 @@
             }
 
             grid.innerHTML = tutors.map(teacher => `
-                <div onclick="openTeacherModal(${teacher.id})" class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-lift flex flex-col items-center text-center cursor-pointer group relative overflow-hidden animate-fade-in">
+                <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-lift flex flex-col items-center text-center group relative overflow-hidden animate-fade-in">
                     <div class="absolute top-0 left-0 w-full h-1.5 bg-brandBlue transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                     
-                    <div class="relative w-28 h-28 mb-5 rounded-2xl overflow-hidden shadow-md border-2 border-slate-50 group-hover:scale-105 transition-transform duration-300">
-                        <img src="${teacher.img}" alt="${teacher.name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffffff/1e40af?text=${encodeURIComponent(teacher.name)}';">
-                    </div>
-                    
-                    <span class="text-[10px] uppercase tracking-widest font-extrabold text-brandBlue mb-2 px-2.5 py-1 bg-blue-50 rounded-full">${teacher.subject}</span>
-                    <h3 class="text-lg font-bold text-slate-900 group-hover:text-brandBlue transition-colors">${teacher.name}</h3>
-                    <p class="text-xs text-slate-400 font-semibold mb-4 text-slate-400 line-clamp-1">${teacher.role}</p>
-                    
-                    <div class="flex items-center gap-1.5 text-xs font-bold text-slate-500 mb-6 bg-slate-50 px-3 py-1.5 rounded-xl">
-                        <i class="fa-solid fa-star text-brandGold"></i>
-                        <span>${parseRating(teacher.rating)}</span>
-                        <span class="text-slate-300">|</span>
-                        <span>${teacher.exp}</span>
-                    </div>
+                    <!-- Card Body -->
+                    <div onclick="openTeacherModal(${teacher.id})" class="w-full flex flex-col items-center cursor-pointer">
+                        <div class="relative w-28 h-28 mb-5 rounded-2xl overflow-hidden shadow-md border-2 border-slate-50 group-hover:scale-105 transition-transform duration-300">
+                            <img src="${teacher.img}" alt="${teacher.name}" class="w-full h-full object-cover" onerror="handleGridImageError(this, '${teacher.name}')">
+                        </div>
+                        
+                        <span class="text-[10px] uppercase tracking-widest font-extrabold text-brandBlue mb-2 px-2.5 py-1 bg-blue-50 rounded-full">${teacher.subject}</span>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-brandBlue transition-colors">${teacher.name}</h3>
+                        <p class="text-xs text-slate-400 font-semibold mb-4 text-slate-400 line-clamp-1">${teacher.role}</p>
+                        
+                        <div class="flex items-center gap-1.5 text-xs font-bold text-slate-500 mb-6 bg-slate-50 px-3 py-1.5 rounded-xl">
+                            <i class="fa-solid fa-star text-brandGold"></i>
+                            <span>${parseRating(teacher.rating)}</span>
+                            <span class="text-slate-300">|</span>
+                            <span>${teacher.exp}</span>
+                        </div>
 
-                    <div class="mt-auto flex items-center gap-1 text-xs font-bold text-brandBlue">
-                        <span>View Teaching Profile</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+                        <div class="mt-auto flex items-center gap-1 text-xs font-bold text-brandBlue">
+                            <span>View Teaching Profile</span>
+                            <i class="fa-solid fa-chevron-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+                        </div>
                     </div>
                 </div>
             `).join('');
@@ -826,9 +920,54 @@
             document.getElementById('modal-teacher-history').innerText = teacher.history;
             document.getElementById('modal-teacher-bio').innerText = `"${teacher.bio}"`;
 
+            // Reset dynamic timeslot variables to standard default values
+            const dates = getNextSevenDays();
+            selectedDate = dates[0].formatted;
+            selectedHour = "4:00 PM";
+            document.getElementById('custom-time-picker').value = "16:00"; // 4:00 PM
+
+            // Render Dynamic Dates Picker Row
+            const dateContainer = document.getElementById('slot-day-row');
+            dateContainer.innerHTML = dates.map((date, idx) => `
+                <button type="button" onclick="selectStudyDate('${date.formatted}', this)" class="study-date-btn py-2 px-4 text-xs font-bold rounded-xl border shrink-0 transition-all ${idx === 0 ? 'border-brandBlue bg-brandBlue text-white' : 'border-slate-200 text-slate-600 hover:border-brandBlue bg-white'}">
+                    ${date.formatted}
+                </button>
+            `).join('');
+
+            updateTimeslotIndicator();
+
             const modal = document.getElementById('teacher-modal');
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+        }
+
+        // Time slot selection handlers
+        function selectStudyDate(date, buttonElement) {
+            selectedDate = date;
+            const buttons = document.querySelectorAll('.study-date-btn');
+            buttons.forEach(btn => {
+                btn.className = "study-date-btn py-2 px-4 text-xs font-bold rounded-xl border shrink-0 transition-all border-slate-200 text-slate-600 hover:border-brandBlue bg-white";
+            });
+            buttonElement.className = "study-date-btn py-2 px-4 text-xs font-bold rounded-xl border shrink-0 transition-all border-brandBlue bg-brandBlue text-white";
+            updateTimeslotIndicator();
+        }
+
+        // Convert 24h clock selection to formatted 12h representation
+        function selectStudyTime(val) {
+            if (!val) return;
+            const [hours, minutes] = val.split(':');
+            const suffix = hours >= 12 ? 'PM' : 'AM';
+            const formattedHours = ((hours % 12) || 12);
+            selectedHour = `${formattedHours}:${minutes} ${suffix}`;
+            updateTimeslotIndicator();
+        }
+
+        function updateTimeslotIndicator() {
+            const label = document.getElementById('slot-selected-indicator');
+            label.innerText = `${selectedDate} @ ${selectedHour}`;
+            
+            const btnText = document.getElementById('booking-btn-text');
+            btnText.innerText = `Book Slot for ${selectedDate} at ${selectedHour}`;
         }
 
         // Close Teacher Detail Modal
@@ -839,11 +978,25 @@
             currentActiveTeacher = null;
         }
 
-        // Deep Link booking action to WhatsApp
+        // Deep Link booking action to WhatsApp with dynamic scheduling details included!
         function bookTeacherClass() {
             if (!currentActiveTeacher) return;
-            const message = encodeURIComponent(`Hi TutorNxt! I am highly interested in booking a demo class with your registered expert, ${currentActiveTeacher.name} for ${currentActiveTeacher.subject}.`);
+            const message = encodeURIComponent(`Hi TutorNxt! I am highly interested in booking a demo class with your registered expert, ${currentActiveTeacher.name} for ${currentActiveTeacher.subject}. I prefer the following slot: ${selectedDate} at ${selectedHour}.`);
             window.open(`https://wa.me/919749160796?text=${message}`, '_blank');
+        }
+
+        // Onboarding Modal Handlers
+        function openFounderModal() {
+            const modal = document.getElementById('founder-modal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close founder card modal
+        function closeFounderModal() {
+            const modal = document.getElementById('founder-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
         // Bootstrap rendering
