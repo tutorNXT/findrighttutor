@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutorNxt Admin & Command Center</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlue: {
+                            light: '#3b82f6',
+                            DEFAULT: '#1e40af',
+                            dark: '#1e3a8a'
+                        },
+                        brandSky: '#38bdf8',
+                        brandGreen: '#10b981',
+                        brandGold: '#f59e0b'
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- React Engine -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        body { 
+            font-family: 'Outfit', 'Inter', sans-serif; 
+            background-color: #f8fafc; 
+        }
+
+        /* Smooth visual animations */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800">
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Match exact student schema used inside dashboard.html
+        const DEFAULT_STUDENTS_FALLBACK = [
+            {
+                rollNumber: "TNXT2601",
+                password: "DeeptoBiswas@123DB",
+                fullName: "Deepto Biswas",
+                schoolOrCollege: "Kendriya Vidyalaya, Railway Colony, Kharagpur ",
+                className: "Class 3",
+                fatherName: "Mr. Dibakar Biswas",
+                mobileNo: "+91 9333768423",
+                address: "New Traffic, Kharagpur, West Bengal, India",
+                admissionDate: "July 1, 2026",
+                assignedTeacher: "Ms M.Meena", 
+                feeStatus: "Pending",
+                nextDueDate: "July 2, 2026"
+            }
+        ];
+
+        const DEFAULT_TEACHERS_FALLBACK = [
+           {
+                id: 1,
+                name: "Mr Shubham Kumar",
+                subject: "Mathematics and Science",
+                role: "Mathematics and Science Teacher Upto 10th Grade",
+                exp: "1+ Years",
+                rating: "4.6 (40+ Reviews)",
+                qualifications: "Fourth Year B.Tech Student at IIT Kharagpur",
+                img: "shubham.jpeg"
+           },
+           {
+                id: 2,
+                name: "Ms M.Meena",
+                subject: "Hindi",
+                role: "Hindi Teacher Upto 12th Grade",
+                exp: "20+ Years",
+                rating: "4.8 (50+ Reviews)",
+                qualifications: "12th Pass",
+                img: "mmeena.jpeg"
+            },
+            {
+                id: 6,
+                name: "Mr Amrit Kumar",
+                subject: "Physics",
+                role: "Physics Specialist",
+                exp: "3+ Years",
+                rating: "4.9 (95+ Reviews)",
+                qualifications: "B.Tech in Computer Science & Engineering",
+                img: "amrit.jpg"
+            },
+            {
+                id: 10,
+                name: "Mr Satyam Kumar",
+                subject: "Mathematics",
+                role: "Mathematics Specialist for Board Preparation",
+                exp: "3+ Years",
+                rating: "4.8 (60+ Reviews)",
+                qualifications: "M.Sc. in Mathematics, B.Ed. from Dr. Hari Singh Gour University, Sagar",
+                img: "satyam.jpeg"
+            }
+        ];
+
+        function TutorNxtAdminApp() {
+            // Authentication Gate States
+            const [isAdminAuth, setIsAdminAuth] = React.useState(sessionStorage.getItem('tnxt_admin_session') === 'active');
+            const [adminUser, setAdminUser] = React.useState('');
+            const [adminPass, setAdminPass] = React.useState('');
+            const [authError, setAuthError] = React.useState('');
+
+            // Local Database State Management
+            const [students, setStudents] = React.useState([]);
+            const [teachers, setTeachers] = React.useState(DEFAULT_TEACHERS_FALLBACK);
+            const [complaints, setComplaints] = React.useState([]);
+            const [searchQuery, setSearchQuery] = React.useState('');
+            
+            // Modal/Editing State Control
+            const [editingStudent, setEditingStudent] = React.useState(null);
+            const [editFeeStatus, setEditFeeStatus] = React.useState('Paid');
+            const [editDueDate, setEditDueDate] = React.useState('N/A');
+            const [editClass, setEditClass] = React.useState('');
+            const [editSchool, setEditSchool] = React.useState('');
+
+            // Image load tracking state
+            const [imageErrors, setImageErrors] = React.useState({});
+
+            // Notification / Toast Feedback
+            const [showToast, setShowToast] = React.useState(false);
+            const [toastMessage, setToastMessage] = React.useState('');
+
+            // Asynchronously scraping live studentsData and teachersData from dashboard & index...
+            React.useEffect(() => {
+                if (!isAdminAuth) return;
+
+                async function bootstrapAdminData() {
+                    let finalStudentList = [];
+
+                    // 1. Scrape Student Database Array directly from dashboard.html!
+                    try {
+                        const response = await fetch('dashboard.html');
+                        if (!response.ok) throw new Error('Student fetch rejected');
+                        
+                        const htmlText = await response.text();
+                        const searchStr = 'const TUTORNXT_STUDENTS =';
+                        const startIdx = htmlText.indexOf(searchStr);
+                        if (startIdx !== -1) {
+                            const arrayStart = htmlText.indexOf('[', startIdx + searchStr.length);
+                            if (arrayStart !== -1) {
+                                let bracketCount = 0;
+                                let endIdx = -1;
+                                for (let i = arrayStart; i < htmlText.length; i++) {
+                                    if (htmlText[i] === '[') bracketCount++;
+                                    else if (htmlText[i] === ']') {
+                                        bracketCount--;
+                                        if (bracketCount === 0) {
+                                            endIdx = i;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (endIdx !== -1) {
+                                    const arrayString = htmlText.slice(arrayStart, endIdx + 1);
+                                    const parsedStudents = new Function(`return ${arrayString}`)();
+                                    if (parsedStudents && parsedStudents.length > 0) {
+                                        finalStudentList = parsedStudents;
+                                        console.log("Admin Sync: Successfully parsed live Student DB from dashboard.html");
+                                    }
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        console.warn("Admin Sync: Student scraper blocked by local CORS protocols. Falling back to default list.", err);
+                        finalStudentList = DEFAULT_STUDENTS_FALLBACK;
+                    }
+
+                    // 2. Local Storage primary merge sync (Ensures we keep the fee statuses matching dashboard.html!)
+                    let storedDb = localStorage.getItem('tnxt_students_db');
+                    if (!storedDb) {
+                        localStorage.setItem('tnxt_students_db', JSON.stringify(finalStudentList));
+                    } else {
+                        // Merge and preserve new records if database was edited locally
+                        finalStudentList = JSON.parse(storedDb);
+                    }
+                    setStudents(finalStudentList);
+
+                    // 3. Scrape Teachers Database Array directly from index.html!
+                    try {
+                        const response = await fetch('index.html');
+                        if (!response.ok) throw new Error('Teacher fetch rejected');
+                        
+                        const htmlText = await response.text();
+                        const searchStr = 'const teachersData =';
+                        const startIdx = htmlText.indexOf(searchStr);
+                        if (startIdx !== -1) {
+                            const arrayStart = htmlText.indexOf('[', startIdx + searchStr.length);
+                            if (arrayStart !== -1) {
+                                let bracketCount = 0;
+                                let endIdx = -1;
+                                for (let i = arrayStart; i < htmlText.length; i++) {
+                                    if (htmlText[i] === '[') bracketCount++;
+                                    else if (htmlText[i] === ']') {
+                                        bracketCount--;
+                                        if (bracketCount === 0) {
+                                            endIdx = i;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (endIdx !== -1) {
+                                    const arrayString = htmlText.slice(arrayStart, endIdx + 1);
+                                    const parsedTeachers = new Function(`return ${arrayString}`)();
+                                    if (parsedTeachers && parsedTeachers.length > 0) {
+                                        setTeachers(parsedTeachers);
+                                        console.log("Admin Sync: Successfully parsed live Teacher DB from index.html");
+                                    }
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        console.warn("Admin Sync: Teacher scraper blocked by local CORS protocols. Falling back to default list.", err);
+                    }
+
+                    // 4. Aggregate complaints raised across all student profiles
+                    aggregateComplaints(finalStudentList);
+                }
+
+                bootstrapAdminData();
+            }, [isAdminAuth]);
+
+            // Aggregate complaints raised across all student profiles
+            const aggregateComplaints = (studentList) => {
+                let allComplaints = [];
+                studentList.forEach(student => {
+                    const studentTickets = localStorage.getItem(`tnxt_complaints_${student.rollNumber}`);
+                    if (studentTickets) {
+                        const parsedTickets = JSON.parse(studentTickets);
+                        // Map student identifier metadata into ticket object
+                        const enrichedTickets = parsedTickets.map(ticket => ({
+                            ...ticket,
+                            studentRoll: student.rollNumber,
+                            studentName: student.fullName,
+                            studentSchool: student.schoolOrCollege,
+                            studentPhoto: localStorage.getItem(`tnxt_avatar_${student.rollNumber}`) || ''
+                        }));
+                        allComplaints = [...allComplaints, ...enrichedTickets];
+                    }
+                });
+                
+                // Sort complaints with pending statuses first
+                allComplaints.sort((a, b) => (a.status === 'Pending' ? -1 : 1));
+                setComplaints(allComplaints);
+            };
+
+            // 🔐 Secure Admin Auth Sign-In Gate
+            const handleAdminLogin = (e) => {
+                e.preventDefault();
+                setAuthError('');
+                
+                // Secure predefined credentials check
+                if (adminUser.trim() === 'admin' && adminPass === 'TutorNxtAdmin@2026') {
+                    sessionStorage.setItem('tnxt_admin_session', 'active');
+                    setIsAdminAuth(true);
+                    triggerToast("Authorization verified. Welcoming administrative operator...");
+                } else {
+                    setAuthError("Unauthorized payload parameters. Incorrect username or password.");
+                }
+            };
+
+            const openEditModal = (student) => {
+                setEditingStudent(student);
+                setEditFeeStatus(student.feeStatus);
+                setEditDueDate(student.nextDueDate);
+                setEditClass(student.className);
+                setEditSchool(student.schoolOrCollege);
+            };
+
+            const closeEditModal = () => {
+                setEditingStudent(null);
+            };
+
+            const handleSaveStudentEdits = (e) => {
+                e.preventDefault();
+                if (!editingStudent) return;
+
+                // Map updated parameters back to the active array index
+                const updatedStudents = students.map(s => {
+                    if (s.rollNumber === editingStudent.rollNumber) {
+                        return {
+                            ...s,
+                            feeStatus: editFeeStatus,
+                            nextDueDate: editFeeStatus === 'Paid' ? 'N/A' : editDueDate,
+                            className: editClass,
+                            schoolOrCollege: editSchool
+                        };
+                    }
+                    return s;
+                });
+
+                setStudents(updatedStudents);
+                localStorage.setItem('tnxt_students_db', JSON.stringify(updatedStudents));
+                closeEditModal();
+                triggerToast(`Database Record for ${editingStudent.fullName} updated!`);
+            };
+
+            const handleResolveTicket = (rollNo, ticketId) => {
+                // Fetch specific student complaints from local storage
+                const studentTicketsKey = `tnxt_complaints_${rollNo}`;
+                const storedTickets = localStorage.getItem(studentTicketsKey);
+                if (storedTickets) {
+                    const parsedTickets = JSON.parse(storedTickets);
+                    const updatedTickets = parsedTickets.map(ticket => {
+                        if (ticket.id === ticketId) {
+                            return { ...ticket, status: 'Resolved' };
+                        }
+                        return ticket;
+                    });
+                    
+                    localStorage.setItem(studentTicketsKey, JSON.stringify(updatedTickets));
+                    triggerToast(`Ticket ${ticketId} resolved successfully!`);
+                    
+                    // Re-aggregate local states
+                    aggregateComplaints(students);
+                }
+            };
+
+            const triggerToast = (msg) => {
+                setToastMessage(msg);
+                setShowToast(true);
+                setTimeout(() => {
+                    setShowToast(false);
+                }, 4000);
+            };
+
+            const handleAdminLogout = () => {
+                sessionStorage.removeItem('tnxt_admin_session');
+                setIsAdminAuth(false);
+                setAdminUser('');
+                setAdminPass('');
+                setStudents([]);
+                setComplaints([]);
+            };
+
+            // Calculate current metrics
+            const pendingFeesCount = students.filter(s => s.feeStatus !== 'Paid').length;
+            const activeComplaintsCount = complaints.filter(c => c.status === 'Pending').length;
+
+            // Filter Student Directory dynamically by Roll Number or Name
+            const filteredStudents = students.filter(s => 
+                s.rollNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                s.fullName.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+
+            // UNAUTHORIZED INTERFACE OVERLAY (LOGIN GATE)
+            if (!isAdminAuth) {
+                return (
+                    <div className="min-h-screen flex flex-col justify-between bg-[#f8fafc]">
+                        {/* Top Left Global Back Button */}
+                        <div className="absolute top-6 left-6">
+                            <a href="index.html" className="flex items-center gap-2 text-brandBlue font-bold hover:text-brandBlue-dark transition-all text-sm group bg-white px-4 py-2.5 rounded-2xl border border-slate-200/60 shadow-sm">
+                                <i className="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                                <span>Back to Home</span>
+                            </a>
+                        </div>
+
+                        <div className="flex-1 flex flex-col items-center justify-center p-4">
+                            <div className="bg-white p-8 max-w-md w-full rounded-[2.5rem] shadow-xl border border-slate-100/80 animate-slide-up">
+                                <div className="text-center space-y-3 mb-8">
+                                    <div className="w-16 h-14 bg-gradient-to-br from-brandBlue to-brandBlue-dark text-white rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-brandBlue/20">
+                                        <i className="fa-solid fa-screwdriver-wrench text-2xl"></i>
+                                    </div>
+                                    <h2 className="text-2xl font-black tracking-tight text-brandBlue">Tutor<span className="text-brandSky">Nxt</span> Admin Gate</h2>
+                                    <p className="text-slate-400 text-xs uppercase tracking-widest font-extrabold text-center">Institutional Authority Only</p>
+                                </div>
+
+                                {authError && (
+                                    <div className="p-4 mb-5 bg-rose-50 text-rose-600 rounded-2xl text-xs font-bold border border-rose-100 flex items-center gap-2">
+                                        <i className="fa-solid fa-triangle-exclamation text-sm shrink-0"></i> {authError}
+                                    </div>
+                                )}
+
+                                <form onSubmit={handleAdminLogin} className="space-y-5">
+                                    <div>
+                                        <label className="block text-xs uppercase tracking-wider font-bold text-slate-400 mb-2">Username</label>
+                                        <input 
+                                            type="text" 
+                                            required 
+                                            value={adminUser} 
+                                            onChange={(e) => setAdminUser(e.target.value)} 
+                                            placeholder="Enter admin username" 
+                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue transition-all font-semibold text-slate-800"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs uppercase tracking-wider font-bold text-slate-400 mb-2">Access Token</label>
+                                        <input 
+                                            type="password" 
+                                            required 
+                                            value={adminPass} 
+                                            onChange={(e) => setAdminPass(e.target.value)} 
+                                            placeholder="••••••••" 
+                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue transition-all text-slate-800"
+                                        />
+                                    </div>
+                                    <button type="submit" className="w-full py-4 bg-brandBlue hover:bg-brandBlue-dark text-white font-extrabold rounded-2xl tracking-wide transition-all shadow-lg shadow-brandBlue/20 mt-4 active:scale-95 transform">
+                                        Authenticate &rarr;
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        {/* Standard Footer */}
+                        <footer className="py-8 border-t border-slate-200/60 px-4 text-center bg-white w-full">
+                            <p className="text-xs text-slate-400">&copy; 2026 TutorNxt Technologies. Protected administrative terminal cell.</p>
+                        </footer>
+                    </div>
+                );
+            }
+
+            // AUTHORIZED WORKSPACE DESK RENDER
+            return (
+                <div className="min-h-screen flex flex-col bg-[#f8fafc] pb-16">
+                    
+                    {/* Nav Bar */}
+                    <nav className="bg-white border-b border-slate-200/80 py-5 px-6">
+                        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-4 justify-between items-center">
+                            <div className="flex items-center gap-3">
+                                <div className="flex items-center justify-center w-11 h-11 rounded-2xl bg-brandBlue text-white shadow-lg">
+                                    <i className="fa-solid fa-screwdriver-wrench text-xl"></i>
+                                </div>
+                                <div>
+                                    <span className="text-2xl font-black text-brandBlue tracking-tight">Tutor<span className="text-brandSky">Nxt</span> Admin</span>
+                                    <p className="text-[10px] tracking-widest font-extrabold text-slate-400 uppercase leading-none mt-1">Librarian & Portal Operations</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <a href="index.html" className="px-4 py-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-xs font-bold transition-all border border-slate-200">
+                                    Exit to Home
+                                </a>
+                                <button onClick={handleAdminLogout} className="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition-all flex items-center gap-2 border border-rose-100">
+                                    <i className="fa-solid fa-power-off"></i> Sign Out
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Main Dashboard Workspace Grid */}
+                    <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8 animate-slide-up">
+                        
+                        {/* Upper Metrics Panels (Bento Style) */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm flex items-center justify-between">
+                                <div className="space-y-1">
+                                    <p className="text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Total Registered Students</p>
+                                    <p className="text-3xl font-black text-slate-800">{students.length}</p>
+                                </div>
+                                <div className="w-12 h-12 bg-blue-50 text-brandBlue rounded-2xl flex items-center justify-center text-lg">
+                                    <i className="fa-solid fa-users"></i>
+                                </div>
+                            </div>
+
+                            <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm flex items-center justify-between">
+                                <div className="space-y-1">
+                                    <p className="text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Ledger Delinquencies</p>
+                                    <p className="text-3xl font-black text-rose-600">{pendingFeesCount}</p>
+                                </div>
+                                <div className="w-12 h-12 bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center text-lg">
+                                    <i className="fa-solid fa-receipt"></i>
+                                </div>
+                            </div>
+
+                            <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm flex items-center justify-between">
+                                <div className="space-y-1">
+                                    <p className="text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Active Complaints</p>
+                                    <p className="text-3xl font-black text-amber-500">{activeComplaintsCount}</p>
+                                </div>
+                                <div className="w-12 h-12 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center text-lg">
+                                    <i className="fa-solid fa-envelope-open-text"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Interactive Main Panels */}
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                            
+                            {/* Column Left: Directory list (col-span-7) */}
+                            <div className="lg:col-span-7 space-y-6">
+                                <div className="bg-white border border-slate-200/60 rounded-[2rem] shadow-xl p-6 md:p-8 space-y-6">
+                                    
+                                    {/* Header list controls */}
+                                    <div className="flex flex-col sm:flex-row gap-4 justify-between sm:items-center">
+                                        <div>
+                                            <h3 className="text-xl font-extrabold text-slate-900">Student Directory Database</h3>
+                                            <p className="text-slate-400 text-xs mt-0.5">Manage classes, school name, and monthly fee cycles.</p>
+                                        </div>
+                                        
+                                        {/* Search Filter Input */}
+                                        <div className="relative">
+                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                                                <i className="fa-solid fa-magnifying-glass text-xs"></i>
+                                            </span>
+                                            <input 
+                                                type="text" 
+                                                value={searchQuery}
+                                                onChange={(e) => setSearchQuery(e.target.value)}
+                                                placeholder="Search Roll No or Name..." 
+                                                className="pl-9 pr-4 py-2 border border-slate-200 bg-slate-50/50 focus:bg-white text-xs font-semibold rounded-xl outline-none focus:ring-2 focus:ring-brandBlue/15 focus:border-brandBlue transition-all w-full sm:w-56"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Responsive table mapping directory indices */}
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full text-left border-collapse">
+                                            <thead>
+                                                <tr className="border-b border-slate-100 text-slate-400 text-[10px] uppercase font-bold tracking-wider">
+                                                    <th className="pb-3">Student Name</th>
+                                                    <th className="pb-3">Assigned Mentor & Live Rating</th>
+                                                    <th className="pb-3">Fee Status</th>
+                                                    <th className="pb-3 text-right">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-slate-100 text-sm">
+                                                {filteredStudents.map((s, idx) => {
+                                                    const savedAvatar = localStorage.getItem(`tnxt_avatar_${s.rollNumber}`) || '';
+                                                    const studentRating = localStorage.getItem(`tnxt_rating_${s.rollNumber}`);
+                                                    return (
+                                                        <tr key={idx} className="hover:bg-slate-50/40 transition-colors">
+                                                            <td className="py-4 pr-3 flex items-center gap-3">
+                                                                <div className="w-10 h-10 rounded-full bg-brandBlue text-white flex items-center justify-center overflow-hidden shrink-0 border border-slate-100 font-bold">
+                                                                    {savedAvatar ? (
+                                                                        <img src={savedAvatar} className="w-full h-full object-cover" alt="Student"/>
+                                                                    ) : (
+                                                                        <span>{s.fullName.charAt(0)}</span>
+                                                                    )}
+                                                                </div>
+                                                                <div>
+                                                                    <p className="font-extrabold text-slate-900 leading-tight">{s.fullName}</p>
+                                                                    <p className="text-[10px] text-slate-400 font-mono font-semibold uppercase">{s.rollNumber} • {s.className}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td className="py-4 text-xs font-semibold text-slate-500">
+                                                                <div className="font-bold text-slate-800">{s.assignedTeacher}</div>
+                                                                {/* DYNAMIC TEACHER RATING BADGE COMPONENT */}
+                                                                {studentRating ? (
+                                                                    <div className="text-[10px] text-amber-500 font-black flex items-center gap-1 mt-1 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50 w-max">
+                                                                        <i className="fa-solid fa-star"></i>
+                                                                        <span>Rated: {studentRating}/5 Stars</span>
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className="text-[10px] text-slate-400 italic mt-1 font-medium">No rating given yet</div>
+                                                                )}
+                                                            </td>
+                                                            <td className="py-4">
+                                                                <span className={`inline-flex items-center gap-1.5 text-[10px] font-black px-2.5 py-0.5 rounded-full ${s.feeStatus === 'Paid' ? 'bg-emerald-50 text-brandGreen border border-brandGreen/25' : 'bg-rose-50 text-rose-500 border border-rose-25'}`}>
+                                                                    <span className={`w-1.5 h-1.5 rounded-full ${s.feeStatus === 'Paid' ? 'bg-brandGreen' : 'bg-rose-500'}`}></span>
+                                                                    {s.feeStatus}
+                                                                </span>
+                                                            </td>
+                                                            <td className="py-4 text-right">
+                                                                <button 
+                                                                    onClick={() => openEditModal(s)}
+                                                                    className="px-3 py-1.5 bg-slate-100 hover:bg-brandBlue hover:text-white rounded-lg text-xs font-bold text-slate-600 transition-all active:scale-95"
+                                                                >
+                                                                    <i className="fa-solid fa-user-pen mr-1"></i> Edit parameters
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                })}
+                                            </tbody>
+                                        </table>
+                                        {filteredStudents.length === 0 && (
+                                            <p className="text-center py-6 text-xs text-slate-400 font-semibold">No student records match search filter criteria.</p>
+                                        )}
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            {/* Column Right: Active Ticket Inbox list (col-span-5) */}
+                            <div className="lg:col-span-5 space-y-6">
+                                <div className="bg-white border border-slate-200/60 rounded-[2rem] shadow-xl p-6 md:p-8 space-y-6">
+                                    <div>
+                                        <h3 className="text-xl font-extrabold text-slate-900">Support Desk Inbox</h3>
+                                        <p className="text-slate-400 text-xs mt-0.5">Real-time tickets submitted by students on their profiles.</p>
+                                    </div>
+
+                                    <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                                        {complaints.map((ticket, index) => (
+                                            <div key={index} className="p-4 rounded-2xl bg-slate-50 border border-slate-200/40 space-y-3 shadow-sm">
+                                                
+                                                {/* Ticket Header meta */}
+                                                <div className="flex justify-between items-start gap-4">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-xs shrink-0 overflow-hidden">
+                                                            {ticket.studentPhoto ? (
+                                                                <img src={ticket.studentPhoto} className="w-full h-full object-cover" alt="Student"/>
+                                                            ) : (
+                                                                <span>{ticket.studentName.charAt(0)}</span>
+                                                            )}
+                                                        </div>
+                                                        <div>
+                                                            <h5 className="font-extrabold text-xs text-slate-900 leading-tight">{ticket.studentName}</h5>
+                                                            <p className="text-[9px] text-slate-400 uppercase font-bold tracking-widest">{ticket.studentRoll}</p>
+                                                        </div>
+                                                    </div>
+                                                    <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded ${ticket.status === 'Pending' ? 'bg-amber-50 text-amber-500 border border-amber-200/50' : 'bg-emerald-50 text-brandGreen border border-brandGreen/20'}`}>
+                                                        {ticket.status}
+                                                    </span>
+                                                </div>
+
+                                                <div className="h-px bg-slate-200/60"></div>
+
+                                                {/* Text contents description */}
+                                                <div className="space-y-1">
+                                                    <p className="text-[10px] font-bold text-brandBlue uppercase tracking-wider">{ticket.category} • {ticket.date}</p>
+                                                    <p className="text-slate-600 text-xs font-semibold leading-relaxed italic">"{ticket.message}"</p>
+                                                </div>
+
+                                                {/* Support Desk Actions */}
+                                                {ticket.status === 'Pending' && (
+                                                    <button 
+                                                        onClick={() => handleResolveTicket(ticket.studentRoll, ticket.id)}
+                                                        className="w-full py-2 bg-slate-900 hover:bg-brandGreen text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5"
+                                                    >
+                                                        <i className="fa-solid fa-circle-check"></i> Mark Ticket as Resolved
+                                                    </button>
+                                                )}
+                                            </div>
+                                        ))}
+                                        {complaints.length === 0 && (
+                                            <div className="text-center py-12 text-slate-400 font-semibold space-y-2">
+                                                <i className="fa-solid fa-envelope-circle-check text-3xl text-slate-200"></i>
+                                                <p className="text-xs">Perfect! The support ticket database inbox is completely clear.</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </main>
+
+                    {/* EDIT MODAL DRAWER OVERLAY */}
+                    {editingStudent && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                            <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onClick={closeEditModal}></div>
+                            <div className="relative bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl p-8 border border-slate-100 overflow-hidden animate-slide-up space-y-6">
+                                <button onClick={closeEditModal} className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-50 transition-all">
+                                    <i className="fa-solid fa-xmark text-lg"></i>
+                                </button>
+
+                                <div className="space-y-2 text-center">
+                                    <div className="w-12 h-12 bg-blue-50 text-brandBlue rounded-2xl flex items-center justify-center mx-auto text-lg shadow-sm">
+                                        <i className="fa-solid fa-screwdriver-wrench"></i>
+                                    </div>
+                                    <h2 className="text-2xl font-black text-slate-900">Edit Student Record</h2>
+                                    <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">{editingStudent.rollNumber}</p>
+                                </div>
+
+                                <div className="h-px bg-slate-100 w-full"></div>
+
+                                <form onSubmit={handleSaveStudentEdits} className="space-y-4">
+                                    
+                                    {/* Dynamic school input */}
+                                    <div className="space-y-1.5">
+                                        <label className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Institution / School affiliation</label>
+                                        <input 
+                                            type="text" 
+                                            required
+                                            value={editSchool}
+                                            onChange={(e) => setEditSchool(e.target.value)}
+                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brandBlue/15 focus:border-brandBlue text-slate-800"
+                                        />
+                                    </div>
+
+                                    {/* Class Level Parameters */}
+                                    <div className="space-y-1.5">
+                                        <label className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Assigned Grade / Class Level</label>
+                                        <input 
+                                            type="text" 
+                                            required
+                                            value={editClass}
+                                            onChange={(e) => setEditClass(e.target.value)}
+                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brandBlue/15 focus:border-brandBlue text-slate-800"
+                                        />
+                                    </div>
+
+                                    {/* Fee Status dropdown selector */}
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-1.5">
+                                            <label className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Fee Status</label>
+                                            <select 
+                                                value={editFeeStatus} 
+                                                onChange={(e) => setEditFeeStatus(e.target.value)}
+                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brandBlue/15 focus:border-brandBlue text-slate-700 cursor-pointer"
+                                            >
+                                                <option value="Paid">Paid</option>
+                                                <option value="Pending">Pending</option>
+                                            </select>
+                                        </div>
+                                        <div className="space-y-1.5">
+                                            <label className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Billing Due Cycle</label>
+                                            <input 
+                                                type="text"
+                                                disabled={editFeeStatus === 'Paid'}
+                                                value={editFeeStatus === 'Paid' ? 'N/A' : editDueDate}
+                                                onChange={(e) => setEditDueDate(e.target.value)}
+                                                placeholder="e.g., July 10, 2026"
+                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brandBlue/15 focus:border-brandBlue text-slate-800 disabled:opacity-40"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="pt-4 flex gap-4">
+                                        <button 
+                                            type="button" 
+                                            onClick={closeEditModal}
+                                            className="w-1/2 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-all"
+                                        >
+                                            Cancel View
+                                        </button>
+                                        <button 
+                                            type="submit" 
+                                            className="w-1/2 py-3.5 bg-brandBlue hover:bg-brandBlue-dark text-white font-extrabold rounded-xl text-xs transition-all shadow-md active:scale-95"
+                                        >
+                                            Apply Changes
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    )}
+
+                </div>
+            );
+        }
+
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<TutorNxtAdminApp />);
+    </script>
+</body>
+</html>
