@@ -76,9 +76,10 @@
     <div id="root"></div>
 
     <script type="text/babel">
+
         // Match exact student schema used inside dashboard.html
         const DEFAULT_STUDENTS_FALLBACK = [
-            {
+             {
                 rollNumber: "TNXT2601",
                 password: "DeeptoBiswas@123DB",
                 fullName: "Deepto Biswas",
@@ -164,7 +165,6 @@
             const [showToast, setShowToast] = React.useState(false);
             const [toastMessage, setToastMessage] = React.useState('');
 
-            // Asynchronously scraping live studentsData and teachersData from dashboard & index...
             React.useEffect(() => {
                 if (!isAdminAuth) return;
 
@@ -399,13 +399,13 @@
                         </div>
 
                         <div className="flex-1 flex flex-col items-center justify-center p-4">
-                            <div className="bg-white p-8 max-w-md w-full rounded-[2.5rem] shadow-xl border border-slate-100/80 animate-slide-up">
+                            <div className="bg-white p-6 sm:p-8 max-w-md w-full rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-slate-100/80 animate-slide-up">
                                 <div className="text-center space-y-3 mb-8">
-                                    <div className="w-16 h-14 bg-gradient-to-br from-brandBlue to-brandBlue-dark text-white rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-brandBlue/20">
+                                    <div className="w-14 h-12 sm:w-16 sm:h-14 bg-gradient-to-br from-brandBlue to-brandBlue-dark text-white rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-brandBlue/20">
                                         <i className="fa-solid fa-screwdriver-wrench text-2xl"></i>
                                     </div>
-                                    <h2 className="text-2xl font-black tracking-tight text-brandBlue">Tutor<span className="text-brandSky">Nxt</span> Admin Gate</h2>
-                                    <p className="text-slate-400 text-xs uppercase tracking-widest font-extrabold text-center">Institutional Authority Only</p>
+                                    <h2 className="text-xl sm:text-2xl font-black tracking-tight text-brandBlue">Tutor<span className="text-brandSky">Nxt</span> Admin Gate</h2>
+                                    <p className="text-slate-400 text-xs uppercase tracking-widest font-extrabold text-center">Authority Only</p>
                                 </div>
 
                                 {authError && (
@@ -457,18 +457,18 @@
                 <div className="min-h-screen flex flex-col bg-[#f8fafc] pb-16">
                     
                     {/* Nav Bar */}
-                    <nav className="bg-white border-b border-slate-200/80 py-5 px-6">
-                        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-4 justify-between items-center">
+                    <nav className="bg-white border-b border-slate-200/80 py-4 px-4 sm:px-6 lg:px-8">
+                        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 justify-between items-center">
                             <div className="flex items-center gap-3">
-                                <div className="flex items-center justify-center w-11 h-11 rounded-2xl bg-brandBlue text-white shadow-lg">
-                                    <i className="fa-solid fa-screwdriver-wrench text-xl"></i>
+                                <div className="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-brandBlue text-white shadow-lg shrink-0">
+                                    <i className="fa-solid fa-screwdriver-wrench text-lg sm:text-xl"></i>
                                 </div>
                                 <div>
-                                    <span className="text-2xl font-black text-brandBlue tracking-tight">Tutor<span className="text-brandSky">Nxt</span> Admin</span>
-                                    <p className="text-[10px] tracking-widest font-extrabold text-slate-400 uppercase leading-none mt-1">Librarian & Portal Operations</p>
+                                    <span className="text-xl sm:text-2xl font-black text-brandBlue tracking-tight">Tutor<span className="text-brandSky">Nxt</span> Admin</span>
+                                    <p className="text-[9px] sm:text-[10px] tracking-widest font-extrabold text-slate-400 uppercase leading-none mt-1">Admin Portal Operations</p>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
                                 <a href="index.html" className="px-4 py-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-xs font-bold transition-all border border-slate-200">
                                     Exit to Home
                                 </a>
@@ -483,54 +483,54 @@
                     <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8 animate-slide-up">
                         
                         {/* Upper Metrics Panels (Bento Style) */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm flex items-center justify-between">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+                            <div className="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200/60 shadow-sm flex items-center justify-between">
                                 <div className="space-y-1">
-                                    <p className="text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Total Registered Students</p>
-                                    <p className="text-3xl font-black text-slate-800">{students.length}</p>
+                                    <p className="text-[10px] sm:text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Total Students</p>
+                                    <p className="text-2xl sm:text-3xl font-black text-slate-800">{students.length}</p>
                                 </div>
-                                <div className="w-12 h-12 bg-blue-50 text-brandBlue rounded-2xl flex items-center justify-center text-lg">
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-50 text-brandBlue rounded-2xl flex items-center justify-center text-md sm:text-lg shrink-0">
                                     <i className="fa-solid fa-users"></i>
                                 </div>
                             </div>
 
-                            <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm flex items-center justify-between">
+                            <div className="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200/60 shadow-sm flex items-center justify-between">
                                 <div className="space-y-1">
-                                    <p className="text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Ledger Delinquencies</p>
-                                    <p className="text-3xl font-black text-rose-600">{pendingFeesCount}</p>
+                                    <p className="text-[10px] sm:text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Pending Fees</p>
+                                    <p className="text-2xl sm:text-3xl font-black text-rose-600">{pendingFeesCount}</p>
                                 </div>
-                                <div className="w-12 h-12 bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center text-lg">
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center text-md sm:text-lg shrink-0">
                                     <i className="fa-solid fa-receipt"></i>
                                 </div>
                             </div>
 
-                            <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm flex items-center justify-between">
+                            <div className="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200/60 shadow-sm flex items-center justify-between col-span-1 sm:col-span-2 lg:col-span-1">
                                 <div className="space-y-1">
-                                    <p className="text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Active Complaints</p>
-                                    <p className="text-3xl font-black text-amber-500">{activeComplaintsCount}</p>
+                                    <p className="text-[10px] sm:text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Active Complaints</p>
+                                    <p className="text-2xl sm:text-3xl font-black text-amber-500">{activeComplaintsCount}</p>
                                 </div>
-                                <div className="w-12 h-12 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center text-lg">
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center text-md sm:text-lg shrink-0">
                                     <i className="fa-solid fa-envelope-open-text"></i>
                                 </div>
                             </div>
                         </div>
 
                         {/* Interactive Main Panels */}
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
                             
                             {/* Column Left: Directory list (col-span-7) */}
                             <div className="lg:col-span-7 space-y-6">
-                                <div className="bg-white border border-slate-200/60 rounded-[2rem] shadow-xl p-6 md:p-8 space-y-6">
+                                <div className="bg-white border border-slate-200/60 rounded-[2rem] shadow-xl p-5 sm:p-8 space-y-6">
                                     
                                     {/* Header list controls */}
                                     <div className="flex flex-col sm:flex-row gap-4 justify-between sm:items-center">
                                         <div>
-                                            <h3 className="text-xl font-extrabold text-slate-900">Student Directory Database</h3>
+                                            <h3 className="text-lg sm:text-xl font-extrabold text-slate-900">Student Directory Database</h3>
                                             <p className="text-slate-400 text-xs mt-0.5">Manage classes, school name, and monthly fee cycles.</p>
                                         </div>
                                         
                                         {/* Search Filter Input */}
-                                        <div className="relative">
+                                        <div className="relative w-full sm:w-auto">
                                             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
                                                 <i className="fa-solid fa-magnifying-glass text-xs"></i>
                                             </span>
@@ -539,13 +539,54 @@
                                                 value={searchQuery}
                                                 onChange={(e) => setSearchQuery(e.target.value)}
                                                 placeholder="Search Roll No or Name..." 
-                                                className="pl-9 pr-4 py-2 border border-slate-200 bg-slate-50/50 focus:bg-white text-xs font-semibold rounded-xl outline-none focus:ring-2 focus:ring-brandBlue/15 focus:border-brandBlue transition-all w-full sm:w-56"
+                                                className="w-full pl-9 pr-4 py-2 border border-slate-200 bg-slate-50/50 focus:bg-white text-xs font-semibold rounded-xl outline-none focus:ring-2 focus:ring-brandBlue/15 focus:border-brandBlue transition-all"
                                             />
                                         </div>
                                     </div>
 
-                                    {/* Responsive table mapping directory indices */}
-                                    <div className="overflow-x-auto">
+                                    {/* MOBILE CARD VIEW: Under MD breakpoint, table becomes clean modern cards */}
+                                    <div className="block md:hidden space-y-4">
+                                        {filteredStudents.map((s, idx) => {
+                                            const savedAvatar = localStorage.getItem(`tnxt_avatar_${s.rollNumber}`) || '';
+                                            const studentRating = localStorage.getItem(`tnxt_rating_${s.rollNumber}`);
+                                            return (
+                                                <div key={idx} className="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 space-y-4">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-10 h-10 rounded-full bg-brandBlue text-white flex items-center justify-center overflow-hidden shrink-0 border border-slate-100 font-bold">
+                                                            {savedAvatar ? <img src={savedAvatar} className="w-full h-full object-cover" alt="Student"/> : <span>{s.fullName.charAt(0)}</span>}
+                                                        </div>
+                                                        <div className="min-w-0 flex-1">
+                                                            <p className="font-extrabold text-slate-900 leading-tight truncate">{s.fullName}</p>
+                                                            <p className="text-[10px] text-slate-400 font-mono font-semibold uppercase">{s.rollNumber} • {s.className}</p>
+                                                        </div>
+                                                        <span className={`inline-flex items-center gap-1 text-[9px] font-black px-2 py-0.5 rounded-full ${s.feeStatus === 'Paid' ? 'bg-emerald-50 text-brandGreen border border-brandGreen/25' : 'bg-rose-50 text-rose-500 border border-rose-25'}`}>
+                                                            {s.feeStatus}
+                                                        </span>
+                                                    </div>
+                                                    
+                                                    <div className="flex justify-between items-center text-xs border-t border-slate-200/60 pt-3">
+                                                        <div>
+                                                            <p className="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Tutor</p>
+                                                            <p className="font-semibold text-slate-700">{s.assignedTeacher}</p>
+                                                            {studentRating && <p className="text-[9px] text-brandGold font-bold mt-0.5"><i className="fa-solid fa-star"></i> Rated: {studentRating}/5</p>}
+                                                        </div>
+                                                        <button 
+                                                            onClick={() => openEditModal(s)}
+                                                            className="px-3 py-1.5 bg-brandBlue hover:bg-brandBlue-dark text-white rounded-lg text-[10px] font-bold transition-all"
+                                                        >
+                                                            <i className="fa-solid fa-user-pen"></i> Edit
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                        {filteredStudents.length === 0 && (
+                                            <p className="text-center py-6 text-xs text-slate-400 font-semibold bg-slate-50 rounded-2xl border border-slate-100">No student records match search criteria.</p>
+                                        )}
+                                    </div>
+
+                                    {/* DESKTOP TABLE VIEW: Above MD breakpoint, standard optimized grid */}
+                                    <div className="hidden md:block overflow-x-auto">
                                         <table className="w-full text-left border-collapse">
                                             <thead>
                                                 <tr className="border-b border-slate-100 text-slate-400 text-[10px] uppercase font-bold tracking-wider">
@@ -597,7 +638,7 @@
                                                                     onClick={() => openEditModal(s)}
                                                                     className="px-3 py-1.5 bg-slate-100 hover:bg-brandBlue hover:text-white rounded-lg text-xs font-bold text-slate-600 transition-all active:scale-95"
                                                                 >
-                                                                    <i className="fa-solid fa-user-pen mr-1"></i> Edit parameters
+                                                                    <i className="fa-solid fa-user-pen mr-1"></i> Edit
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -615,9 +656,9 @@
 
                             {/* Column Right: Active Ticket Inbox list (col-span-5) */}
                             <div className="lg:col-span-5 space-y-6">
-                                <div className="bg-white border border-slate-200/60 rounded-[2rem] shadow-xl p-6 md:p-8 space-y-6">
+                                <div className="bg-white border border-slate-200/60 rounded-[2rem] shadow-xl p-5 sm:p-8 space-y-6">
                                     <div>
-                                        <h3 className="text-xl font-extrabold text-slate-900">Support Desk Inbox</h3>
+                                        <h3 className="text-lg sm:text-xl font-extrabold text-slate-900">Support Desk Inbox</h3>
                                         <p className="text-slate-400 text-xs mt-0.5">Real-time tickets submitted by students on their profiles.</p>
                                     </div>
 
@@ -627,7 +668,7 @@
                                                 
                                                 {/* Ticket Header meta */}
                                                 <div className="flex justify-between items-start gap-4">
-                                                    <div className="flex items-center gap-3">
+                                                    <div className="flex items-center gap-3 min-w-0">
                                                         <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-xs shrink-0 overflow-hidden">
                                                             {ticket.studentPhoto ? (
                                                                 <img src={ticket.studentPhoto} className="w-full h-full object-cover" alt="Student"/>
@@ -635,12 +676,12 @@
                                                                 <span>{ticket.studentName.charAt(0)}</span>
                                                             )}
                                                         </div>
-                                                        <div>
-                                                            <h5 className="font-extrabold text-xs text-slate-900 leading-tight">{ticket.studentName}</h5>
-                                                            <p className="text-[9px] text-slate-400 uppercase font-bold tracking-widest">{ticket.studentRoll}</p>
+                                                        <div className="min-w-0 flex-1">
+                                                            <h5 className="font-extrabold text-xs text-slate-900 leading-tight truncate">{ticket.studentName}</h5>
+                                                            <p className="text-[9px] text-slate-400 uppercase font-bold tracking-widest truncate">{ticket.studentRoll}</p>
                                                         </div>
                                                     </div>
-                                                    <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded ${ticket.status === 'Pending' ? 'bg-amber-50 text-amber-500 border border-amber-200/50' : 'bg-emerald-50 text-brandGreen border border-brandGreen/20'}`}>
+                                                    <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded shrink-0 ${ticket.status === 'Pending' ? 'bg-amber-50 text-amber-500 border border-amber-200/50' : 'bg-emerald-50 text-brandGreen border border-brandGreen/20'}`}>
                                                         {ticket.status}
                                                     </span>
                                                 </div>
@@ -650,7 +691,7 @@
                                                 {/* Text contents description */}
                                                 <div className="space-y-1">
                                                     <p className="text-[10px] font-bold text-brandBlue uppercase tracking-wider">{ticket.category} • {ticket.date}</p>
-                                                    <p className="text-slate-600 text-xs font-semibold leading-relaxed italic">"{ticket.message}"</p>
+                                                    <p className="text-slate-600 text-xs font-semibold leading-relaxed italic break-words">"{ticket.message}"</p>
                                                 </div>
 
                                                 {/* Support Desk Actions */}
@@ -681,8 +722,8 @@
                     {editingStudent && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                             <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onClick={closeEditModal}></div>
-                            <div className="relative bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl p-8 border border-slate-100 overflow-hidden animate-slide-up space-y-6">
-                                <button onClick={closeEditModal} className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-50 transition-all">
+                            <div className="relative bg-white w-full max-w-md max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl p-5 sm:p-8 border border-slate-100 space-y-6">
+                                <button onClick={closeEditModal} className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-200/50 transition-all">
                                     <i className="fa-solid fa-xmark text-lg"></i>
                                 </button>
 
@@ -690,7 +731,7 @@
                                     <div className="w-12 h-12 bg-blue-50 text-brandBlue rounded-2xl flex items-center justify-center mx-auto text-lg shadow-sm">
                                         <i className="fa-solid fa-screwdriver-wrench"></i>
                                     </div>
-                                    <h2 className="text-2xl font-black text-slate-900">Edit Student Record</h2>
+                                    <h2 className="text-xl font-black text-slate-900">Edit Student Record</h2>
                                     <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">{editingStudent.rollNumber}</p>
                                 </div>
 
@@ -752,7 +793,7 @@
                                         <button 
                                             type="button" 
                                             onClick={closeEditModal}
-                                            className="w-1/2 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-all"
+                                            className="w-1/2 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-all animate-pulse"
                                         >
                                             Cancel View
                                         </button>
