@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutorNxt Student Dashboard Portal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlue: {
+                            light: '#3b82f6',
+                            DEFAULT: '#1e40af',
+                            dark: '#1e3a8a'
+                        },
+                        brandSky: '#38bdf8',
+                        brandGreen: '#10b981',
+                        brandGold: '#f59e0b'
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- React Core Engines -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        body { 
+            font-family: 'Outfit', 'Inter', sans-serif; 
+            background-color: #f8fafc; 
+        }
+
+        /* 3D Perspective & Flip Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Smooth spring transitions */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(30, 64, 175, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(30, 64, 175, 0.4); }
+        }
+        .pulse-glow {
+            animation: pulseGlow 3s infinite;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Clean Printing Stylesheet */
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            #print-area, #print-area * {
+                visibility: visible !important;
+            }
+            #print-area {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: center !important;
+                gap: 40px !important;
+                padding-top: 50px !important;
+                background-color: white !important;
+            }
+            .no-print-transform {
+                transform: none !important;
+                position: relative !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800">
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        // =========================================================================
+        // 🎓 TUTORNXT STUDENT DATABASE (EDIT DIRECTLY HERE!)
+        // You can add, edit, or delete student profiles below.
+        // =========================================================================
+        const TUTORNXT_STUDENTS = [
+            {
+                rollNumber: "TNXT2601",
+                password: "DeeptoBiswas@123DB",
+                fullName: "Deepto Biswas",
+                schoolOrCollege: "Kendriya Vidyalaya, Railway Colony, Kharagpur ",
+                className: "Class 3",
+                fatherName: "Mr. Dibakar Biswas",
+                mobileNo: "+91 9333768423",
+                address: "New Traffic, Kharagpur, West Bengal, India",
+                admissionDate: "July 1, 2026",
+                assignedTeacher: "Ms M.Meena", 
+                feeStatus: "Pending",
+                nextDueDate: "July 2, 2026"
+            }
+            
+        ];
+        // =========================================================================
+
+        const TEACHERS_DATABASE_FALLBACK = [
+           {
+                id: 1,
+                name: "Mr Shubham Kumar",
+                subject: "Mathematics and Science",
+                role: "Mathematics and Science Teacher Upto 10th Grade",
+                exp: "1+ Years",
+                rating: "4.6 (40+ Reviews)",
+                qualifications: "Fourth Year B.Tech Student at IIT Kharagpur",
+                img: "shubham.jpeg"
+           },
+           {
+                id: 2,
+                name: "Ms M.Meena",
+                subject: "Hindi",
+                role: "Hindi Teacher Upto 12th Grade",
+                exp: "20+ Years",
+                rating: "4.8 (50+ Reviews)",
+                qualifications: "12th Pass",
+                img: "mmeena.jpeg"
+            },
+            {
+                id: 3,
+                name: "Mr Ajay Bhola",
+                subject: "English and Hindi",
+                role: "English, History and Geography Teacher Upto 12th Grade",
+                exp: "10+ Years",
+                rating: "4.8 (95+ Reviews)",
+                qualifications: "Graduate | Bachelors of Commerce (B.Com)",
+                img: "ajay.jpeg"
+            },
+            {
+                id: 4,
+                name: "Ms Sheela Devi",
+                subject: "English and Hindi",
+                role: "Hindi Teacher Upto 6th Grade",
+                exp: "5+ Years",
+                rating: "4.7 (50+ Reviews)",
+                qualifications: "Graduate | BA (HISTORY)",
+                img: "sheeladevi.jpg"
+            },
+            {
+                id: 5,
+                name: "Mr Shaswat Sharma",
+                subject: "Computer Science",
+                role: "Computer Science Specialist",
+                exp: "2+ Years",
+                rating: "4.9 (180+ Reviews)",
+                qualifications: "Pursuing B.Tech in Computer Science & Engineering",
+                img: "shaswat.jpeg"
+            },
+            {
+                id: 6,
+                name: "Mr Amrit Kumar",
+                subject: "Physics",
+                role: "Physics Specialist",
+                exp: "3+ Years",
+                rating: "4.9 (95+ Reviews)",
+                qualifications: "B.Tech in Computer Science & Engineering",
+                img: "amrit.jpg"
+            },
+            {
+                id: 7,
+                name: "Mr Sahil Sonkar",
+                subject: "Physics",
+                role: "Physics Expert",
+                exp: "2+ Years",
+                rating: "4.8 (120+ Reviews)",
+                qualifications: "B.Tech in Computer Science & Engineering",
+                img: "sahil.jpeg"
+            },
+            {
+                id: 8,
+                name: "Mr Arjock Bose",
+                subject: "Mathematics",
+                role: "Mathematics Teacher for 6 to 10th Grade",
+                exp: "2+ Years",
+                rating: "4.7 (140+ Reviews)",
+                qualifications: "Pursuing B.Tech in Computer Science & Engineering",
+                img: "arjock.jpeg"
+            },
+            {
+                id: 9,
+                name: "Ms Neer Kumari",
+                subject: "English and Hindi",
+                role: "English And Hindi Teacher Upto 8th Grade",
+                exp: "2+ Years",
+                rating: "4.5 (50+ Reviews)",
+                qualifications: "BA Final Year",
+                img: "neer.jpeg"
+            },
+            {
+                id: 10,
+                name: "Mr Satyam Kumar",
+                subject: "Mathematics",
+                role: "Mathematics Specialist",
+                exp: "3+ Years",
+                rating: "4.8 (60+ Reviews)",
+                qualifications: "M.Sc. in Mathematics, B.Ed. from Dr. Hari Singh Gour University, Sagar",
+                img: "satyam.jpeg",
+                region: "Sagar, Madhya Pradesh"
+            }
+        ];
+
+        function TutorNxtApp() {
+            // Keep track of logged-in student roll number
+            const [activeRoll, setActiveRoll] = React.useState(localStorage.getItem('tnxt_active_roll') || null);
+            const [student, setStudent] = React.useState(null);
+            const [teachersDatabase, setTeachersDatabase] = React.useState(TEACHERS_DATABASE_FALLBACK);
+            const [assignedTeacherDetails, setAssignedTeacherDetails] = React.useState(null);
+            const [imageErrors, setImageErrors] = React.useState({});
+            
+            const [rollNumber, setRollNumber] = React.useState('');
+            const [password, setPassword] = React.useState('');
+            const [errorMessage, setErrorMessage] = React.useState('');
+            const [avatar, setAvatar] = React.useState('');
+
+            // ID Card flip state
+            const [isFlipped, setIsFlipped] = React.useState(false);
+
+            // Complaint & Rating form states
+            const [selectedRating, setSelectedDateRating] = React.useState(0);
+            const [ratingHoverValue, setRatingHoverValue] = React.useState(undefined);
+            const [hasRated, setHasRated] = React.useState(false);
+            const [ratingFeedback, setRatingFeedback] = React.useState('');
+            
+            // Complaint form states
+            const [complaintCategory, setComplaintCategory] = React.useState('Academics');
+            const [complaintMsg, setComplaintMsg] = React.useState('');
+            const [submittedComplaints, setSubmittedComplaints] = React.useState([]);
+            const [showSuccessToast, setShowSuccessToast] = React.useState(false);
+            const [toastMessage, setToastMessage] = React.useState('');
+
+            // Dynamic Web-Scraper engine pulling teacher data directly from index.html!
+            React.useEffect(() => {
+                async function scrapeIndexTeachers() {
+                    try {
+                        const response = await fetch('index.html');
+                        if (!response.ok) throw new Error('Fetch rejected');
+                        
+                        const htmlText = await response.text();
+                        
+                        // Extremely robust bracket-matching extractor for teachersData
+                        const searchStr = 'const teachersData =';
+                        const startIdx = htmlText.indexOf(searchStr);
+                        if (startIdx !== -1) {
+                            const arrayStart = htmlText.indexOf('[', startIdx + searchStr.length);
+                            if (arrayStart !== -1) {
+                                let bracketCount = 0;
+                                let endIdx = -1;
+                                for (let i = arrayStart; i < htmlText.length; i++) {
+                                    if (htmlText[i] === '[') bracketCount++;
+                                    else if (htmlText[i] === ']') {
+                                        bracketCount--;
+                                        if (bracketCount === 0) {
+                                            endIdx = i;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (endIdx !== -1) {
+                                    const arrayString = htmlText.slice(arrayStart, endIdx + 1);
+                                    const parsedTeachers = new Function(`return ${arrayString}`)();
+                                    if (parsedTeachers && parsedTeachers.length > 0) {
+                                        setTeachersDatabase(parsedTeachers);
+                                        console.log("TutorNxt Scraper: Successfully synced with index.html");
+                                    }
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        console.warn("TutorNxt Scraper: Dynamic fetch blocked by CORS or file layout. Executing fallback database.", err);
+                    }
+                }
+                scrapeIndexTeachers();
+            }, []);
+
+            // Sync student data whenever the logged-in session changes
+            React.useEffect(() => {
+                if (activeRoll) {
+                    const found = TUTORNXT_STUDENTS.find(s => s.rollNumber.toUpperCase() === activeRoll.toUpperCase());
+                    if (found) {
+                        setStudent(found);
+                        
+                        // Automatically lookup and resolve matching teacher details from the synchronized database
+                        const resolvedTeacher = teachersDatabase.find(t => 
+                            t.name.replace(/\./g, "").trim().toLowerCase() === found.assignedTeacher.replace(/\./g, "").trim().toLowerCase()
+                        );
+                        setAssignedTeacherDetails(resolvedTeacher || null);
+
+                        // Load custom uploaded photo from localStorage if exists
+                        const savedAvatar = localStorage.getItem(`tnxt_avatar_${found.rollNumber}`);
+                        setAvatar(savedAvatar || '');
+                        
+                        // Load saved custom rating if exists
+                        const savedRating = localStorage.getItem(`tnxt_rating_${found.rollNumber}`);
+                        if (savedRating) {
+                            setSelectedDateRating(parseInt(savedRating));
+                            setHasRated(true);
+                        } else {
+                            setSelectedDateRating(0);
+                            setHasRated(false);
+                        }
+
+                        // Load saved complaints for this specific student
+                        const savedComplaints = localStorage.getItem(`tnxt_complaints_${found.rollNumber}`);
+                        if (savedComplaints) {
+                            setSubmittedComplaints(JSON.parse(savedComplaints));
+                        } else {
+                            setSubmittedComplaints([]);
+                        }
+                    } else {
+                        handleLogout();
+                    }
+                }
+            }, [activeRoll, teachersDatabase]);
+
+            const handleLogin = (e) => {
+                e.preventDefault();
+                setErrorMessage('');
+                
+                const enteredRoll = rollNumber.trim().toUpperCase();
+                const enteredPass = password.trim();
+
+                // Authenticate against our direct edit array
+                const matchedStudent = TUTORNXT_STUDENTS.find(
+                    s => s.rollNumber.toUpperCase() === enteredRoll && s.password === enteredPass
+                );
+
+                if (matchedStudent) {
+                    localStorage.setItem('tnxt_active_roll', matchedStudent.rollNumber);
+                    setActiveRoll(matchedStudent.rollNumber);
+                } else {
+                    setErrorMessage("Invalid Roll Number or Password. Please try again.");
+                }
+            };
+
+            // Convert uploaded image to Base64 to save locally inside the user's browser
+            const handleAvatarChange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                if (!file.type.startsWith('image/')) {
+                    alert("Only image files are allowed.");
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    const base64Data = reader.result;
+                    localStorage.setItem(`tnxt_avatar_${student.rollNumber}`, base64Data);
+                    setAvatar(base64Data);
+                    triggerToast("Profile picture updated successfully!");
+                };
+                reader.readAsDataURL(file);
+            };
+
+            // Handle rating click
+            const handleStarClick = (ratingValue) => {
+                if (hasRated) return;
+                setSelectedDateRating(ratingValue);
+            };
+
+            const submitTeacherRating = () => {
+                if (selectedRating === 0) {
+                    alert("Please select at least 1 star before submitting.");
+                    return;
+                }
+                localStorage.setItem(`tnxt_rating_${student.rollNumber}`, selectedRating);
+                setHasRated(true);
+                triggerToast(`Thank you for rating ${student.assignedTeacher} with ${selectedRating} Stars!`);
+            };
+
+            // Handle complaint submission
+            const handleComplaintSubmit = (e) => {
+                e.preventDefault();
+                if (!complaintMsg.trim()) {
+                    alert("Please write a detailed message for our support desk.");
+                    return;
+                }
+
+                const newComplaint = {
+                    id: 'TNXT-' + Math.floor(1000 + Math.random() * 9000),
+                    category: complaintCategory,
+                    message: complaintMsg,
+                    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                    status: 'Pending'
+                };
+
+                const updatedList = [newComplaint, ...submittedComplaints];
+                setSubmittedComplaints(updatedList);
+                localStorage.setItem(`tnxt_complaints_${student.rollNumber}`, JSON.stringify(updatedList));
+                setComplaintMsg('');
+                triggerToast(`Complaint ticket ${newComplaint.id} has been registered!`);
+            };
+
+            const triggerToast = (msg) => {
+                setToastMessage(msg);
+                setShowSuccessToast(true);
+                setTimeout(() => {
+                    setShowSuccessToast(false);
+                }, 4000);
+            };
+
+            const handleLogout = () => {
+                localStorage.removeItem('tnxt_active_roll');
+                setActiveRoll(null);
+                setStudent(null);
+                setAssignedTeacherDetails(null);
+                setRollNumber('');
+                setPassword('');
+                setAvatar('');
+                setHasRated(false);
+                setSelectedDateRating(0);
+                setComplaintMsg('');
+                setImageErrors({});
+                setIsFlipped(false);
+            };
+
+            // Print Trigger
+            const triggerPrint = () => {
+                window.print();
+            };
+
+            // Login Interface View State
+            if (!activeRoll) {
+                return (
+                    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative bg-[#f8fafc]">
+                        {/* Top Left Global Back Button on Login Page */}
+                        <div className="absolute top-6 left-6">
+                            <a href="index.html" className="flex items-center gap-2 text-brandBlue font-bold hover:text-brandBlue-dark transition-all text-sm group bg-white px-4 py-2.5 rounded-2xl border border-slate-200/60 shadow-sm">
+                                <i className="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                                <span>Back to Home</span>
+                            </a>
+                        </div>
+
+                        <div className="bg-white p-8 max-w-md w-full rounded-[2.5rem] shadow-xl border border-slate-100/80 animate-slide-up">
+                            <div className="text-center space-y-3 mb-8">
+                                <div className="w-16 h-14 bg-gradient-to-br from-brandBlue to-brandBlue-dark text-white rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-brandBlue/20">
+                                    <i className="fa-solid fa-graduation-cap text-2xl"></i>
+                                </div>
+                                <h2 className="text-2xl font-black tracking-tight text-brandBlue">Tutor<span className="text-brandSky">Nxt</span> Student Desk</h2>
+                                <p className="text-slate-400 text-xs uppercase tracking-widest font-extrabold text-center">Login with your Roll Number and Password</p>
+                            </div>
+
+                            {errorMessage && (
+                                <div className="p-4 mb-5 bg-rose-50 text-rose-600 rounded-2xl text-xs font-bold border border-rose-100 flex items-center gap-2">
+                                    <i className="fa-solid fa-triangle-exclamation text-sm shrink-0"></i> {errorMessage}
+                                </div>
+                            )}
+
+                            <form onSubmit={handleLogin} className="space-y-5">
+                                <div>
+                                    <label className="block text-xs uppercase tracking-wider font-bold text-slate-400 mb-2">Roll Number</label>
+                                    <input 
+                                        type="text" 
+                                        required 
+                                        value={rollNumber} 
+                                        onChange={(e) => setRollNumber(e.target.value)} 
+                                        placeholder="Enter your TutorNXT Roll No" 
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue transition-all font-semibold text-slate-800"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs uppercase tracking-wider font-bold text-slate-400 mb-2">Password</label>
+                                    <input 
+                                        type="password" 
+                                        required 
+                                        value={password} 
+                                        onChange={(e) => setPassword(e.target.value)} 
+                                        placeholder="••••••••" 
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue transition-all text-slate-800"
+                                    />
+                                </div>
+                                <button type="submit" className="w-full py-4 bg-brandBlue hover:bg-brandBlue-dark text-white font-extrabold rounded-2xl tracking-wide transition-all shadow-lg shadow-brandBlue/20 mt-4 active:scale-95 transform">
+                                    Verify Credentials &rarr;
+                                </button>
+                                <p className="text-xs text-slate-400 mt-2 text-center">Forget Credentials? Send Message to 9749160796</p>
+                            </form>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Authenticated Dashboard Portal View State
+            if (!student) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center font-bold text-brandBlue animate-pulse text-sm uppercase tracking-widest bg-[#f8fafc]">
+                        Establishing secure handshake encryption layers...
+                    </div>
+                );
+            }
+
+            return (
+                <div className="min-h-screen flex flex-col bg-[#f8fafc] pb-16">
+                    
+                    {/* HIDDEN PRINT-ONLY CARDS SHEETS (SIDE BY SIDE ON A4) */}
+                    <div id="print-area" className="hidden">
+                        {/* Front Card */}
+                        <div className="w-[3.375in] h-[2.125in] bg-gradient-to-br from-brandBlue to-indigo-950 text-white rounded-xl p-3 flex flex-col justify-between border border-slate-300 relative text-left shadow-md shrink-0 overflow-hidden" style={{ pageBreakInside: 'avoid' }}>
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-white/5 rounded-full pointer-events-none"></div>
+                            
+                            {/* Card Header */}
+                            <div className="flex justify-between items-center border-b border-white/20 pb-1.5">
+                                <div className="flex items-center gap-1">
+                                    <i className="fa-solid fa-graduation-cap text-brandSky text-sm"></i>
+                                    <span className="text-[10px] tracking-tight font-black uppercase">TutorNxt Student ID</span>
+                                </div>
+                                <span className="text-[8px] tracking-wider text-slate-300 font-extrabold uppercase">Front</span>
+                            </div>
+
+                            {/* Card Body */}
+                            <div className="flex gap-2 items-start py-1.5 flex-1 min-w-0">
+                                {/* Student Image */}
+                                <div className="w-14 h-16 bg-slate-800 border border-white/20 rounded-lg overflow-hidden shrink-0 flex items-center justify-center relative">
+                                    {avatar ? (
+                                        <img src={avatar} className="w-full h-full object-cover" alt="Student"/>
+                                    ) : (
+                                        <span className="text-xl font-bold text-white">{student.fullName.charAt(0)}</span>
+                                    )}
+                                </div>
+
+                                {/* Information Matrix */}
+                                <div className="flex-1 min-w-0 space-y-0.5 text-[8px]">
+                                    <h4 className="text-brandSky font-black text-xs leading-none mb-1 truncate uppercase">{student.fullName}</h4>
+                                    <p className="text-white/95 truncate"><strong>Roll:</strong> {student.rollNumber}</p>
+                                    <p className="text-white/95 truncate"><strong>Class:</strong> {student.className}</p>
+                                    <p className="text-white/95 truncate"><strong>Father:</strong> {student.fatherName}</p>
+                                    <p className="text-white/95 truncate"><strong>Mob:</strong> {student.mobileNo}</p>
+                                    <p className="text-white/95 truncate"><strong>Adm Date:</strong> {student.admissionDate}</p>
+                                </div>
+                            </div>
+
+                            {/* Card Footer Address */}
+                            <div className="border-t border-white/10 pt-1 flex justify-between items-center text-[7px] text-slate-300">
+                                <p className="truncate flex-1 pr-2"><strong>Add:</strong> {student.address}</p>
+                                <span className="font-mono text-slate-400 font-bold shrink-0">AUTHENTIC</span>
+                            </div>
+                        </div>
+
+                        {/* Back Card */}
+                        <div className="w-[3.375in] h-[2.125in] bg-gradient-to-br from-indigo-950 to-slate-950 text-white rounded-xl p-3 flex flex-col justify-between border border-slate-300 relative text-left shadow-md shrink-0 overflow-hidden" style={{ pageBreakInside: 'avoid' }}>
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full pointer-events-none"></div>
+                            
+                            {/* Card Header */}
+                            <div className="flex justify-between items-center border-b border-white/10 pb-1.5">
+                                <div className="flex items-center gap-1">
+                                    <i className="fa-solid fa-graduation-cap text-slate-400 text-sm"></i>
+                                    <span className="text-[10px] tracking-tight font-black uppercase text-slate-300">TutorNxt System</span>
+                                </div>
+                                <span className="text-[8px] tracking-wider text-slate-400 font-extrabold uppercase">Back</span>
+                            </div>
+
+                            {/* Card Body */}
+                            <div className="py-2 flex-1 space-y-1.5 text-[8px] text-slate-300">
+                                <div className="bg-white/5 p-1.5 rounded-lg border border-white/5 space-y-1">
+                                    <p><strong className="text-white font-bold">Father's Name:</strong> {student.fatherName}</p>
+                                    <p><strong className="text-white">Emergency Mobile:</strong> {student.mobileNo}</p>
+                                    <p className="line-clamp-2"><strong className="text-white">Complete Address:</strong> {student.address}</p>
+                                </div>
+                                <p className="text-[7px] text-slate-500 leading-tight">This card is property of TutorNxt Technologies. If found, please return to the nearest collection desk or contact admin at +91 97491 60796.</p>
+                            </div>
+
+                            {/* Card Footer Stamp/Sign Layout */}
+                            <div className="pt-2 border-t border-white/5 flex items-center justify-between">
+                                <div className="text-[8px] text-slate-500 font-mono">CODE: {student.rollNumber}-ID</div>
+                                <div className="text-right">
+                                    <span className="text-[7px] text-brandSky italic block font-serif">Amrit Kumar</span>
+                                    <span className="text-[6px] text-slate-500 uppercase font-black block tracking-tighter">Authorized Signature</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Live Toast Notifications */}
+                    {showSuccessToast && (
+                        <div className="fixed top-6 right-6 z-50 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 animate-slide-up">
+                            <div className="w-8 h-8 bg-brandGreen/20 text-brandGreen rounded-full flex items-center justify-center">
+                                <i className="fa-solid fa-circle-check text-base"></i>
+                            </div>
+                            <div>
+                                <p className="text-xs font-bold text-slate-300">Notification</p>
+                                <p className="text-sm font-semibold text-white">{toastMessage}</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Dashboard Header Nav */}
+                    <nav className="bg-white border-b border-slate-100 py-5 px-4 sm:px-6 lg:px-8">
+                        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-4 justify-between items-center">
+                            
+                            {/* Left: Back Button & Logo */}
+                            <div className="flex items-center gap-4">
+                                <a href="index.html" className="flex items-center gap-2 text-brandBlue font-bold hover:text-brandBlue-dark transition-all text-sm group bg-slate-50 hover:bg-slate-100 px-4 py-2.5 rounded-2xl border border-slate-200/60 shadow-sm shrink-0">
+                                    <i className="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                                    <span>Back to Home</span>
+                                </a>
+                                <div className="h-8 w-px bg-slate-200 hidden sm:block"></div>
+                                <div className="flex items-center gap-2">
+                                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-brandBlue text-white shadow-md shrink-0">
+                                        <i className="fa-solid fa-graduation-cap text-lg"></i>
+                                    </div>
+                                    <span className="text-xl font-extrabold tracking-tight text-brandBlue">Tutor<span className="text-brandSky">Nxt</span> <span className="text-slate-400 font-medium">Dashboard</span></span>
+                                </div>
+                            </div>
+
+                            {/* Right: Logout Action */}
+                            <button onClick={handleLogout} className="px-5 py-2.5 bg-slate-100 hover:bg-rose-50 hover:text-rose-600 rounded-2xl text-xs font-bold transition-all flex items-center gap-2 border border-slate-200/50">
+                                <i className="fa-solid fa-power-off"></i> Secure Terminate
+                            </button>
+                        </div>
+                    </nav>
+
+                   
+                    <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8 animate-slide-up">
+                        
+                        {/* Upper Quick Analytics Rows */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center justify-between">
+                                <div className="space-y-1">
+                                    <p className="text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Pending Fees</p>
+                                    <p className="text-2xl font-black text-slate-800">{student.feeStatus === "Paid" ? "₹0.00" : "Pending Cycle"}</p>
+                                </div>
+                                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-lg ${student.feeStatus === "Paid" ? 'bg-emerald-50 text-brandGreen' : 'bg-amber-50 text-brandGold'}`}>
+                                    <i className="fa-solid fa-credit-card"></i>
+                                </div>
+                            </div>
+                            
+                            <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center justify-between">
+                                <div className="space-y-1">
+                                    <p className="text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Assigned Tutor</p>
+                                    <p className="text-lg font-black text-slate-800 line-clamp-1">{student.assignedTeacher}</p>
+                                </div>
+                                <div className="w-12 h-12 bg-blue-50 text-brandBlue rounded-2xl flex items-center justify-center text-lg">
+                                    <i className="fa-solid fa-user-tie"></i>
+                                </div>
+                            </div>
+
+                            <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center justify-between">
+                                <div className="space-y-1">
+                                    <p className="text-[11px] uppercase tracking-wider font-extrabold text-slate-400">Your College / School</p>
+                                    <p className="text-sm font-extrabold text-slate-600 line-clamp-2">{student.schoolOrCollege}</p>
+                                </div>
+                                <div className="w-12 h-12 bg-indigo-50 text-indigo-500 rounded-2xl flex items-center justify-center text-lg shrink-0">
+                                    <i className="fa-solid fa-school"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Middle Content Columns Grid */}
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                            
+                            {/* Left: Student Profile Card & Virtual ID Card (col-span-5) */}
+                            <div className="lg:col-span-5 space-y-8">
+                                
+                                {/* Student Profile Badge card */}
+                                <div className="bg-white border border-slate-100 rounded-[2rem] shadow-xl overflow-hidden p-6 relative">
+                                    <div className="absolute top-0 left-0 w-full h-2.5 bg-gradient-to-r from-brandBlue to-brandSky"></div>
+                                    <div className="flex flex-col sm:flex-row gap-5 items-center sm:items-start text-center sm:text-left pt-3">
+                                        <div className="relative w-28 h-28 rounded-[2rem] border-4 border-white shadow-xl overflow-hidden bg-brandBlue text-white flex items-center justify-center group shrink-0">
+                                            {avatar ? (
+                                                <img src={avatar} alt="Avatar" className="w-full h-full object-cover"/>
+                                            ) : (
+                                                <span className="text-4xl font-black">{student.fullName.charAt(0)}</span>
+                                            )}
+                                            <label className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-[10px] font-bold cursor-pointer transition-all">
+                                                <i className="fa-solid fa-camera text-sm mb-1"></i> Change Photo
+                                                <input type="file" accept="image/*" onChange={handleAvatarChange} className="hidden"/>
+                                            </label>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <span className="text-[9px] bg-blue-50 text-brandBlue px-3 py-1 rounded-full border border-brandBlue/10 font-black uppercase tracking-wider inline-block">Student Profile</span>
+                                            <h3 className="font-extrabold text-slate-900 text-xl leading-tight">{student.fullName}</h3>
+                                            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">{student.rollNumber}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="h-px bg-slate-100 my-5"></div>
+                                    
+                                    {/* Additional info parameters */}
+                                    <div className="space-y-3.5">
+                                        <div className="flex justify-between items-center text-xs">
+                                            <span className="text-slate-400 font-bold uppercase tracking-wider">Institution / School</span>
+                                            <span className="font-extrabold text-slate-700 text-right max-w-[200px] line-clamp-2">{student.schoolOrCollege}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center text-xs">
+                                            <span className="text-slate-400 font-bold uppercase tracking-wider">Admission Date</span>
+                                            <span className="font-extrabold text-slate-700">{student.admissionDate}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center text-xs">
+                                            <span className="text-slate-400 font-bold uppercase tracking-wider">Assigned Mentor</span>
+                                            <span className="font-black text-brandBlue">{student.assignedTeacher}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Highly Interactive Virtual ID Card (Flips on click!) */}
+                                <div className="bg-white border border-slate-100 rounded-[2rem] shadow-xl p-6 flex flex-col items-center justify-center space-y-5">
+                                    <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 border-b border-slate-100 pb-2 w-full self-start">Virtual ID Card</h4>
+                                    
+                                    {/* Interactive card container with 3D Rotate */}
+                                    <div 
+                                        onClick={() => setIsFlipped(!isFlipped)} 
+                                        className="perspective-1000 w-[350px] h-[220px] cursor-pointer group"
+                                    >
+                                        <div className={`relative w-full h-full duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
+                                            
+                                            {/* FRONT SIDE */}
+                                            <div className="absolute inset-0 w-full h-full backface-hidden bg-gradient-to-br from-brandBlue via-brandBlue-dark to-indigo-950 text-white rounded-2xl p-4 flex flex-col justify-between border border-white/20 shadow-lg text-left overflow-hidden">
+                                                <div className="absolute top-0 right-0 w-16 h-16 bg-white/5 rounded-full pointer-events-none"></div>
+                                                
+                                                {/* Header */}
+                                                <div className="flex justify-between items-center border-b border-white/20 pb-1.5">
+                                                    <div className="flex items-center gap-1.5">
+                                                        <i className="fa-solid fa-graduation-cap text-brandSky text-base"></i>
+                                                        <span className="text-[10px] tracking-wider font-black uppercase">TutorNxt Student ID</span>
+                                                    </div>
+                                                    <span className="text-[8px] tracking-wider text-slate-300 font-extrabold uppercase">Front</span>
+                                                </div>
+
+                                                {/* Details + Image */}
+                                                <div className="flex gap-3 items-start py-1.5 flex-1 min-w-0">
+                                                    {/* Photo in corner */}
+                                                    <div className="w-16 h-20 bg-slate-800 border border-white/20 rounded-lg overflow-hidden shrink-0 flex items-center justify-center relative">
+                                                        {avatar ? (
+                                                            <img src={avatar} className="w-full h-full object-cover" alt="Student"/>
+                                                        ) : (
+                                                            <span className="text-2xl font-black text-white">{student.fullName.charAt(0)}</span>
+                                                        )}
+                                                    </div>
+
+                                                    {/* Information layout */}
+                                                    <div className="flex-1 min-w-0 space-y-0.5 text-[9px]">
+                                                        <h4 className="text-brandSky font-black text-sm leading-none mb-1.5 truncate uppercase">{student.fullName}</h4>
+                                                        <p className="text-white/90 truncate"><strong>Roll No:</strong> {student.rollNumber}</p>
+                                                        <p className="text-white/90 truncate"><strong>Class:</strong> {student.className}</p>
+                                                        <p className="text-white/90 truncate"><strong>Father:</strong> {student.fatherName}</p>
+                                                        <p className="text-white/90 truncate"><strong>Mobile:</strong> {student.mobileNo}</p>
+                                                        <p className="text-white/90 truncate"><strong>Adm Date:</strong> {student.admissionDate}</p>
+                                                    </div>
+                                                </div>
+
+                                                {/* Bottom Footer Address */}
+                                                <div className="border-t border-white/10 pt-1.5 flex justify-between items-center text-[7.5px] text-slate-300">
+                                                    <p className="truncate flex-1 pr-3"><strong>Address:</strong> {student.address}</p>
+                                                    <span className="font-mono text-slate-400 font-bold shrink-0">SECURE ID</span>
+                                                </div>
+                                            </div>
+
+                                            {/* BACK SIDE */}
+                                            <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-gradient-to-br from-indigo-950 to-slate-950 text-white rounded-2xl p-4 flex flex-col justify-between border border-white/20 shadow-lg text-left overflow-hidden">
+                                                <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full pointer-events-none"></div>
+                                                
+                                                {/* Header */}
+                                                <div className="flex justify-between items-center border-b border-white/10 pb-1.5">
+                                                    <div className="flex items-center gap-1.5">
+                                                        <i className="fa-solid fa-graduation-cap text-slate-400 text-base"></i>
+                                                        <span className="text-[10px] tracking-wider font-black uppercase text-slate-300">TutorNxt Security</span>
+                                                    </div>
+                                                    <span className="text-[8px] tracking-wider text-slate-400 font-extrabold uppercase">Back</span>
+                                                </div>
+
+                                                {/* Backside Information */}
+                                                <div className="py-2.5 flex-1 space-y-2 text-[9px] text-slate-300">
+                                                    <div className="bg-white/5 p-2 rounded-xl border border-white/5 space-y-1">
+                                                        <p><strong className="text-white font-bold">Father's Name:</strong> {student.fatherName}</p>
+                                                        <p><strong className="text-white font-bold">Emergency Phone No:</strong> {student.mobileNo}</p>
+                                                        <p className="line-clamp-2"><strong className="text-white font-bold">Complete Address:</strong> {student.address}</p>
+                                                    </div>
+                                                    <p className="text-[7.5px] text-slate-500 leading-tight">This card is property of TutorNxt. If found, please return to the nearest collection desk or contact admin at +91 97491 60796.</p>
+                                                </div>
+
+                                                {/* Signature Block */}
+                                                <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+                                                    <div className="text-[8px] text-slate-500 font-mono">ID-{student.rollNumber}</div>
+                                                    <div className="text-right">
+                                                        <span className="text-[8.5px] text-brandSky italic block font-serif leading-none">TutorNXT</span>
+                                                        <span className="text-[6.5px] text-slate-500 uppercase font-black block tracking-tighter mt-1">Authorized Signature</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    
+                                    <p className="text-[11px] text-slate-400 font-semibold italic"><i className="fa-solid fa-arrows-rotate mr-1"></i> Tap on card to flip backside</p>
+                                    
+                                    <button 
+                                        onClick={triggerPrint} 
+                                        className="w-full py-3 bg-slate-100 hover:bg-brandBlue hover:text-white border border-brandBlue/10 rounded-2xl text-brandBlue font-extrabold text-xs uppercase tracking-widest transition-all active:scale-95 shadow-sm flex items-center justify-center gap-2"
+                                    >
+                                        <i className="fa-solid fa-print"></i> Print ID Card
+                                    </button>
+                                </div>
+
+                                {/* Financials Card */}
+                                <div className="bg-white border border-slate-100 rounded-[2rem] shadow-xl p-6 space-y-4">
+                                    <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 border-b border-slate-100 pb-2 mb-2">Ledger Status</h4>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-1">
+                                            <label className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Fees Ledger</label>
+                                            <span className={`inline-flex items-center gap-1.5 text-[11px] font-extrabold px-3 py-1 rounded-full mt-1 ${student.feeStatus === 'Paid' ? 'bg-emerald-50 text-brandGreen border border-brandGreen/20' : 'bg-amber-50 text-brandGold border border-brandGold/20'}`}>
+                                                <span className={`w-1.5 h-1.5 rounded-full ${student.feeStatus === 'Paid' ? 'bg-brandGreen' : 'bg-brandGold'}`}></span>
+                                                {student.feeStatus}
+                                            </span>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <label className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Due Cycle Date</label>
+                                            <p className="font-extrabold text-slate-700 text-sm mt-1">{student.nextDueDate}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {/* Right: Assigned Teacher Details with Dynamic Rating System (col-span-7) */}
+                            <div className="lg:col-span-7 space-y-8">
+                                
+                                {/* Teacher Card details (Dynamically syncing!) */}
+                                {assignedTeacherDetails ? (
+                                    <div className="bg-white border border-slate-100 rounded-[2rem] shadow-xl p-6 md:p-8 space-y-6 relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-brandBlue/5 rounded-bl-[4rem] -z-0 pointer-events-none"></div>
+                                        
+                                        <div className="flex flex-col sm:flex-row gap-5 items-center sm:items-start text-center sm:text-left relative z-10">
+                                            {/* Teacher Image with Reactive State-Based Error Handling */}
+                                            <div className="relative w-24 h-28 rounded-2xl overflow-hidden shadow-md border border-slate-100 bg-slate-100 shrink-0 flex items-center justify-center">
+                                                {imageErrors[assignedTeacherDetails.id] ? (
+                                                    <div className="w-full h-full bg-gradient-to-br from-brandBlue to-indigo-600 text-white flex items-center justify-center font-black text-4xl select-none">
+                                                        {assignedTeacherDetails.name.replace("Mr ", "").replace("Ms ", "").charAt(0)}
+                                                    </div>
+                                                ) : (
+                                                    <img 
+                                                        src={assignedTeacherDetails.img} 
+                                                        alt={assignedTeacherDetails.name} 
+                                                        className="w-full h-full object-cover" 
+                                                        onError={() => setImageErrors(prev => ({ ...prev, [assignedTeacherDetails.id]: true }))}
+                                                    />
+                                                )}
+                                            </div>
+                                            
+                                            <div className="space-y-2 flex-1 min-w-0">
+                                                <span className="text-[9px] bg-brandBlue/10 text-brandBlue px-3 py-1 rounded-full font-black uppercase tracking-wider inline-block">Assigned Tutor</span>
+                                                <h3 className="font-extrabold text-slate-900 text-2xl leading-tight truncate">{assignedTeacherDetails.name}</h3>
+                                                <p className="text-sm font-semibold text-brandGreen truncate">{assignedTeacherDetails.subject}</p>
+                                                
+                                                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3.5 text-xs font-bold text-slate-400 pt-1">
+                                                    <span className="flex items-center gap-1.5 text-slate-700">
+                                                        <i className="fa-solid fa-briefcase text-brandBlue"></i>
+                                                        <span>{assignedTeacherDetails.exp} Experience</span>
+                                                    </span>
+                                                    <span>•</span>
+                                                    <span className="flex items-center gap-1.5 text-slate-700">
+                                                        <i className="fa-solid fa-star text-brandGold"></i>
+                                                        <span>{assignedTeacherDetails.rating} Rating</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="h-px bg-slate-100"></div>
+
+                                        {/* Rate Experience Module */}
+                                        <div className="bg-slate-50 border border-slate-100/80 p-5 rounded-2xl space-y-4">
+                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                                <div>
+                                                    <h4 className="text-xs uppercase font-extrabold text-slate-400 tracking-wider">Evaluate Your Study Session</h4>
+                                                    <p className="text-slate-500 text-xs mt-0.5">Please rate your experience with {assignedTeacherDetails.name}</p>
+                                                </div>
+                                                {hasRated && (
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-brandGreen bg-emerald-50 border border-brandGreen/20 px-3 py-1 rounded-full text-center">
+                                                        Submitted
+                                                    </span>
+                                                )}
+                                            </div>
+
+                                            {/* Stars selection container */}
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex items-center gap-1">
+                                                    {[1, 2, 3, 4, 5].map((index) => {
+                                                        const isGold = (ratingHoverValue || selectedRating) >= index;
+                                                        return (
+                                                            <button 
+                                                                key={index}
+                                                                type="button"
+                                                                disabled={hasRated}
+                                                                onClick={() => handleStarClick(index)}
+                                                                onMouseEnter={() => !hasRated && setRatingHoverValue(index)}
+                                                                onMouseLeave={() => !hasRated && setRatingHoverValue(undefined)}
+                                                                className={`text-2xl transition-all ${hasRated ? 'cursor-default' : 'hover:scale-125'} ${isGold ? 'text-brandGold' : 'text-slate-300'}`}
+                                                            >
+                                                                <i className={`${isGold ? 'fa-solid' : 'fa-regular'} fa-star`}></i>
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
+                                                <div className="text-xs font-bold text-slate-500">
+                                                    {selectedRating > 0 ? `${selectedRating} Star${selectedRating > 1 ? 's' : ''} Selected` : "Click to rate"}
+                                                </div>
+                                            </div>
+
+                                            {!hasRated && (
+                                                <button 
+                                                    type="button" 
+                                                    onClick={submitTeacherRating}
+                                                    className="w-full sm:w-auto px-6 py-2.5 bg-brandBlue hover:bg-brandBlue-dark text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-md active:scale-95"
+                                                >
+                                                    Submit Rating Evaluation
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="bg-white border border-slate-100 rounded-[2rem] shadow-xl p-6 text-center text-slate-400 font-bold">
+                                        <i className="fa-solid fa-circle-exclamation text-2xl mb-2 text-slate-300 block"></i>
+                                        Unable to automatically retrieve assigned mentor details.
+                                    </div>
+                                )}
+
+                                {/* Support & Complaint Registration Form */}
+                                <div className="bg-white border border-slate-100 rounded-[2rem] shadow-xl p-6 md:p-8 space-y-5">
+                                    <div className="space-y-1">
+                                        <h4 className="text-xs uppercase font-black tracking-widest text-slate-400 block">TutorNxt Student Desk</h4>
+                                        <h3 className="text-xl font-extrabold text-slate-900">File Support Ticket or Complaint</h3>
+                                        <p className="text-slate-500 text-xs">Let us know if you are experiencing schedule delays, teacher absences, or any other.</p>
+                                    </div>
+
+                                    <form onSubmit={handleComplaintSubmit} className="space-y-4">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div className="space-y-1.5">
+                                                <label className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Ticket Category</label>
+                                                <select 
+                                                    value={complaintCategory} 
+                                                    onChange={(e) => setComplaintCategory(e.target.value)}
+                                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue transition-all text-slate-700"
+                                                >
+                                                    <option value="Academics">Academics & Mentoring</option>
+                                                    <option value="Scheduling">Schedule / Availability Conflict</option>
+                                                    <option value="Fees Ledger">Fee Issues</option>
+                                                    <option value="App Issues">Student Portal Bug</option>
+                                                </select>
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <label className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Student Affiliation</label>
+                                                <input 
+                                                    type="text" 
+                                                    disabled 
+                                                    value={student.schoolOrCollege} 
+                                                    className="w-full bg-slate-100 border border-slate-200 rounded-xl px-4 py-3 text-xs font-bold text-slate-500 outline-none"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-1.5">
+                                            <label className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Detailed Complaint Description</label>
+                                            <textarea 
+                                                rows="3" 
+                                                required
+                                                value={complaintMsg}
+                                                onChange={(e) => setComplaintMsg(e.target.value)}
+                                                placeholder="Provide specific details, dates, or issues. Our support team will review this ticket and resolve it within 24 hours." 
+                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue transition-all text-slate-800 placeholder:text-slate-400"
+                                            ></textarea>
+                                        </div>
+
+                                        <button 
+                                            type="submit" 
+                                            className="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all active:scale-95 shadow-lg"
+                                        >
+                                            File Complaint Ticket
+                                        </button>
+                                    </form>
+
+                                    {/* List of submitted tickets */}
+                                    {submittedComplaints.length > 0 && (
+                                        <div className="space-y-3 pt-3">
+                                            <h5 className="text-[10px] uppercase font-bold text-slate-400 tracking-wider border-t border-slate-100 pt-5">Submitted Ticket History</h5>
+                                            <div className="space-y-2.5 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                                                {submittedComplaints.map((ticket, index) => (
+                                                    <div key={index} className="p-3 bg-slate-50 rounded-xl border border-slate-100 space-y-1.5">
+                                                        <div className="flex justify-between items-center">
+                                                            <span className="text-[10px] font-mono font-bold text-brandBlue">{ticket.id}</span>
+                                                            <span className="text-[9px] font-black uppercase tracking-widest text-amber-500 bg-amber-50 border border-amber-200/50 px-2 py-0.5 rounded">
+                                                                {ticket.status}
+                                                            </span>
+                                                        </div>
+                                                        <p className="text-[11px] font-semibold text-slate-400">{ticket.category} — {ticket.date}</p>
+                                                        <p className="text-xs text-slate-600 font-medium leading-relaxed italic">"{ticket.message}"</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </main>
+                </div>
+            );
+        }
+
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<TutorNxtApp />);
+    </script>
+</body>
+</html>
