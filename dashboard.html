@@ -126,29 +126,7 @@
 
     <script type="text/babel">
 
-        // =========================================================================
-        // 🎓 TUTORNXT STUDENT DATABASE (EDIT DIRECTLY HERE!)
-        // You can add, edit, or delete student profiles below.
-        // =========================================================================
-        const TUTORNXT_STUDENTS = [
-            {
-                rollNumber: "TNXT2601",
-                password: "DeeptoBiswas@123DB",
-                fullName: "Deepto Biswas",
-                schoolOrCollege: "Kendriya Vidyalaya, Railway Colony, Kharagpur ",
-                className: "Class 3",
-                fatherName: "Mr. Dibakar Biswas",
-                mobileNo: "+91 9333768423",
-                address: "New Traffic, Kharagpur, West Bengal, India",
-                admissionDate: "July 1, 2026",
-                assignedTeacher: "Ms M.Meena", 
-                feeStatus: "Pending",
-                nextDueDate: "July 2, 2026"
-            }
-            
-        ];
-        // =========================================================================
-
+        // Master teachers database fallback
         const TEACHERS_DATABASE_FALLBACK = [
            {
                 id: 1,
@@ -239,8 +217,8 @@
                 rating: "4.5 (50+ Reviews)",
                 qualifications: "BA Final Year",
                 img: "neer.jpeg"
-            },
-            {
+           },
+           {
                 id: 10,
                 name: "Mr Satyam Kumar",
                 subject: "Mathematics",
@@ -250,8 +228,30 @@
                 qualifications: "M.Sc. in Mathematics, B.Ed. from Dr. Hari Singh Gour University, Sagar",
                 img: "satyam.jpeg",
                 region: "Sagar, Madhya Pradesh"
+           }
+        ];
+
+        // =========================================================================
+        // 🎓 TUTORNXT STUDENT DATABASE (EDIT DIRECTLY HERE!)
+        // Single student record updated exactly in your requested format.
+        // =========================================================================
+        const TUTORNXT_STUDENTS = [
+            {
+                rollNumber: "TNXT2601",
+                password: "DeeptoBiswas@123DB",
+                fullName: "Deepto Biswas",
+                schoolOrCollege: "Kendriya Vidyalaya, Railway Colony, Kharagpur ",
+                className: "Class 3",
+                fatherName: "Mr. Dibakar Biswas",
+                mobileNo: "+91 9333768423",
+                address: "New Traffic, Kharagpur, West Bengal, India",
+                admissionDate: "July 1, 2026",
+                assignedTeacher: "Ms M.Meena", 
+                feeStatus: "Pending",
+                nextDueDate: "July 2, 2026"
             }
         ];
+        // =========================================================================
 
         function TutorNxtApp() {
             // Keep track of logged-in student roll number
@@ -281,6 +281,14 @@
             const [submittedComplaints, setSubmittedComplaints] = React.useState([]);
             const [showSuccessToast, setShowSuccessToast] = React.useState(false);
             const [toastMessage, setToastMessage] = React.useState('');
+
+            // Bootstrap synchronization to initialize localStorage DB
+            React.useEffect(() => {
+                let storedDb = localStorage.getItem('tnxt_students_db');
+                if (!storedDb) {
+                    localStorage.setItem('tnxt_students_db', JSON.stringify(TUTORNXT_STUDENTS));
+                }
+            }, []);
 
             // Dynamic Web-Scraper engine pulling teacher data directly from index.html!
             React.useEffect(() => {
@@ -329,7 +337,11 @@
             // Sync student data whenever the logged-in session changes
             React.useEffect(() => {
                 if (activeRoll) {
-                    const found = TUTORNXT_STUDENTS.find(s => s.rollNumber.toUpperCase() === activeRoll.toUpperCase());
+                    // Check if local storage has the updated DB from admin (CRITICAL FOR LIVE FEE UPDATES!)
+                    const storedDb = localStorage.getItem('tnxt_students_db');
+                    const db = storedDb ? JSON.parse(storedDb) : TUTORNXT_STUDENTS;
+                    
+                    const found = db.find(s => s.rollNumber.toUpperCase() === activeRoll.toUpperCase());
                     if (found) {
                         setStudent(found);
                         
@@ -373,8 +385,11 @@
                 const enteredRoll = rollNumber.trim().toUpperCase();
                 const enteredPass = password.trim();
 
-                // Authenticate against our direct edit array
-                const matchedStudent = TUTORNXT_STUDENTS.find(
+                // Authenticate against our shared database if available, otherwise fallback
+                const storedDb = localStorage.getItem('tnxt_students_db');
+                const db = storedDb ? JSON.parse(storedDb) : TUTORNXT_STUDENTS;
+
+                const matchedStudent = db.find(
                     s => s.rollNumber.toUpperCase() === enteredRoll && s.password === enteredPass
                 );
 
@@ -543,104 +558,89 @@
             }
 
             return (
-                <div className="min-h-screen flex flex-col bg-[#f8fafc] pb-16">
+                <div className="min-h-screen flex flex-col bg-[#f8fafc]">
                     
                     {/* HIDDEN PRINT-ONLY CARDS SHEETS (SIDE BY SIDE ON A4) */}
                     <div id="print-area" className="hidden">
                         {/* Front Card */}
-                        <div className="w-[3.375in] h-[2.125in] bg-gradient-to-br from-brandBlue to-indigo-950 text-white rounded-xl p-3 flex flex-col justify-between border border-slate-300 relative text-left shadow-md shrink-0 overflow-hidden" style={{ pageBreakInside: 'avoid' }}>
-                            <div className="absolute top-0 right-0 w-16 h-16 bg-white/5 rounded-full pointer-events-none"></div>
+                        <div className="w-[3.375in] h-[2.125in] bg-white text-slate-800 rounded-xl p-3 flex flex-col justify-between border border-slate-300 relative text-left shadow-sm shrink-0 overflow-hidden" style={{ pageBreakInside: 'avoid' }}>
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-blue-500/5 rounded-full pointer-events-none"></div>
                             
                             {/* Card Header */}
-                            <div className="flex justify-between items-center border-b border-white/20 pb-1.5">
+                            <div className="flex justify-between items-center border-b border-slate-200 pb-1.5">
                                 <div className="flex items-center gap-1">
-                                    <i className="fa-solid fa-graduation-cap text-brandSky text-sm"></i>
-                                    <span className="text-[10px] tracking-tight font-black uppercase">TutorNxt Student ID</span>
+                                    <i className="fa-solid fa-graduation-cap text-brandBlue text-sm"></i>
+                                    <span className="text-[10px] tracking-tight font-black uppercase text-brandBlue">TutorNxt Student ID</span>
                                 </div>
-                                <span className="text-[8px] tracking-wider text-slate-300 font-extrabold uppercase">Front</span>
+                                <span className="text-[8px] tracking-wider text-slate-400 font-extrabold uppercase">Front</span>
                             </div>
 
                             {/* Card Body */}
                             <div className="flex gap-2 items-start py-1.5 flex-1 min-w-0">
                                 {/* Student Image */}
-                                <div className="w-14 h-16 bg-slate-800 border border-white/20 rounded-lg overflow-hidden shrink-0 flex items-center justify-center relative">
+                                <div className="w-14 h-16 bg-slate-50 border border-slate-200 rounded-lg overflow-hidden shrink-0 flex items-center justify-center relative">
                                     {avatar ? (
                                         <img src={avatar} className="w-full h-full object-cover" alt="Student"/>
                                     ) : (
-                                        <span className="text-xl font-bold text-white">{student.fullName.charAt(0)}</span>
+                                        <span className="text-xl font-bold text-slate-400">{student.fullName.charAt(0)}</span>
                                     )}
                                 </div>
 
                                 {/* Information Matrix */}
-                                <div className="flex-1 min-w-0 space-y-0.5 text-[8px]">
-                                    <h4 className="text-brandSky font-black text-xs leading-none mb-1 truncate uppercase">{student.fullName}</h4>
-                                    <p className="text-white/95 truncate"><strong>Roll:</strong> {student.rollNumber}</p>
-                                    <p className="text-white/95 truncate"><strong>Class:</strong> {student.className}</p>
-                                    <p className="text-white/95 truncate"><strong>Father:</strong> {student.fatherName}</p>
-                                    <p className="text-white/95 truncate"><strong>Mob:</strong> {student.mobileNo}</p>
-                                    <p className="text-white/95 truncate"><strong>Adm Date:</strong> {student.admissionDate}</p>
+                                <div className="flex-1 min-w-0 space-y-0.5 text-[8px] text-slate-600">
+                                    <h4 className="text-brandBlue font-black text-xs leading-none mb-1 truncate uppercase">{student.fullName}</h4>
+                                    <p className="truncate"><strong>Roll No:</strong> {student.rollNumber}</p>
+                                    <p className="truncate"><strong>Class:</strong> {student.className}</p>
+                                    <p className="truncate"><strong>Adm Date:</strong> {student.admissionDate}</p>
+                                    <p className="truncate"><strong>School:</strong> {student.schoolOrCollege}</p>
                                 </div>
                             </div>
 
-                            {/* Card Footer Address */}
-                            <div className="border-t border-white/10 pt-1 flex justify-between items-center text-[7px] text-slate-300">
-                                <p className="truncate flex-1 pr-2"><strong>Add:</strong> {student.address}</p>
-                                <span className="font-mono text-slate-400 font-bold shrink-0">AUTHENTIC</span>
+                            <div className="border-t border-slate-200 pt-1 flex justify-between items-center text-[7px] text-slate-400">
+                                <span className="font-mono font-bold">SECURE COMPLIANCE CARD</span>
+                                <span className="font-mono font-bold shrink-0">VERIFIED</span>
                             </div>
                         </div>
 
                         {/* Back Card */}
-                        <div className="w-[3.375in] h-[2.125in] bg-gradient-to-br from-indigo-950 to-slate-950 text-white rounded-xl p-3 flex flex-col justify-between border border-slate-300 relative text-left shadow-md shrink-0 overflow-hidden" style={{ pageBreakInside: 'avoid' }}>
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full pointer-events-none"></div>
+                        <div className="w-[3.375in] h-[2.125in] bg-gradient-to-br from-slate-50 to-slate-100 text-slate-800 rounded-xl p-3 flex flex-col justify-between border border-slate-300 relative text-left shadow-sm shrink-0 overflow-hidden" style={{ pageBreakInside: 'avoid' }}>
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-slate-900/5 rounded-full pointer-events-none"></div>
                             
                             {/* Card Header */}
-                            <div className="flex justify-between items-center border-b border-white/10 pb-1.5">
+                            <div className="flex justify-between items-center border-b border-slate-200 pb-1.5">
                                 <div className="flex items-center gap-1">
                                     <i className="fa-solid fa-graduation-cap text-slate-400 text-sm"></i>
-                                    <span className="text-[10px] tracking-tight font-black uppercase text-slate-300">TutorNxt System</span>
+                                    <span className="text-[10px] tracking-tight font-black uppercase text-slate-600">TutorNxt Security</span>
                                 </div>
                                 <span className="text-[8px] tracking-wider text-slate-400 font-extrabold uppercase">Back</span>
                             </div>
 
                             {/* Card Body */}
-                            <div className="py-2 flex-1 space-y-1.5 text-[8px] text-slate-300">
-                                <div className="bg-white/5 p-1.5 rounded-lg border border-white/5 space-y-1">
-                                    <p><strong className="text-white font-bold">Father's Name:</strong> {student.fatherName}</p>
-                                    <p><strong className="text-white">Emergency Mobile:</strong> {student.mobileNo}</p>
-                                    <p className="line-clamp-2"><strong className="text-white">Complete Address:</strong> {student.address}</p>
+                            <div className="py-2 flex-1 space-y-1.5 text-[8px] text-slate-600">
+                                <div className="bg-white/80 p-1.5 rounded-lg border border-slate-200/40 space-y-1">
+                                    <p><strong className="text-slate-800 font-bold">Father's Name:</strong> {student.fatherName}</p>
+                                    <p><strong className="text-slate-800 font-bold">Emergency Phone No:</strong> {student.mobileNo}</p>
+                                    <p className="line-clamp-2"><strong className="text-slate-800 font-bold">Complete Address:</strong> {student.address}</p>
                                 </div>
-                                <p className="text-[7px] text-slate-500 leading-tight">This card is property of TutorNxt Technologies. If found, please return to the nearest collection desk or contact admin at +91 97491 60796.</p>
+                                <p className="text-[7px] text-slate-400 leading-tight">This card is property of TutorNxt. If found, please return to the nearest collection desk or contact admin at +91 97491 60796.</p>
                             </div>
 
                             {/* Card Footer Stamp/Sign Layout */}
-                            <div className="pt-2 border-t border-white/5 flex items-center justify-between">
-                                <div className="text-[8px] text-slate-500 font-mono">CODE: {student.rollNumber}-ID</div>
+                            <div className="pt-2 border-t border-slate-200 flex items-center justify-between">
+                                <div className="text-[8px] text-slate-400 font-mono">ID-{student.rollNumber}</div>
                                 <div className="text-right">
-                                    <span className="text-[7px] text-brandSky italic block font-serif">Amrit Kumar</span>
-                                    <span className="text-[6px] text-slate-500 uppercase font-black block tracking-tighter">Authorized Signature</span>
+                                    <span className="text-[7px] text-brandBlue italic block font-serif">Amrit Kumar</span>
+                                    <span className="text-[6px] text-slate-400 uppercase font-black block tracking-tighter">Authorized Signature</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Live Toast Notifications */}
-                    {showSuccessToast && (
-                        <div className="fixed top-6 right-6 z-50 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 animate-slide-up">
-                            <div className="w-8 h-8 bg-brandGreen/20 text-brandGreen rounded-full flex items-center justify-center">
-                                <i className="fa-solid fa-circle-check text-base"></i>
-                            </div>
-                            <div>
-                                <p className="text-xs font-bold text-slate-300">Notification</p>
-                                <p className="text-sm font-semibold text-white">{toastMessage}</p>
-                            </div>
-                        </div>
-                    )}
-
                     {/* Dashboard Header Nav */}
                     <nav className="bg-white border-b border-slate-100 py-5 px-4 sm:px-6 lg:px-8">
                         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-4 justify-between items-center">
                             
-                            {/* Left: Back Button & Logo */}
+                           
                             <div className="flex items-center gap-4">
                                 <a href="index.html" className="flex items-center gap-2 text-brandBlue font-bold hover:text-brandBlue-dark transition-all text-sm group bg-slate-50 hover:bg-slate-100 px-4 py-2.5 rounded-2xl border border-slate-200/60 shadow-sm shrink-0">
                                     <i className="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
@@ -757,53 +757,52 @@
                                         <div className={`relative w-full h-full duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                                             
                                             {/* FRONT SIDE */}
-                                            <div className="absolute inset-0 w-full h-full backface-hidden bg-gradient-to-br from-brandBlue via-brandBlue-dark to-indigo-950 text-white rounded-2xl p-4 flex flex-col justify-between border border-white/20 shadow-lg text-left overflow-hidden">
-                                                <div className="absolute top-0 right-0 w-16 h-16 bg-white/5 rounded-full pointer-events-none"></div>
+                                            <div className="absolute inset-0 w-full h-full backface-hidden bg-gradient-to-br from-white to-slate-50 text-slate-800 rounded-2xl p-4 flex flex-col justify-between border border-slate-200/80 shadow-lg text-left overflow-hidden">
+                                                <div className="absolute top-0 right-0 w-16 h-16 bg-blue-500/5 rounded-full pointer-events-none"></div>
                                                 
                                                 {/* Header */}
-                                                <div className="flex justify-between items-center border-b border-white/20 pb-1.5">
+                                                <div className="flex justify-between items-center border-b border-slate-200/80 pb-1.5">
                                                     <div className="flex items-center gap-1.5">
-                                                        <i className="fa-solid fa-graduation-cap text-brandSky text-base"></i>
-                                                        <span className="text-[10px] tracking-wider font-black uppercase">TutorNxt Student ID</span>
+                                                        <i className="fa-solid fa-graduation-cap text-brandBlue text-base"></i>
+                                                        <span className="text-[10px] tracking-wider font-black uppercase text-brandBlue">TutorNxt Student ID</span>
                                                     </div>
-                                                    <span className="text-[8px] tracking-wider text-slate-300 font-extrabold uppercase">Front</span>
+                                                    <span className="text-[8px] tracking-wider text-slate-400 font-extrabold uppercase">Front</span>
                                                 </div>
 
                                                 {/* Details + Image */}
                                                 <div className="flex gap-3 items-start py-1.5 flex-1 min-w-0">
                                                     {/* Photo in corner */}
-                                                    <div className="w-16 h-20 bg-slate-800 border border-white/20 rounded-lg overflow-hidden shrink-0 flex items-center justify-center relative">
+                                                    <div className="w-16 h-20 bg-slate-100 border border-slate-200 rounded-lg overflow-hidden shrink-0 flex items-center justify-center relative">
                                                         {avatar ? (
                                                             <img src={avatar} className="w-full h-full object-cover" alt="Student"/>
                                                         ) : (
-                                                            <span className="text-2xl font-black text-white">{student.fullName.charAt(0)}</span>
+                                                            <span className="text-2xl font-black text-slate-400">{student.fullName.charAt(0)}</span>
                                                         )}
                                                     </div>
 
                                                     {/* Information layout */}
-                                                    <div className="flex-1 min-w-0 space-y-0.5 text-[9px]">
-                                                        <h4 className="text-brandSky font-black text-sm leading-none mb-1.5 truncate uppercase">{student.fullName}</h4>
-                                                        <p className="text-white/90 truncate"><strong>Roll No:</strong> {student.rollNumber}</p>
-                                                        <p className="text-white/90 truncate"><strong>Class:</strong> {student.className}</p>
-                                                        <p className="text-white/90 truncate"><strong>Father:</strong> {student.fatherName}</p>
-                                                        <p className="text-white/90 truncate"><strong>Mobile:</strong> {student.mobileNo}</p>
-                                                        <p className="text-white/90 truncate"><strong>Adm Date:</strong> {student.admissionDate}</p>
+                                                    <div className="flex-1 min-w-0 space-y-0.5 text-[9px] text-slate-600">
+                                                        <h4 className="text-brandBlue font-black text-sm leading-none mb-1.5 truncate uppercase">{student.fullName}</h4>
+                                                        <p className="truncate"><strong>Roll No:</strong> {student.rollNumber}</p>
+                                                        <p className="truncate"><strong>Class:</strong> {student.className}</p>
+                                                        <p className="truncate"><strong>Adm Date:</strong> {student.admissionDate}</p>
+                                                        <p className="truncate text-slate-500 font-medium"><strong>School:</strong> {student.schoolOrCollege}</p>
                                                     </div>
                                                 </div>
 
                                                 {/* Bottom Footer Address */}
-                                                <div className="border-t border-white/10 pt-1.5 flex justify-between items-center text-[7.5px] text-slate-300">
-                                                    <p className="truncate flex-1 pr-3"><strong>Address:</strong> {student.address}</p>
-                                                    <span className="font-mono text-slate-400 font-bold shrink-0">SECURE ID</span>
+                                                <div className="border-t border-slate-200/85 pt-1.5 flex justify-between items-center text-[7.5px] text-slate-400 font-medium">
+                                                    <span className="font-mono font-bold shrink-0">SECURE STUDENT COMPLIANCE</span>
+                                                    <span className="font-mono text-slate-500 font-bold shrink-0">VERIFIED</span>
                                                 </div>
                                             </div>
 
                                             {/* BACK SIDE */}
-                                            <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-gradient-to-br from-indigo-950 to-slate-950 text-white rounded-2xl p-4 flex flex-col justify-between border border-white/20 shadow-lg text-left overflow-hidden">
-                                                <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full pointer-events-none"></div>
+                                            <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-gradient-to-br from-slate-50 to-slate-100 text-slate-800 rounded-2xl p-4 flex flex-col justify-between border border-slate-200/80 shadow-lg text-left overflow-hidden">
+                                                <div className="absolute top-0 right-0 w-20 h-20 bg-slate-900/5 rounded-full pointer-events-none"></div>
                                                 
                                                 {/* Header */}
-                                                <div className="flex justify-between items-center border-b border-white/10 pb-1.5">
+                                                <div className="flex justify-between items-center border-b border-slate-200 pb-1.5">
                                                     <div className="flex items-center gap-1.5">
                                                         <i className="fa-solid fa-graduation-cap text-slate-400 text-base"></i>
                                                         <span className="text-[10px] tracking-wider font-black uppercase text-slate-300">TutorNxt Security</span>
@@ -812,21 +811,21 @@
                                                 </div>
 
                                                 {/* Backside Information */}
-                                                <div className="py-2.5 flex-1 space-y-2 text-[9px] text-slate-300">
-                                                    <div className="bg-white/5 p-2 rounded-xl border border-white/5 space-y-1">
-                                                        <p><strong className="text-white font-bold">Father's Name:</strong> {student.fatherName}</p>
-                                                        <p><strong className="text-white font-bold">Emergency Phone No:</strong> {student.mobileNo}</p>
-                                                        <p className="line-clamp-2"><strong className="text-white font-bold">Complete Address:</strong> {student.address}</p>
+                                                <div className="py-2.5 flex-1 space-y-2 text-[9px] text-slate-600">
+                                                    <div className="bg-white/80 p-2 rounded-xl border border-slate-200/40 space-y-1">
+                                                        <p><strong className="text-slate-800 font-bold">Father's Name:</strong> {student.fatherName}</p>
+                                                        <p><strong className="text-slate-800 font-bold">Emergency Phone No:</strong> {student.mobileNo}</p>
+                                                        <p className="line-clamp-2"><strong className="text-slate-800 font-bold">Complete Address:</strong> {student.address}</p>
                                                     </div>
-                                                    <p className="text-[7.5px] text-slate-500 leading-tight">This card is property of TutorNxt. If found, please return to the nearest collection desk or contact admin at +91 97491 60796.</p>
+                                                    <p className="text-[7.5px] text-slate-400 leading-tight">This card is property of TutorNxt. If found, please return to the nearest collection desk or contact admin at +91 97491 60796.</p>
                                                 </div>
 
                                                 {/* Signature Block */}
-                                                <div className="pt-2 border-t border-white/10 flex items-center justify-between">
-                                                    <div className="text-[8px] text-slate-500 font-mono">ID-{student.rollNumber}</div>
+                                                <div className="pt-2 border-t border-slate-200 flex items-center justify-between">
+                                                    <div className="text-[8px] text-slate-400 font-mono">ID-{student.rollNumber}</div>
                                                     <div className="text-right">
-                                                        <span className="text-[8.5px] text-brandSky italic block font-serif leading-none">TutorNXT</span>
-                                                        <span className="text-[6.5px] text-slate-500 uppercase font-black block tracking-tighter mt-1">Authorized Signature</span>
+                                                        <span className="text-[8.5px] text-brandBlue italic block font-serif leading-none">TutorNxt</span>
+                                                        <span className="text-[6.5px] text-slate-400 uppercase font-black block tracking-tighter mt-1">Authorized Signature</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -850,8 +849,8 @@
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="space-y-1">
                                             <label className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Fees Ledger</label>
-                                            <span className={`inline-flex items-center gap-1.5 text-[11px] font-extrabold px-3 py-1 rounded-full mt-1 ${student.feeStatus === 'Paid' ? 'bg-emerald-50 text-brandGreen border border-brandGreen/20' : 'bg-amber-50 text-brandGold border border-brandGold/20'}`}>
-                                                <span className={`w-1.5 h-1.5 rounded-full ${student.feeStatus === 'Paid' ? 'bg-brandGreen' : 'bg-brandGold'}`}></span>
+                                            <span className={`inline-flex items-center gap-1.5 text-[11px] font-extrabold px-3 py-1 rounded-full mt-1 ${student.feeStatus === 'Paid' ? 'bg-emerald-50 text-brandGreen border border-brandGreen/20' : 'bg-rose-50 text-rose-600 border border-rose-200'}`}>
+                                                <span className={`w-1.5 h-1.5 rounded-full ${student.feeStatus === 'Paid' ? 'bg-brandGreen' : 'bg-rose-500'}`}></span>
                                                 {student.feeStatus}
                                             </span>
                                         </div>
@@ -864,7 +863,7 @@
 
                             </div>
 
-                            {/* Right: Assigned Teacher Details with Dynamic Rating System (col-span-7) */}
+                            {/* Right: Assigned Teacher Card & Rate Experience Module (col-span-7) */}
                             <div className="lg:col-span-7 space-y-8">
                                 
                                 {/* Teacher Card details (Dynamically syncing!) */}
@@ -1047,6 +1046,37 @@
 
                         </div>
                     </main>
+
+                    {/* Modern Global Institutional Footer Section */}
+                    <footer className="py-12 border-t border-slate-200/60 px-4 sm:px-6 lg:px-8 bg-white text-center w-full mt-16">
+                        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center">
+                            {/* Navigation Links Column */}
+                            <div className="flex flex-wrap justify-center gap-6 text-xs font-bold text-slate-500">
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSccWANhdT8BrBPtrMvvCeka-WUK3xlS9hzCSZCD8Fhx-Os4PA/viewform" target="_blank" className="hover:text-brandBlue transition-colors">Join as Teacher</a>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSd939Yihqfr7ZLSLSDYfKYuIIkXyCNWiLTrtltaJVpyitMq1w/viewform" target="_blank" className="hover:text-brandBlue transition-colors">Register as Student</a>
+                                <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-brandBlue hover:underline focus:outline-none">Student Dashboard</button>
+                            </div>
+                            
+                            {/* Center Tagline Column */}
+                            <div className="text-slate-400 italic text-sm">
+                                <i className="fa-solid fa-heart text-rose-500 mr-1"></i> "Empower Minds. Shape Futures."
+                            </div>
+                            
+                            {/* Right Social Hub Media Connections */}
+                            <div className="flex justify-center gap-4">
+                                <a href="https://facebook.com" target="_blank" className="w-9 h-9 rounded-xl bg-slate-50 border border-slate-200 hover:border-brandBlue hover:bg-blue-50 text-slate-500 hover:text-brandBlue flex items-center justify-center text-sm transition-all hover:-translate-y-0.5" aria-label="Facebook">
+                                    <i className="fa-brands fa-facebook"></i>
+                                </a>
+                                <a href="https://instagram.com" target="_blank" className="w-9 h-9 rounded-xl bg-slate-50 border border-slate-200 hover:border-brandBlue hover:bg-pink-50 text-slate-500 hover:text-rose-500 flex items-center justify-center text-sm transition-all hover:-translate-y-0.5" aria-label="Instagram">
+                                    <i className="fa-brands fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div className="h-[1px] w-24 bg-slate-200 mx-auto my-6"></div>
+                        <p className="text-xs text-slate-400">&copy; 2026 TutorNxt Technologies. All rights reserved. | Managed by Amrit Kumar</p>
+                    </footer>
+
                 </div>
             );
         }
