@@ -150,7 +150,7 @@
                 nextDueDate: ""
             },
 
-             {
+            {
                 rollNumber: "TNXT2602",
                 password: "Samarthya@123SC",
                 fullName: "Samarthya Choudhary",
@@ -163,7 +163,23 @@
                 assignedTeacher: "Mr Amrit Kumar", 
                 feeStatus: "Paid",
                 nextDueDate: ""
+            },
+
+            {
+                rollNumber: "TNXT2603",
+                password: "Swastika@123SS",
+                fullName: "Swastika Sonker ",
+                schoolOrCollege: "K.V Jhapetapur, Kharagpur",
+                className: "Class 10",
+                fatherName: "Mr. Munindra Prasad ",
+                mobileNo: "+91 7908490766",
+                address: "Sonamukhi Jholi, Kharagpur, West Bengal, India",
+                admissionDate: "July 8, 2026",
+                assignedTeacher: "Mr Shubham Kumar", 
+                feeStatus: "Pending",
+                nextDueDate: "July 11, 2026"
             }
+
         ];
         // =========================================================================
 
@@ -411,12 +427,14 @@
                 // Load custom uploaded photo from localStorage if exists, else fallback to local preloaded image files
                 const savedAvatar = localStorage.getItem(`tnxt_avatar_${profile.rollNumber}`);
                 
-                // Set fallback picture name based on roll numbers (e.g. TNXT2601 -> deepto.jpeg, TNXT2602 -> samarthya.jpeg)
+                // Set fallback picture name based on roll numbers 
                 let localImageFile = "";
                 if (profile.rollNumber.toUpperCase() === "TNXT2601") {
                     localImageFile = "deepto.jpeg";
                 } else if (profile.rollNumber.toUpperCase() === "TNXT2602") {
                     localImageFile = "samarthya.jpeg";
+                } else if (profile.rollNumber.toUpperCase() === "TNXT2603") {
+                    localImageFile = "swastika.jpeg";
                 }
 
                 setAvatar(savedAvatar || localImageFile || '');
