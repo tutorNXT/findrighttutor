@@ -135,11 +135,11 @@
         // You can add, edit, or delete student profiles below.
         // =========================================================================
         const TUTORNXT_STUDENTS = [
-          {
+            {
                 rollNumber: "TNXT2601",
                 password: "DeeptoBiswas@123DB",
                 fullName: "Deepto Biswas",
-                schoolOrCollege: "Kendriya Vidyalaya, Railway Colony, Kharagpur ",
+                schoolOrCollege: "Kendriya Vidyalaya, Railway Colony, Kharagpur",
                 className: "Class 3",
                 fatherName: "Mr. Dibakar Biswas",
                 mobileNo: "+91 9333768423",
@@ -147,28 +147,30 @@
                 admissionDate: "July 5, 2026",
                 assignedTeacher: "Mr Amrit Kumar", 
                 feeStatus: "Paid",
-                nextDueDate: ""
+                nextDueDate: "",
+                feeAmount: "₹1,200",
+                paymentQR: "qr.png"
             },
-
             {
                 rollNumber: "TNXT2602",
                 password: "Samarthya@123SC",
-                fullName: "Samarthya Choudhary",
+                fullName: "Samarthya Choudhury",
                 schoolOrCollege: "BNR School, Kharagpur",
                 className: "Class KG",
-                fatherName: "Mr. Goutam Choudhary",
+                fatherName: "Mr. Goutam Choudhury",
                 mobileNo: "+91 9046916132",
                 address: "New Traffic, Kharagpur, West Bengal, India",
                 admissionDate: "July 5, 2026",
                 assignedTeacher: "Mr Amrit Kumar", 
                 feeStatus: "Paid",
-                nextDueDate: ""
+                nextDueDate: "",
+                feeAmount: "₹800",
+                paymentQR: "qr.png"
             },
-
             {
                 rollNumber: "TNXT2603",
                 password: "Swastika@123SS",
-                fullName: "Swastika Sonker ",
+                fullName: "Swastika Sonker",
                 schoolOrCollege: "K.V Jhapetapur, Kharagpur",
                 className: "Class 10",
                 fatherName: "Mr. Munindra Prasad ",
@@ -176,10 +178,11 @@
                 address: "Sonamukhi Jholi, Kharagpur, West Bengal, India",
                 admissionDate: "July 8, 2026",
                 assignedTeacher: "Mr Shubham Kumar", 
-                feeStatus: "Pending",
-                nextDueDate: "July 11, 2026"
+                feeStatus: "Paid",
+                nextDueDate: "",
+                feeAmount: "₹1500",
+                paymentQR: "qr.png"
             }
-
         ];
         // =========================================================================
 
@@ -198,10 +201,10 @@
                 id: 2,
                 name: "Ms M.Meena",
                 subject: "Hindi",
-                role: "Can Teach all Subjects Upto 6th Grade and Hindi Upto 12th Grade",
+                role: "Hindi Teacher Upto 12th Grade",
                 exp: "20+ Years",
                 rating: "4.8 (50+ Reviews)",
-                qualifications: "Completed Higher Secondary Education",
+                qualifications: "12th Pass",
                 img: "mmeena.jpeg"
             },
             {
@@ -284,36 +287,6 @@
                 qualifications: "M.Sc. in Mathematics, B.Ed. from Dr. Hari Singh Gour University, Sagar",
                 img: "satyam.jpeg",
                 region: "Sagar, Madhya Pradesh"
-            },
-            {
-                id: 11,
-                name: "Mr Sourav Kumar Mahato",
-                subject: "Social Science, Maths, Accounting, Economics and Business studies",
-                role: "Social Science, Maths upto 10th Grade and Accounting, Economics and Business studies upto 12th Grade",
-                exp: "2+ Years",
-                rating: "4.6 (10+ Reviews)",
-                qualifications: "Pursuing B.Com Honours in Accounting and Finance",
-                img: "sourav.jpeg",
-            },
-            {
-                id: 12,
-                name: "Mr Anurag Poddar",
-                subject: "All Subjects",
-                role: "Can Teach All Subjects upto 4th Grade",
-                exp: "3+ Months",
-                rating: "4.5 (10+ Reviews)",
-                qualifications: "Completed Secondary Education",
-                img: "anurag.jpeg",
-            },
-            {
-                id: 13,
-                name: "Ms Disha De",
-                subject: "All Subjects",
-                role: "Can Teach All Subjects upto 6th Grade",
-                exp: "3+ Years",
-                rating: "4.7 (15+ Reviews)",
-                qualifications: "Pursuing Bachelor's Degree in Psychology",
-                img: "disha.jpeg",
             }
         ];
 
@@ -329,6 +302,7 @@
             
             const [rollNumber, setRollNumber] = React.useState('');
             const [password, setPassword] = React.useState('');
+            const [showPassword, setShowPassword] = React.useState(false);
             const [errorMessage, setErrorMessage] = React.useState('');
             const [avatar, setAvatar] = React.useState('');
 
@@ -451,12 +425,11 @@
                 let localImageFile = "";
                 if (profile.rollNumber.toUpperCase() === "TNXT2601") {
                     localImageFile = "deepto.jpeg";
-                } else if (profile.rollNumber.toUpperCase() === "TNXT2602") {
+                }else if (profile.rollNumber.toUpperCase() === "TNXT2602") {
                     localImageFile = "samarthya.jpeg";
-                } else if (profile.rollNumber.toUpperCase() === "TNXT2603") {
+                }else if (profile.rollNumber.toUpperCase() === "TNXT2603") {
                     localImageFile = "swastika.jpeg";
                 }
-
                 setAvatar(savedAvatar || localImageFile || '');
                 
                 // Load saved custom rating if exists
@@ -535,20 +508,32 @@
             };
 
             const shareReferralCode = () => {
-                const textToCopy = `Hey! Join TutorNxt using my referral code *${student.rollNumber}* to get a flat ₹50 discount on your first month's fees! Plus, I get a ₹100 discount next month. Win-win! Sign up now at index.html`;
+                const textToShare = `Inviting you to TutorNxt! Join using my referral code *${student.rollNumber}* to get a ₹50 discount on your next month's tuition fees payment. Register here: https://docs.google.com/forms/d/e/1FAIpQLSd939Yihqfr7ZLSLSDYfKYuIIkXyCNWiLTrtltaJVpyitMq1w/viewform?usp=dialog`;
                 
-                // Copy with broad support for browser iframe sandboxing
-                const tempTextarea = document.createElement("textarea");
-                tempTextarea.value = textToCopy;
-                document.body.appendChild(tempTextarea);
-                tempTextarea.select();
-                try {
-                    document.execCommand('copy');
-                    triggerToast("Referral link copied to clipboard! Share it to start earning.");
-                } catch (err) {
-                    console.error("Clipboard copy operation blocked.", err);
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Join TutorNxt & Save',
+                        text: textToShare,
+                        url: 'https://docs.google.com/forms/d/e/1FAIpQLSd939Yihqfr7ZLSLSDYfKYuIIkXyCNWiLTrtltaJVpyitMq1w/viewform?usp=dialog'
+                    })
+                    .then(() => triggerToast("Referral link shared successfully!"))
+                    .catch((err) => {
+                        console.warn("Share operation cancelled or blocked", err);
+                    });
+                } else {
+                    // Fallback to Clipboard Copy with broad support for browser iframe sandboxing
+                    const tempTextarea = document.createElement("textarea");
+                    tempTextarea.value = textToShare;
+                    document.body.appendChild(tempTextarea);
+                    tempTextarea.select();
+                    try {
+                        document.execCommand('copy');
+                        triggerToast("Referral details copied! Share them to start earning.");
+                    } catch (err) {
+                        console.error("Clipboard copy operation blocked.", err);
+                    }
+                    document.body.removeChild(tempTextarea);
                 }
-                document.body.removeChild(tempTextarea);
             };
 
             // Handle complaint submission
@@ -614,6 +599,7 @@
                             </a>
                         </div>
 
+                        {}
                         <div className="flex-1 flex flex-col items-center justify-center p-4">
                             <div className="bg-white p-8 max-w-md w-full rounded-[2.5rem] shadow-xl border border-slate-100/80 animate-slide-up">
                                 <div className="text-center space-y-3 mb-8">
@@ -644,14 +630,24 @@
                                     </div>
                                     <div>
                                         <label className="block text-xs uppercase tracking-wider font-bold text-slate-400 mb-2">Password</label>
-                                        <input 
-                                            type="password" 
-                                            required 
-                                            value={password} 
-                                            onChange={(e) => setPassword(e.target.value)} 
-                                            placeholder="••••••••" 
-                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue transition-all text-slate-800"
-                                        />
+                                        <div className="relative">
+                                            <input 
+                                                type={showPassword ? "text" : "password"} 
+                                                required 
+                                                value={password} 
+                                                onChange={(e) => setPassword(e.target.value)} 
+                                                placeholder="••••••••" 
+                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-4 pr-12 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue/20 focus:border-brandBlue transition-all text-slate-800"
+                                            />
+                                            <button 
+                                                type="button"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-brandBlue transition-colors focus:outline-none"
+                                                aria-label={showPassword ? "Hide password" : "Show password"}
+                                            >
+                                                <i className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-base`}></i>
+                                            </button>
+                                        </div>
                                     </div>
                                     <button type="submit" className="w-full py-4 bg-brandBlue hover:bg-brandBlue-dark text-white font-extrabold rounded-2xl tracking-wide transition-all shadow-lg shadow-brandBlue/20 mt-4 active:scale-95 transform">
                                         Verify Credentials &rarr;
@@ -695,7 +691,7 @@
 
                             {/* Card Body */}
                             <div className="flex gap-2 items-start py-1.5 flex-1 min-w-0">
-                                {/* Student Image with fallback validation */}
+                                {/* Student Image */}
                                 <div className="w-14 h-16 bg-slate-50 border border-slate-200 rounded-lg overflow-hidden shrink-0 flex items-center justify-center relative">
                                     {avatar ? (
                                         <img src={avatar} className="w-full h-full object-cover" alt="Student" onError={(e) => { e.target.style.display = "none"; e.target.nextSibling.style.display = "flex"; }}/>
@@ -780,6 +776,7 @@
                     </nav>
 
                    
+                    {}
                     <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8 animate-slide-up">
                         
                         {/* Upper Quick Analytics Rows */}
@@ -1022,7 +1019,8 @@
 
                             </div>
 
-                            {/* Right: Assigned Teacher Details with Dynamic Rating System (col-span-7) */}
+                            {}
+                            {/* Right: Assigned Teacher Details, Payment QR and Founders Help (col-span-7) */}
                             <div className="lg:col-span-7 space-y-8">
                                 
                                 {/* Teacher Card details (Dynamically syncing!) */}
@@ -1124,6 +1122,95 @@
                                         Unable to automatically retrieve assigned mentor details.
                                     </div>
                                 )}
+
+                                {}
+                                {/* Custom Payment QR Section */}
+                                <div className="bg-white border border-slate-100 rounded-[2rem] shadow-xl p-6 md:p-8 space-y-5 text-center">
+                                    <div className="border-b border-slate-100 pb-2">
+                                        <h4 className="text-xs font-black uppercase tracking-widest text-slate-400">Secure Fee Payment Portal</h4>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Tuition Fee</p>
+                                        <p className="text-3xl font-black text-brandBlue">{student.feeAmount || "₹1,500"}</p>
+                                    </div>
+                                    
+                                    <div className="w-48 h-48 mx-auto bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden flex items-center justify-center relative shadow-inner">
+                                        {student.paymentQR ? (
+                                            <img 
+                                                src={student.paymentQR} 
+                                                alt="Payment QR" 
+                                                className="w-full h-full object-contain p-2" 
+                                                onError={(e) => { 
+                                                    e.target.style.display = "none"; 
+                                                    e.target.nextSibling.style.display = "flex"; 
+                                                }}
+                                            />
+                                        ) : null}
+                                        <div className="hidden flex-col items-center justify-center p-4 text-center text-slate-400 text-xs">
+                                            <i className="fa-solid fa-qrcode text-4xl mb-2 text-slate-300"></i>
+                                            <span className="font-semibold">QR Code Image Not Found</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="text-[11px] text-slate-500 bg-slate-50 py-2.5 px-4 rounded-xl inline-block max-w-sm mx-auto border border-slate-100 font-medium">
+                                        <i className="fa-solid fa-circle-info text-brandBlue mr-1"></i> Scan the QR code above via GPay, PhonePe, Paytm or any UPI App.
+                                    </div>
+                                </div>
+
+                                {}
+                                {/* Founders' Direct Helpline Connection */}
+                                <div className="bg-white border border-slate-100 rounded-[2rem] shadow-xl p-6 md:p-8 space-y-4">
+                                    <div className="border-b border-slate-100 pb-2">
+                                        <h4 className="text-xs font-black uppercase tracking-widest text-slate-400">Founders' Direct Helpline Desk</h4>
+                                    </div>
+                                    <p className="text-slate-500 text-xs leading-relaxed">Have a complaint about a tutor, a recommendation, or general feedback? Contact our founders directly.</p>
+                                    
+                                    <div className="grid grid-cols-1 gap-3.5 pt-2">
+                                       
+
+                                        {/* Founder 1: Sahil Sonkar */}
+                                        <div className="flex items-center justify-between p-3.5 bg-slate-50 hover:bg-indigo-50/30 rounded-2xl border border-slate-100 transition-colors">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-full bg-brandGreen/10 flex items-center justify-center text-brandGreen font-bold text-xs">SS</div>
+                                                <div>
+                                                    <p className="text-sm font-extrabold text-slate-900 leading-tight">Sahil Sonkar</p>
+                                                    <p className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Co-Founder & Marketing Lead</p>
+                                                </div>
+                                            </div>
+                                            <a href="tel:+919046659698" className="w-10 h-10 rounded-xl bg-brandGreen/10 text-brandGreen hover:bg-brandGreen hover:text-white flex items-center justify-center transition-all shadow-sm active:scale-90" title="Call Sahil">
+                                                <i className="fa-solid fa-phone text-sm"></i>
+                                            </a>
+                                        </div>
+
+                                        {/* Founder 2: Amrit Kumar */}
+                                        <div className="flex items-center justify-between p-3.5 bg-slate-50 hover:bg-indigo-50/30 rounded-2xl border border-slate-100 transition-colors">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-full bg-brandBlue/10 flex items-center justify-center text-brandBlue font-bold text-xs">AK</div>
+                                                <div>
+                                                    <p className="text-sm font-extrabold text-slate-900 leading-tight">Amrit Kumar</p>
+                                                    <p className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Co-Founder & Tech Lead</p>
+                                                </div>
+                                            </div>
+                                            <a href="tel:+917811968050" className="w-10 h-10 rounded-xl bg-brandBlue/10 text-brandBlue hover:bg-brandBlue hover:text-white flex items-center justify-center transition-all shadow-sm active:scale-90" title="Call Amrit">
+                                                <i className="fa-solid fa-phone text-sm"></i>
+                                            </a>
+                                        </div>
+
+                                         {/* Founder 3: Shaswat Sharma */}
+                                        <div className="flex items-center justify-between p-3.5 bg-slate-50 hover:bg-indigo-50/30 rounded-2xl border border-slate-100 transition-colors">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-full bg-brandBlue/10 flex items-center justify-center text-brandBlue font-bold text-xs">SS</div>
+                                                <div>
+                                                    <p className="text-sm font-extrabold text-slate-900 leading-tight">Shaswat Sharma</p>
+                                                    <p className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Co-Founder</p>
+                                                </div>
+                                            </div>
+                                            <a href="tel:+918653122396" className="w-10 h-10 rounded-xl bg-brandBlue/10 text-brandBlue hover:bg-brandBlue hover:text-white flex items-center justify-center transition-all shadow-sm active:scale-90" title="Call Shaswat">
+                                                <i className="fa-solid fa-phone text-sm"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 {/* Support & Complaint Registration Form */}
                                 <div className="bg-white border border-slate-100 rounded-[2rem] shadow-xl p-6 md:p-8 space-y-5">
