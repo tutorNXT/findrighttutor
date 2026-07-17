@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="logo.png" type="image/png">
+    <link class="brand-favicon" rel="icon" href="logo.png" type="image/png">
     <title>TutorNxt - Premium Personalized Student-Tutor Matching Platform</title>
     <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
@@ -60,6 +60,15 @@
             background: #94a3b8;
         }
         
+        /* Hide scrollbar helper for carousel */
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-none {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
         /* Custom float animation */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
@@ -90,6 +99,14 @@
         /* Lightbox transitions */
         .lightbox-backdrop {
             transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        /* Testimonial wrap override to prevent side clipping on mobile devices */
+        #testimonialCarousel p {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            word-break: normal !important;
         }
     </style>
 </head>
@@ -183,7 +200,7 @@
                             <p class="text-xs font-semibold text-slate-500">Match Success</p>
                         </div>
                         <div>
-                            <p class="text-2xl sm:text-3xl font-extrabold text-slate-900">21 Verified</p>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-slate-900">18 Verified</p>
                             <p class="text-xs font-semibold text-slate-500">Elite Educators</p>
                         </div>
                         <div>
@@ -217,7 +234,7 @@
                                 <img src="logo.png" alt="TutorNxt Logo" class="w-16 h-16 mx-auto object-contain rounded-xl" onerror="this.onerror=null; this.src='logo.jpeg';">
                                 <div>
                                     <h4 class="text-xs font-black text-slate-900">TutorNxt</h4>
-                                    <p class="text-[8px] font-bold text-slate-450 uppercase tracking-widest mt-0.5">CONNECTING STUDENTS & TEACHERS</p>
+                                    <p class="text-[8px] font-bold text-slate-455 uppercase tracking-widest mt-0.5">CONNECTING STUDENTS & TEACHERS</p>
                                 </div>
                             </div>
                         </div>
@@ -575,41 +592,42 @@
                     <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">Grow Your Teaching Career With TutorNxt</h2>
                     <p class="text-slate-600 text-base">Are you an expert educator, a skilled student, or a dedicated private coach? TutorNxt links you directly with verified students matching your schedules, preferred subjects, and physical location.</p>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
-                        <div class="flex gap-3">
+                    <!-- 2x2 responsive card block for mobile vs tablet (optimized from Screenshot 2026-07-18 at 2.22.29 AM.jpg) -->
+                    <div class="grid grid-cols-2 md:grid-cols-2 gap-4 pt-4">
+                        <div class="bg-white border border-slate-200 p-3 sm:p-5 rounded-2xl shadow-sm flex flex-col items-center text-center gap-2">
                             <span class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center shrink-0">
-                                <i class="fa-solid fa-hand-holding-dollar"></i>
+                                <i class="fa-solid fa-hand-holding-dollar text-sm"></i>
                             </span>
                             <div>
-                                <h4 class="font-bold text-sm text-slate-900">Transparent Commissions</h4>
-                                <p class="text-xs text-slate-400 mt-1">A fair and competitive commission structure applied only upon successful matching. No upfront setup or registration fees.</p>
+                                <h4 class="font-extrabold text-xs text-slate-900">Transparent Commissions</h4>
+                                <p class="text-[10px] text-slate-400 mt-1 leading-relaxed hidden sm:block">A fair and competitive structure applied upon successful matching.</p>
                             </div>
                         </div>
-                        <div class="flex gap-3">
+                        <div class="bg-white border border-slate-200 p-3 sm:p-5 rounded-2xl shadow-sm flex flex-col items-center text-center gap-2">
                             <span class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center shrink-0">
-                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                <i class="fa-solid fa-clock-rotate-left text-sm"></i>
                             </span>
                             <div>
-                                <h4 class="font-bold text-sm text-slate-900">Flexible Schedules</h4>
-                                <p class="text-xs text-slate-400 mt-1">Teach online or in-person. Accept bookings only on times slots set by you.</p>
+                                <h4 class="font-extrabold text-xs text-slate-900">Flexible Schedules</h4>
+                                <p class="text-[10px] text-slate-400 mt-1 leading-relaxed hidden sm:block">Teach online or in-person on time slots set by you.</p>
                             </div>
                         </div>
-                        <div class="flex gap-3">
+                        <div class="bg-white border border-slate-200 p-3 sm:p-5 rounded-2xl shadow-sm flex flex-col items-center text-center gap-2">
                             <span class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center shrink-0">
-                                <i class="fa-solid fa-shield-halved"></i>
+                                <i class="fa-solid fa-shield-halved text-sm"></i>
                             </span>
                             <div>
-                                <h4 class="font-bold text-sm text-slate-900">Verified Safeguard</h4>
-                                <p class="text-xs text-slate-400 mt-1">Tutor profiles are certified, backed by trust and verified student reviews.</p>
+                                <h4 class="font-extrabold text-xs text-slate-900">Verified Safeguard</h4>
+                                <p class="text-[10px] text-slate-400 mt-1 leading-relaxed hidden sm:block">Tutor profiles are certified, backed by trust and verified student reviews.</p>
                             </div>
                         </div>
-                        <div class="flex gap-3">
+                        <div class="bg-white border border-slate-200 p-3 sm:p-5 rounded-2xl shadow-sm flex flex-col items-center text-center gap-2">
                             <span class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center shrink-0">
-                                <i class="fa-solid fa-chart-line"></i>
+                                <i class="fa-solid fa-chart-line text-sm"></i>
                             </span>
                             <div>
-                                <h4 class="font-bold text-sm text-slate-900">Continuous Support</h4>
-                                <p class="text-xs text-slate-400 mt-1">Gain analytics reporting, digital class boards, and counselor feedback.</p>
+                                <h4 class="font-extrabold text-xs text-slate-900">Continuous Support</h4>
+                                <p class="text-[10px] text-slate-400 mt-1 leading-relaxed hidden sm:block">Gain analytics reporting and dedicated counselor feedback.</p>
                             </div>
                         </div>
                     </div>
@@ -622,7 +640,7 @@
     <!-- Live Reservation Scheduler Section -->
     <section id="scheduler" class="py-16 md:py-24 bg-white border-t border-slate-100">
         <div class="max-w-4xl mx-auto px-4 sm:px-6">
-            <div class="bg-gradient-to-tr from-brand-600 to-accent-600 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
+            <div class="bg-gradient-to-tr from-brand-600 to-accent-600 rounded-3xl p-5 sm:p-12 text-white shadow-xl relative overflow-hidden">
                 <div class="absolute -top-12 -right-12 w-48 h-48 bg-white/10 rounded-full blur-xl"></div>
                 <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-black/10 rounded-full blur-xl"></div>
 
@@ -633,11 +651,11 @@
                         <p class="text-xs text-white/80">Choose your subject preference and choose a calendar day. Our specialized counseling team will verify details and reach out within 2 hours over WhatsApp/Call.</p>
                     </div>
 
-                    <!-- Scheduler Form Widget -->
-                    <div class="lg:col-span-6 bg-white rounded-2xl p-6 text-slate-800 shadow-lg space-y-4 text-xs font-semibold">
+                    <!-- Scheduler Form Widget (Fixing overlap from Screenshot 2026-07-18 at 2.18.53 AM.jpg) -->
+                    <div class="lg:col-span-6 bg-white rounded-2xl p-4 sm:p-6 text-slate-800 shadow-lg space-y-4 text-xs font-semibold">
                         <form id="schedulerForm" onsubmit="event.preventDefault(); handleSchedulerBooking();">
                             <div class="space-y-3">
-                                <div class="grid grid-cols-2 gap-2">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <div>
                                         <label class="block font-bold mb-1 text-slate-500">Student Name</label>
                                         <input type="text" id="schedName" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Priyan Sen">
@@ -647,7 +665,7 @@
                                         <input type="tel" id="schedPhone" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. +91 98765 43210">
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <div>
                                         <label class="block font-bold mb-1 text-slate-500">Class Subject</label>
                                         <input type="text" id="schedSubject" list="subjectSuggestions" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Physics / Calculus">
@@ -667,7 +685,7 @@
                                         <input type="date" id="schedDate" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500">
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <div>
                                         <label class="block font-bold mb-1 text-slate-500">Method of Learning</label>
                                         <select id="schedMode" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500">
@@ -691,7 +709,7 @@
                                     <input type="text" id="schedAddress" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Sector-2, Kharagpur, near post office">
                                 </div>
                             </div>
-                            <button type="submit" class="w-full py-4 bg-brand-600 hover:bg-brand-700 text-white text-xs font-extrabold rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 font-sans">
+                            <button type="submit" class="w-full py-4 mt-3 bg-brand-600 hover:bg-brand-700 text-white text-xs font-extrabold rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 font-sans">
                                 Confirm Demo Booking <i class="fa-solid fa-paper-plane text-[10px]"></i>
                             </button>
                         </form>
@@ -702,8 +720,8 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-16 md:py-24 bg-slate-50/50">
+    <!-- Testimonials Section with Mobile Auto-Scrolling Carousel -->
+    <section class="py-16 md:py-24 bg-slate-50/50 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center space-y-4 mb-16">
                 <span class="text-xs font-bold text-brand-600 tracking-widest uppercase">Success Stories</span>
@@ -711,37 +729,60 @@
                 <p class="text-sm text-slate-500 max-w-lg mx-auto">Real success feedback from local families and verified instructors currently active in our ecosystem.</p>
             </div>
 
-            <!-- Testimonial Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-4 flex flex-col justify-between">
-                    <p class="text-xs leading-relaxed text-slate-605">"TutorNxt helped us match with an excellent physics tutor in Kharagpur for my Class 12 son. The trial booking system was seamless, and we received rapid updates on WhatsApp!"</p>
-                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
-                        <img class="w-9 h-9 rounded-full object-cover" src="https://placehold.co/100x100/004aad/ffffff?text=A" alt="Avatar">
-                        <div>
-                            <h4 class="text-xs font-bold text-slate-955">Ananya Ghosal</h4>
-                            <p class="text-[10px] text-slate-400">Parent, Kharagpur</p>
+            <!-- Carousel & Grid Wrapper (Fixing text wrap from Screenshot 2026-07-18 at 2.35.22 AM.jpg) -->
+            <div class="relative max-w-lg md:max-w-none mx-auto overflow-hidden">
+                <!-- Inner flexible wrapper that translates mathematically on mobile to prevent clipping -->
+                <div id="testimonialCarousel" class="flex transition-transform duration-500 ease-in-out md:grid md:grid-cols-3 gap-y-6 md:gap-6 w-full">
+                    
+                    <!-- Card 1 -->
+                    <div class="w-full shrink-0 md:w-auto md:shrink-1 px-4 md:px-0 flex flex-col min-w-0">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-4 flex flex-col justify-between h-full min-h-[220px] min-w-0">
+                            <p class="text-xs leading-relaxed text-slate-600 break-words whitespace-normal w-full block">"TutorNxt helped us match with an excellent physics tutor in Kharagpur for my Class 12 son. The trial booking system was seamless, and we received rapid updates on WhatsApp!"</p>
+                            <div class="flex items-center gap-3 pt-4 border-t border-slate-100 mt-auto min-w-0">
+                                <img class="w-9 h-9 rounded-full object-cover shrink-0" src="https://placehold.co/100x100/004aad/ffffff?text=A" alt="Avatar">
+                                <div class="min-w-0">
+                                    <h4 class="text-xs font-bold text-slate-900 truncate">Ananya Ghosal</h4>
+                                    <p class="text-[10px] text-slate-400 font-medium truncate">Parent, Kharagpur</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Card 2 -->
+                    <div class="w-full shrink-0 md:w-auto md:shrink-1 px-4 md:px-0 flex flex-col min-w-0">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-4 flex flex-col justify-between h-full min-h-[220px] min-w-0">
+                            <p class="text-xs leading-relaxed text-slate-600 break-words whitespace-normal w-full block">"TutorNxt has helped me expand my teaching reach and connect with dedicated, motivated students. The platform has made it easier to grow my tutoring journey while finding the right students to teach."</p>
+                            <div class="flex items-center gap-3 pt-4 border-t border-slate-100 mt-auto min-w-0">
+                                <img class="w-9 h-9 rounded-full object-cover shrink-0" src="https://placehold.co/100x100/00c2ff/ffffff?text=M" alt="Avatar">
+                                <div class="min-w-0">
+                                    <h4 class="text-xs font-bold text-slate-900 truncate">Prof. Milan Dev</h4>
+                                    <p class="text-[10px] text-slate-400 font-medium truncate">Mathematics Tutor (7+ Yrs Exp)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="w-full shrink-0 md:w-auto md:shrink-1 px-4 md:px-0 flex flex-col min-w-0">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-4 flex flex-col justify-between h-full min-h-[220px] min-w-0">
+                            <p class="text-xs leading-relaxed text-slate-600 break-words whitespace-normal w-full block">"The interactive dashboard features are fantastic. The weekly insights and matching algorithm connected me to a coding tutor who really customized the class to match my tempo."</p>
+                            <div class="flex items-center gap-3 pt-4 border-t border-slate-100 mt-auto min-w-0">
+                                <img class="w-9 h-9 rounded-full object-cover shrink-0" src="https://placehold.co/100x100/0f172a/ffffff?text=S" alt="Avatar">
+                                <div class="min-w-0">
+                                    <h4 class="text-xs font-bold text-slate-900 truncate">Siddharth K.</h4>
+                                    <p class="text-[10px] text-slate-400 font-medium truncate">Class 10 Student</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-4 flex flex-col justify-between">
-                    <p class="text-xs leading-relaxed text-slate-605">"TutorNxt has helped me expand my teaching reach and connect with dedicated, motivated students. The platform has made it easier to grow my tutoring journey while finding the right students to teach."</p>
-                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
-                        <img class="w-9 h-9 rounded-full object-cover" src="https://placehold.co/100x100/00c2ff/ffffff?text=M" alt="Avatar">
-                        <div>
-                            <h4 class="text-xs font-bold text-slate-955">Prof. Milan Dev</h4>
-                            <p class="text-[10px] text-slate-400">Mathematics Tutor (7+ Yrs Exp)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-4 flex flex-col justify-between">
-                    <p class="text-xs leading-relaxed text-slate-605">"The interactive dashboard features are fantastic. The weekly insights and matching algorithm connected me to a coding tutor who really customized the class to match my tempo."</p>
-                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
-                        <img class="w-9 h-9 rounded-full object-cover" src="https://placehold.co/100x100/0f172a/ffffff?text=S" alt="Avatar">
-                        <div>
-                            <h4 class="text-xs font-bold text-slate-955">Siddharth K.</h4>
-                            <p class="text-[10px] text-slate-400">Class 10 Student</p>
-                        </div>
-                    </div>
+
+                <!-- Carousel Navigation Dots (Visible only on Mobile) -->
+                <div class="flex justify-center gap-2 mt-6 md:hidden">
+                    <button onclick="scrollToTestimonial(0)" class="testimonial-dot w-2 h-2 rounded-full bg-brand-600 transition-all duration-300" aria-label="Slide 1"></button>
+                    <button onclick="scrollToTestimonial(1)" class="testimonial-dot w-2 h-2 rounded-full bg-slate-300 transition-all duration-300" aria-label="Slide 2"></button>
+                    <button onclick="scrollToTestimonial(2)" class="testimonial-dot w-2 h-2 rounded-full bg-slate-300 transition-all duration-300" aria-label="Slide 3"></button>
                 </div>
             </div>
         </div>
@@ -758,14 +799,14 @@
             </div>
 
             <div class="bg-white rounded-[2rem] border border-slate-150 shadow-xl overflow-hidden max-w-5xl mx-auto flex flex-col md:flex-row gap-8 sm:gap-12 p-6 sm:p-10">
-                <div class="relative w-full md:w-[42%] aspect-[4/3] md:aspect-square rounded-2xl overflow-hidden shadow-md shrink-0">
-                    <img src="ankit.jpeg" alt="Ankit Kumar" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x600/004aad/ffffff?text=Ankit+Kumar';">
-                    <div class="absolute bottom-4 left-4 right-4 bg-white/25 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-lg">
-                        <p class="text-[9px] uppercase font-black tracking-wider text-slate-100">Alumnus</p>
-                        <p class="text-sm font-extrabold text-white flex items-center gap-1.5 mt-0.5">
+                <div class="relative w-full md:w-[42%] aspect-[3/4] sm:aspect-square rounded-2xl overflow-hidden shadow-md shrink-0">
+                    <img src="ankit.jpeg" alt="Ankit Kumar" class="w-full h-full object-cover object-[center_17%]" onerror="this.onerror=null; this.src='https://placehold.co/600x600/004aad/ffffff?text=Ankit+Kumar';">
+                    <div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 bg-black/60 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-white/10 shadow-lg">
+                        <p class="text-[9px] uppercase font-black tracking-wider text-slate-300">Alumnus</p>
+                        <p class="text-xs sm:text-sm font-extrabold text-white flex items-center gap-1.5 mt-0.5">
                             IIT Kharagpur <span class="text-xs">🎓</span>
                         </p>
-                        <p class="text-[10px] text-slate-200 font-bold tracking-wider mt-0.5">Class of 2025</p>
+                        <p class="text-[9px] text-slate-350 font-bold tracking-wider mt-0.5">Class of 2025</p>
                     </div>
                 </div>
 
@@ -864,7 +905,7 @@
                         <div class="flex items-baseline font-extrabold tracking-tight text-lg sm:text-xl leading-none">
                             <span class="text-white">Tutor</span><span class="text-[#00c2ff]">Nxt</span>
                         </div>
-                        <span class="block text-[7px] text-slate-450 font-extrabold uppercase tracking-widest mt-1 leading-none">CONNECTING STUDENTS & TEACHERS</span>
+                        <span class="block text-[7px] text-slate-455 font-extrabold uppercase tracking-widest mt-1 leading-none">CONNECTING STUDENTS & TEACHERS</span>
                     </div>
                 </div>
                 <p class="text-xs leading-relaxed max-w-sm">TutorNxt is a tutor-student matching platform focused on personalized learning across diverse subjects and academic levels. We offer premium home tuition, online classes, and offline coaching options.</p>
@@ -909,7 +950,7 @@
     </footer>
 
     <!-- Interactive Terms of Service (TOS) Modal -->
-    <div id="tosModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
+    <div id="tosModal" class="fixed inset-0 z-50 bg-slate-955/70 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white rounded-3xl max-w-4xl w-full border border-slate-100 shadow-2xl relative text-slate-800 overflow-hidden flex flex-col h-auto max-h-[90vh]">
             
             <!-- Close Modal -->
@@ -946,7 +987,7 @@
                 <!-- STUDENT TERMS SECTION -->
                 <div id="tosTabContent-student" class="tos-tab-content space-y-4">
                     <div class="p-4 rounded-2xl bg-brand-50/50 border border-brand-100">
-                        <p class="text-xs text-slate-650 leading-relaxed font-semibold">
+                        <p class="text-xs text-slate-655 leading-relaxed font-semibold">
                             Welcome to TutorNxt! We are delighted to have you as part of our mission to connect students with the right learning support. By registering as a student on TutorNxt, you agree to comply with and be bound by the following Terms & Conditions. Please read them carefully.
                         </p>
                     </div>
@@ -1103,7 +1144,7 @@
                 <!-- TEACHER TERMS SECTION -->
                 <div id="tosTabContent-teacher" class="tos-tab-content hidden space-y-4">
                     <div class="p-4 rounded-2xl bg-brand-50/50 border border-brand-100">
-                        <p class="text-xs text-slate-650 leading-relaxed font-semibold">
+                        <p class="text-xs text-slate-655 leading-relaxed font-semibold">
                             Welcome to TutorNxt! We are delighted to have you as part of our mission to connect students with the right learning support. By registering as a teacher on TutorNxt, you agree to comply with and be bound by the following Terms & Conditions. Please read them carefully.
                         </p>
                     </div>
@@ -1251,7 +1292,7 @@
 
     <!-- Booking / Contact Modal Popups -->
     <div id="bookingModal" class="fixed inset-0 z-[60] bg-slate-955/50 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-100 shadow-2xl relative text-slate-800">
+        <div class="bg-white rounded-3xl p-5 sm:p-8 max-w-md w-full border border-slate-100 shadow-2xl relative text-slate-800">
             <button onclick="closeBookingModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 transition-colors">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
@@ -1261,16 +1302,16 @@
                 
                 <form id="modalForm" onsubmit="event.preventDefault(); handleModalSubmit();" class="space-y-3 pt-2 text-xs font-semibold">
                     <div>
-                        <label class="block mb-1 text-slate-400">Student Name</label>
+                        <label class="block mb-1 text-slate-450">Student Name</label>
                         <input type="text" id="modalStudentName" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Rohini Sen">
                     </div>
                     <div>
-                        <label class="block mb-1 text-slate-400">WhatsApp / Phone Number</label>
+                        <label class="block mb-1 text-slate-455">WhatsApp / Phone Number</label>
                         <input type="tel" id="modalStudentPhone" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. +91 99887 76655">
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                            <label class="block mb-1 text-slate-400">Class Grade</label>
+                            <label class="block mb-1 text-slate-450">Class Grade</label>
                             <select id="modalClass" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-1 focus:ring-brand-500">
                                 <option>K-5 (Primary)</option>
                                 <option>6-10 (Middle)</option>
@@ -1279,13 +1320,13 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block mb-1 text-slate-400">Subject Preference</label>
+                            <label class="block mb-1 text-slate-450">Subject Preference</label>
                             <input type="text" id="modalSub" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-955 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Physics / Mathematics">
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                            <label class="block mb-1 text-slate-400">Method of Learning</label>
+                            <label class="block mb-1 text-slate-450">Method of Learning</label>
                             <select id="modalMode" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-1 focus:ring-brand-500">
                                 <option value="Home Tuition">Home Tuition (In-person)</option>
                                 <option value="Online Class">Online Class (Live)</option>
@@ -1293,7 +1334,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block mb-1 text-slate-400">Address / Location Details</label>
+                            <label class="block mb-1 text-slate-450">Address / Location Details</label>
                             <input type="text" id="modalAddress" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Phase-2, Kalyani">
                         </div>
                     </div>
@@ -1335,7 +1376,7 @@
                     <div class="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-md text-center relative overflow-hidden">
                         <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-brand-500 via-brand-600 to-accent-500"></div>
                         
-                        <!-- Clickable Zoom Avatar without any pulsing effect -->
+                        <!-- Steady Avatar Box -->
                         <div class="relative w-28 h-28 mx-auto mt-4 group cursor-zoom-in" id="dashAvatarContainer">
                             <!-- Injected dynamically -->
                         </div>
@@ -1501,7 +1542,7 @@
                             </div>
 
                             <div class="space-y-4">
-                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2 font-sans">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-2">
                                             <div class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center text-xs font-extrabold font-sans">SG</div>
@@ -1515,7 +1556,7 @@
                                     <p class="text-xs text-slate-500 leading-relaxed italic">"Highly professional approach. The regular assessments helped clear fundamental misconceptions on difficult theories easily."</p>
                                 </div>
 
-                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2 font-sans">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-2">
                                             <div class="w-8 h-8 rounded-full bg-accent-500 text-white flex items-center justify-center text-xs font-extrabold font-sans">RK</div>
@@ -1537,7 +1578,7 @@
     </div>
 
     <!-- HIGH-FIDELITY PHOTO LIGHTBOX MODAL -->
-    <div id="photoLightbox" class="fixed inset-0 z-[70] bg-slate-950/90 hidden items-center justify-center p-4 backdrop-blur-md opacity-0 lightbox-backdrop pointer-events-auto transition-all duration-300">
+    <div id="photoLightbox" class="fixed inset-0 z-[70] bg-slate-955/90 hidden items-center justify-center p-4 backdrop-blur-md opacity-0 lightbox-backdrop pointer-events-auto transition-all duration-300">
         <button onclick="closeLargePhoto()" class="absolute top-6 right-6 z-55 text-white/80 hover:text-white text-3xl p-3 focus:outline-none bg-slate-800/40 rounded-full" aria-label="Close Image">
             <i class="fa-solid fa-xmark"></i>
         </button>
@@ -1546,99 +1587,6 @@
             <div class="bg-black/40 backdrop-blur-md p-4 text-center text-white w-full rounded-b-2xl border-t border-white/5">
                 <h4 id="lightboxTitle" class="text-sm font-black">Educator Picture</h4>
                 <p class="text-[10px] text-slate-350 tracking-wider uppercase font-bold mt-0.5">Verified Premium Mentor Network • TutorNxt</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tutor Details Modal Popup (Fallback) -->
-    <div id="detailsModal" class="fixed inset-0 z-50 bg-slate-955/60 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-[2rem] max-w-2xl w-full border border-slate-100 shadow-2xl relative text-slate-800 overflow-hidden flex flex-col max-h-[90vh]">
-            
-            <!-- Close Modal -->
-            <button onclick="closeDetailsModal()" class="absolute top-5 right-5 z-30 text-slate-400 hover:text-slate-600 transition-colors p-1.5 rounded-lg bg-slate-100/50" aria-label="Close Profile">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-
-            <!-- Header Panel -->
-            <div class="p-6 sm:p-8 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row items-center gap-6 shrink-0">
-                <div id="detAvatar" class="shrink-0">
-                    <!-- Set dynamically -->
-                </div>
-                <div class="text-center sm:text-left space-y-2 min-w-0 flex-1">
-                    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                        <h3 id="detName" class="text-xl sm:text-2xl font-black text-slate-900 truncate">Instructor</h3>
-                        <span id="detRating" class="inline-flex items-center gap-1 text-[10px] font-black px-2.5 py-1 rounded-full bg-amber-50 text-amber-705">
-                            <i class="fa-solid fa-star"></i> 4.8 Rating
-                        </span>
-                    </div>
-                    <p id="detSubject" class="text-xs sm:text-sm font-bold text-slate-400 truncate">Expert Specialty</p>
-                    <div class="flex flex-wrap justify-center sm:justify-start gap-1.5 text-[9px] font-bold">
-                        <span id="detMode" class="px-2 py-0.5 rounded bg-brand-50 text-brand-700">Mode</span>
-                        <span class="px-2 py-0.5 rounded bg-pink-50 text-pink-700"><span id="detExp">0</span> Exp</span>
-                        <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">Verified</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Profile Tabs -->
-            <div class="px-6 sm:px-8 border-b border-slate-100 flex gap-6 shrink-0 bg-white">
-                <button onclick="switchTab('overview')" id="tabBtn-overview" class="tab-btn pb-3.5 pt-4 text-xs font-bold border-b-2 border-brand-500 text-brand-600 transition-all flex items-center gap-1.5 font-sans">
-                    <i class="fa-solid fa-user"></i> Overview
-                </button>
-                <button onclick="switchTab('background')" id="tabBtn-background" class="tab-btn pb-3.5 pt-4 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-600 transition-all flex items-center gap-1.5 font-sans">
-                    <i class="fa-solid fa-graduation-cap"></i> Qualifications
-                </button>
-            </div>
-
-            <!-- Tab Contents -->
-            <div class="p-6 sm:p-8 overflow-y-auto flex-1 space-y-6">
-                <!-- Overview Content -->
-                <div id="tabContent-overview" class="tab-content space-y-4">
-                    <div class="space-y-1.5">
-                        <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">About Educator</h4>
-                        <p id="detBio" class="text-xs leading-relaxed text-slate-600 whitespace-pre-line">Bio text...</p>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-slate-100">
-                        <div class="space-y-1">
-                            <span class="text-[9px] font-black uppercase text-slate-400 tracking-wider">Primary Location</span>
-                            <p class="text-xs font-bold text-slate-700"><i class="fa-solid fa-location-dot text-brand-500 mr-1.5"></i><span id="detLocation">Location details</span></p>
-                        </div>
-                        <div class="space-y-1">
-                            <span class="text-[9px] font-black uppercase text-slate-400 tracking-wider">Active Status</span>
-                            <p class="text-xs font-bold text-emerald-500"><i class="fa-solid fa-circle-check mr-1.5"></i>Fully Vetted & Certified</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Background Content -->
-                <div id="tabContent-background" class="tab-content hidden space-y-4">
-                    <div class="space-y-1.5">
-                        <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Degrees & Academic Credentials</h4>
-                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-3">
-                            <span class="w-8 h-8 rounded-lg bg-brand-50 text-brand-505 flex items-center justify-center shrink-0 text-sm">
-                                <i class="fa-solid fa-award"></i>
-                            </span>
-                            <div>
-                                <p id="detQualifications" class="text-xs font-extrabold text-slate-900">Qualifications detail</p>
-                                <p class="text-[10px] text-slate-400 mt-0.5">Verified Academic Background</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="space-y-1.5 pt-2">
-                        <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Teaching Experience & Pedagogy</h4>
-                        <p id="detHistory" class="text-xs leading-relaxed text-slate-600">Teaching history timeline...</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Footer Action Panel -->
-            <div class="p-6 border-t border-slate-100 bg-slate-50 flex flex-col sm:flex-row gap-3 shrink-0">
-                <button id="detChatBtn" class="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95 font-sans">
-                    <i class="fa-brands fa-whatsapp text-sm"></i> Chat with Representative
-                </button>
-                <button id="detBookBtn" class="flex-1 py-3 px-4 bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95 font-sans">
-                    <i class="fa-solid fa-calendar-check text-sm"></i> Book Free Trial Now
-                </button>
             </div>
         </div>
     </div>
@@ -1656,7 +1604,6 @@
 
     <!-- JAVASCRIPT CONTROL & STATE MACHINE -->
     <script>
-        // Mock Tutor Database Data (18 Real Verified Tutors)
         const tutorsData = [
             {
                 id: 1,
@@ -1712,7 +1659,7 @@
                 bio: "I specialize in teaching Hindi to students up to Grade 6 and am passionate about helping young learners build strong language skills through simple, engaging, and interactive lessons. My goal is to make Hindi easy to understand and enjoyable for every student. I focus on developing reading, writing, grammar, vocabulary, and communication skills while creating a positive and supportive learning environment. With a Bachelor's degree in History and a student-centered teaching approach, I strive to build confidence, strengthen fundamentals, and help students achieve academic success.",
                 img: "sheeladevi.jpg",
                 mode: "Offline Only",
-                location: "Khargpur, West Bengal"
+                location: "Kharagpur, West Bengal"
             },
             {
                 id: 5,
@@ -1726,7 +1673,7 @@
                 bio: "Through personalized guidance, real-life examples, and interactive learning methods, I aim to make Hindi easy to understand and enjoyable for students of all levels. Along with Hindi, I also teach all subjects upto Grade 6, helping students build strong conceptual foundations and problem-solving skills. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
                 img: "mmeena.jpeg",
                 mode: "Online & Offline",
-                location: "Khargpur, West Bengal"
+                location: "Kharagpur, West Bengal"
             },
             {
                 id: 6,
@@ -1740,7 +1687,7 @@
                 bio: "I enjoy teaching all subjects to students upto 5th Grade and am committed to providing personalized guidance, practical examples, and interactive learning methods to make all subjects easy to understand and enjoyable for students of all levels. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
                 img: "maahi.jpeg",
                 mode: "Offline Only",
-                location: "Khargpur, West Bengal"
+                location: "Kharagpur, West Bengal"
             },
             {
                 id: 7,
@@ -1754,7 +1701,7 @@
                 bio: "I am committed to providing personalized guidance, practical examples, and interactive learning methods to make all subjects easy to understand and enjoyable for students of all levels. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
                 img: "disha.jpeg",
                 mode: "Online & Offline",
-                location: "Khargpur, West Bengal"
+                location: "Kharagpur, West Bengal"
             },
             {
                 id: 8,
@@ -1768,7 +1715,7 @@
                 bio: "I enjoy teaching Languages, History, and Social Skills to students upto 5th Grade and am committed to providing personalized guidance, practical examples, and interactive learning methods to make these subjects easy to understand and enjoyable for students of all levels. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
                 img: "akakini.jpeg",
                 mode: "Online & Offline",
-                location: "Khargpur, West Bengal"
+                location: "Kharagpur, West Bengal"
             },
             {
                 id: 9,
@@ -1782,7 +1729,7 @@
                 bio: "I am committed to providing personalized guidance, practical examples, and interactive learning methods to make Mathematics, Social Science, Accounting, Economics, and Business Studies easy to understand and enjoyable for students of all levels. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
                 img: "sourav.jpeg",
                 mode: "Online & Offline",
-                location: "Khargpur, West Bengal"
+                location: "Kharagpur, West Bengal"
             },
             {
                 id: 10,
@@ -1903,7 +1850,7 @@
                 role: "Can Teach Economics upto 12th Grade",
                 exp: "1+ Years",
                 rating: "4.6 (50+ Reviews)",
-                qualifications: "Completed B.Sc Physical Science with Chemistry ",
+                qualifications: "Purshuning M.A in Economics",
                 history: "Ms. Saumita Kumari is a dedicated Economics educator with a strong academic background in Physical Science. She is passionate about making Economics simple, engaging, and easy to understand for school students. She conducts interactive online classes for students up to Class 12, focusing on conceptual clarity and practical understanding. In addition, she has also guided students preparing for the **CUET (Common University Entrance Test)**, helping them build strong fundamentals and confidence to perform well in the examination.",
                 bio: "I believe every student can excel in Economics with the right guidance and clear concepts. My teaching focuses on interactive online learning, practical understanding, and encouraging students to ask questions with confidence. I am committed to providing personalized guidance, practical examples, and interactive learning methods to make Economics easy to understand and enjoyable for students of all levels. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
                 img: "saumita.jpg",
@@ -1961,17 +1908,15 @@
                 rating: "4.5 (40+ Reviews)",
                 qualifications: "Pursuing B.Tech in Computer Science & Engineering",
                 history: "Mr. Arjock has mentored hundreds of students in the 6th to 10th grade range, specializing in Mathematics concepts, problem-solving techniques, and analytical thinking. His teaching approach focuses on building strong fundamentals, conceptual clarity, and exam-oriented strategies to help students excel in academic pursuits.",
-                bio: "Through personalized guidance, real-life examples, and interactive learning methods, I aim to make Mathematics easy to understand and enjoyable for students of all levels. Along with Mathematics, I also teach Physics and Chemistry, helping students build strong conceptual foundations and problem-solving skills. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics and their future careers.",
+                bio: "Through personalized guidance, real-life examples, and interactive learning methods, I aim to make Mathematics easy to understand and enjoyable for students of all levels. Along with Mathematics, I also teach Physics and Chemistry, helping students build strong conceptual foundations and problem-solving skills. My goal is to empower learners with the knowledge, confidence, and analytical abilities needed to excel in academics, competitive examinations, and their future careers.",
                 img: "arjock.jpeg",
                 mode: "Online & Offline",
                 location: "Kalyani, West Bengal"
-            },
-
+            }
         ];
 
         let currentWizardStep = 1;
 
-        // Window Load Handler - Forcing Permanent Light Mode
         window.onload = function() {
             // Clean dark classes to ensure light theme is permanent on load
             document.documentElement.classList.remove('dark');
@@ -1983,7 +1928,73 @@
             const today = new Date().toISOString().split('T')[0];
             const dateInput = document.getElementById('schedDate');
             if (dateInput) dateInput.min = today;
+
+            initTestimonialCarousel();
         };
+
+        let testimonialActiveIndex = 0;
+        let testimonialInterval;
+
+        function initTestimonialCarousel() {
+            const carousel = document.getElementById('testimonialCarousel');
+            if (!carousel) return;
+
+            // Pause auto-sliding on touch start to prevent conflicting movements
+            carousel.addEventListener('touchstart', stopTestimonialAutoScroll);
+            carousel.addEventListener('touchend', () => {
+                setTimeout(startTestimonialAutoScroll, 2000);
+            });
+
+            // Adjust window resize state boundaries
+            window.addEventListener('resize', () => {
+                scrollToTestimonial(testimonialActiveIndex);
+            });
+
+            startTestimonialAutoScroll();
+            updateTestimonialDots(0);
+        }
+
+        function startTestimonialAutoScroll() {
+            stopTestimonialAutoScroll();
+            testimonialInterval = setInterval(() => {
+                if (window.innerWidth >= 768) return; // Disable automatic slide on desktop grid
+                testimonialActiveIndex = (testimonialActiveIndex + 1) % 3;
+                scrollToTestimonial(testimonialActiveIndex);
+            }, 4000);
+        }
+
+        function stopTestimonialAutoScroll() {
+            clearInterval(testimonialInterval);
+        }
+
+        function scrollToTestimonial(index) {
+            const carousel = document.getElementById('testimonialCarousel');
+            if (!carousel) return;
+            
+            testimonialActiveIndex = index;
+
+            if (window.innerWidth < 768) {
+                // Perfect mathematical transform shift based on 100% card width allocations
+                carousel.style.transform = `translateX(-${index * 100}%)`;
+            } else {
+                // Clear transforms entirely on standard multi-column desktop screen layout
+                carousel.style.transform = 'none';
+            }
+            updateTestimonialDots(index);
+        }
+
+        function updateTestimonialDots(activeIndex) {
+            const dots = document.querySelectorAll('.testimonial-dot');
+            dots.forEach((dot, index) => {
+                if (index === activeIndex) {
+                    dot.classList.remove('bg-slate-300', 'w-2');
+                    dot.classList.add('bg-brand-600', 'w-4'); // Accentuate active slide dot
+                } else {
+                    dot.classList.remove('bg-brand-600', 'w-4');
+                    dot.classList.add('bg-slate-300', 'w-2');
+                }
+            });
+        }
 
         // Toggle mobile responsive drawer menu
         function toggleMobileMenu() {
@@ -2003,7 +2014,6 @@
             mobileMenuBtn.addEventListener('click', toggleMobileMenu);
         }
 
-        // Matchmaker Wizard state shifts
         const wizardBackBtn = document.getElementById('wizardBackBtn');
         const wizardNextBtn = document.getElementById('wizardNextBtn');
 
@@ -2090,13 +2100,12 @@
             showToast("Filters Applied", `Showing matches for ${chosenSubject}`);
         }
 
-        // Generate dynamic HTML layout for cards (Photos support fullscreen zoom!)
         function generateTutorCardHtml(tutor, index) {
             const initials = tutor.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
             const delay = index * 60;
             
             return `
-                <div class="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-md hover:shadow-xl hover:scale-[1.01] transition-all duration-300 flex flex-col justify-between animate-card animate-card" style="animation-delay: ${delay}ms;">
+                <div class="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-md hover:shadow-xl hover:scale-[1.01] transition-all duration-300 flex flex-col justify-between animate-card" style="animation-delay: ${delay}ms;">
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
                             <span class="inline-flex items-center gap-1 text-[10px] font-black px-2.5 py-1 rounded-full bg-amber-50 text-amber-705">
@@ -2120,7 +2129,7 @@
                         </div>
 
                         <div class="flex flex-wrap gap-1.5 pt-2">
-                            <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-brand-55 text-brand-700">${tutor.mode}</span>
+                            <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-brand-50 text-brand-700">${tutor.mode}</span>
                             <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-pink-50 text-pink-700">${tutor.exp} Exp</span>
                             <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-sans">Verified</span>
                         </div>
@@ -2138,7 +2147,6 @@
             `;
         }
 
-        // Render EXACTLY 4 featured cards in row layout on home page
         function renderFeaturedTutors() {
             const grid = document.getElementById('featuredTutorGrid');
             if (!grid) return;
@@ -2222,7 +2230,6 @@
             showToast("Filters Cleared", "Displaying all active tutor matches.");
         }
 
-        // FULLSCREEN/BIG PREMIUM TEACHER DASHBOARD CONTROLLERS
         function openTeacherDashboard(id) {
             const tutor = tutorsData.find(t => t.id === id);
             if (!tutor) return;
@@ -2248,7 +2255,7 @@
                 triggerDirectWhatsApp(tutor.name, "General Inquiry", "N/A", "N/A", "+91 97491 60796", "Anonymous Student/Parent", "N/A", "Home Tuition / Online");
             };
 
-            // Setup Zoom Avatar without pulse blinking
+            // Setup Zoom Avatar (No pulse animation to prevent blinking)
             const avatarContainer = document.getElementById('dashAvatarContainer');
             avatarContainer.innerHTML = `
                 <img class="w-28 h-28 rounded-full object-cover border-4 border-brand-500/80 shadow-md transition-all duration-300 group-hover:scale-105" src="${tutor.img}" onerror="this.onerror=null; this.outerHTML='<div class=\\'w-28 h-28 rounded-full bg-gradient-to-br from-brand-600 to-accent-600 text-white flex items-center justify-center font-black text-3xl border-4 border-brand-500/80 shadow-md shrink-0\\'>${initials}</div>';">
@@ -2291,7 +2298,6 @@
             activeBtn.className = "flex-1 py-3 text-center text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 bg-brand-50 text-brand-600 font-sans";
         }
 
-        // FULL-SCREEN HIGH-FIDELITY PHOTO LIGHTBOX INTERACTIVE COMPONENT
         function openLargePhoto(imgSrc, name) {
             const lightbox = document.getElementById('photoLightbox');
             const lightboxImg = document.getElementById('lightboxImage');
@@ -2334,7 +2340,6 @@
             modal.classList.remove('flex');
         }
 
-        // DIRECT WHATSAPP REDIRECT FOR ENHANCED USER EXPERIENCE
         function triggerDirectWhatsApp(tutorName, subject, date, time, studentPhone, studentName, address, learningMethod) {
             const cleanAdminNum = "919749160796"; 
 
