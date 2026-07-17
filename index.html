@@ -13,9 +13,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -45,15 +45,12 @@
         }
     </script>
     <style>
-        /* Custom scrollbar */
+        /* Custom scrollbar optimized for light theme */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
             background: #f1f1f1;
-        }
-        .dark ::-webkit-scrollbar-track {
-            background: #111827;
         }
         ::-webkit-scrollbar-thumb {
             background: #cbd5e1;
@@ -62,13 +59,8 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
-        .dark ::-webkit-scrollbar-thumb {
-            background: #374151;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4b5563;
-        }
-        /* Custom animation */
+        
+        /* Custom float animation */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
@@ -101,76 +93,76 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100 overflow-x-hidden">
+<body class="bg-slate-50 text-slate-800 font-sans overflow-x-hidden">
 
     <!-- Navigation Bar -->
-    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-slate-950/80 border-b border-slate-100 dark:border-slate-800 transition-all">
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 border-b border-slate-100 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
             
-            <!-- Brand Logo utilizing manual logo.png & exact textual design -->
+            <!-- Brand Logo with manual logo.png & fallback references -->
             <a href="#" class="flex items-center gap-2.5 group py-2">
                 <img src="logo.png" alt="TutorNxt Logo" class="h-10 sm:h-12 w-auto object-contain rounded-xl transition-transform duration-200 group-hover:scale-[1.02]" onerror="this.onerror=null; this.src='logo.jpeg';">
                 <div class="flex flex-col">
                     <div class="flex items-baseline font-extrabold tracking-tight text-xl sm:text-2xl leading-none">
-                        <span class="text-[#004aad] dark:text-white">Tutor</span><span class="text-[#00c2ff]">Nxt</span>
+                        <span class="text-[#004aad]">Tutor</span><span class="text-[#00c2ff]">Nxt</span>
                     </div>
-                    <span class="block text-[8px] text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-widest mt-1 leading-none">CONNECTING STUDENTS & TEACHERS</span>
+                    <span class="block text-[8px] text-slate-400 font-extrabold uppercase tracking-widest mt-1 leading-none">CONNECTING STUDENTS & TEACHERS</span>
                 </div>
             </a>
 
             <!-- Desktop Navigation Links -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
                 <a href="#find-tutors" class="hover:text-brand-500 transition-colors">Find Tutors</a>
                 <a href="#pricing" class="hover:text-brand-500 transition-colors">Pricing Plans</a>
-                <a href="founder.html" class="text-brand-600 dark:text-accent-400 font-extrabold hover:text-brand-500 transition-colors flex items-center gap-1"><i class="fa-solid fa-crown text-[10px]"></i> Founder</a>
+                <a href="founder.html" class="text-brand-600 font-extrabold hover:text-brand-500 transition-colors flex items-center gap-1"><i class="fa-solid fa-crown text-[10px]"></i> Founder</a>
                 <a href="#become-tutor" class="hover:text-brand-500 transition-colors">Become a Tutor</a>
                 <a href="#scheduler" class="hover:text-brand-500 transition-colors">Book Demo</a>
             </nav>
 
             <!-- Action Buttons -->
             <div class="flex items-center gap-4">
-                <a href="dashboard.html" class="inline-flex items-center gap-2 text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600 px-5 h-11 rounded-xl transition-all shadow-md shadow-brand-500/10 hover:shadow-brand-500/20 active:scale-[0.98]">
+                <a href="dashboard.html" class="inline-flex items-center gap-2 text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 px-5 h-11 rounded-xl transition-all shadow-md shadow-brand-500/10 hover:shadow-brand-500/20 active:scale-[0.98]">
                     Student Panel <i class="fa-solid fa-sparkles text-xs"></i>
                 </a>
 
-                <button id="mobileMenuBtn" class="md:hidden p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-755 text-slate-600 dark:text-slate-300 transition-colors" aria-label="Toggle Menu">
+                <button id="mobileMenuBtn" class="md:hidden p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" aria-label="Toggle Menu">
                     <i id="mobileMenuIcon" class="fa-solid fa-bars text-lg"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Navigation Menu Drawer -->
-        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-955 px-4 py-4 space-y-3 shadow-lg">
-            <a href="#find-tutors" class="block py-2 px-3 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg text-sm font-medium transition-all" onclick="toggleMobileMenu()">Find Tutors</a>
-            <a href="#pricing" class="block py-2 px-3 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg text-sm font-medium transition-all" onclick="toggleMobileMenu()">Pricing Plans</a>
-            <a href="founder.html" class="block py-2 px-3 bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-accent-400 rounded-lg text-sm font-bold transition-all" onclick="toggleMobileMenu()"><i class="fa-solid fa-crown text-[10px] mr-1.5"></i> Founder</a>
-            <a href="#become-tutor" class="block py-2 px-3 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg text-sm font-medium transition-all" onclick="toggleMobileMenu()">Become a Tutor</a>
-            <a href="#scheduler" class="block py-2 px-3 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg text-sm font-medium transition-all" onclick="toggleMobileMenu()">Book Demo</a>
-            <a href="dashboard.html" class="block py-2.5 text-center font-bold text-white bg-brand-600 dark:bg-brand-500 rounded-lg text-sm transition-all shadow-md" onclick="toggleMobileMenu()">
+        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-100 bg-white px-4 py-4 space-y-3 shadow-lg">
+            <a href="#find-tutors" class="block py-2 px-3 hover:bg-slate-50 rounded-lg text-sm font-medium transition-all" onclick="toggleMobileMenu()">Find Tutors</a>
+            <a href="#pricing" class="block py-2 px-3 hover:bg-slate-50 rounded-lg text-sm font-medium transition-all" onclick="toggleMobileMenu()">Pricing Plans</a>
+            <a href="founder.html" class="block py-2 px-3 bg-brand-50 text-brand-600 rounded-lg text-sm font-bold transition-all" onclick="toggleMobileMenu()"><i class="fa-solid fa-crown text-[10px] mr-1.5"></i> Founder</a>
+            <a href="#become-tutor" class="block py-2 px-3 hover:bg-slate-50 rounded-lg text-sm font-medium transition-all" onclick="toggleMobileMenu()">Become a Tutor</a>
+            <a href="#scheduler" class="block py-2 px-3 hover:bg-slate-50 rounded-lg text-sm font-medium transition-all" onclick="toggleMobileMenu()">Book Demo</a>
+            <a href="dashboard.html" class="block py-2.5 text-center font-bold text-white bg-brand-600 rounded-lg text-sm transition-all shadow-md" onclick="toggleMobileMenu()">
                 Student Panel <i class="fa-solid fa-sparkles text-xs ml-1"></i>
             </a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative overflow-hidden pt-12 pb-20 md:py-24 lg:py-32 bg-gradient-to-b from-brand-50/50 via-transparent to-transparent dark:from-brand-950/20">
-        <div class="absolute top-1/4 -left-1/4 w-96 h-96 rounded-full bg-brand-500/10 blur-[120px] pointer-events-none"></div>
-        <div class="absolute top-1/3 -right-1/4 w-96 h-96 rounded-full bg-accent-500/10 blur-[120px] pointer-events-none"></div>
+    <section class="relative overflow-hidden pt-12 pb-20 md:py-24 lg:py-32 bg-gradient-to-b from-brand-50/50 via-transparent to-transparent">
+        <div class="absolute top-1/4 -left-1/4 w-96 h-96 rounded-full bg-brand-500/5 blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/3 -right-1/4 w-96 h-96 rounded-full bg-accent-500/5 blur-[120px] pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <!-- Left: Hero Text -->
                 <div class="lg:col-span-7 text-center lg:text-left space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-100/60 dark:bg-brand-950/50 border border-brand-200/50 dark:border-brand-900/40 text-brand-700 dark:text-brand-300">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-100/60 border border-brand-200/50 text-brand-700">
                         <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                         Trusted by 15,000+ Students & Guardians
                     </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-none text-slate-900 dark:text-white">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-none text-slate-900">
                         Empowering Learners, <br class="hidden sm:inline">
                         <span class="bg-gradient-to-r from-brand-500 via-brand-600 to-accent-500 bg-clip-text text-transparent">One Smart Match</span> <br>
                         At A Time.
                     </h1>
-                    <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0">
+                    <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0">
                         TutorNxt simplifies personalized education. Instantly connect with verified private tutors near you, register for online/offline classes, and design a study routine that accelerates academic potential.
                     </p>
 
@@ -179,69 +171,69 @@
                         <a href="#match-maker" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-bold text-white bg-gradient-to-r from-brand-600 to-brand-700 hover:from-accent-500 hover:to-brand-600 hover:-translate-y-1 hover:scale-105 hover:shadow-glow-pink px-8 py-4 rounded-xl transition-all duration-300 active:scale-[0.98]">
                             <i class="fa-solid fa-magnifying-glass-location"></i> Find Tutors Near Me
                         </a>
-                        <a href="#become-tutor" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-bold text-slate-700 dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 px-8 py-4 rounded-xl transition-all shadow-sm hover:shadow-md">
+                        <a href="#become-tutor" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 px-8 py-4 rounded-xl transition-all shadow-sm hover:shadow-md">
                             Join as an Educator <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
 
                     <!-- Statistics Strip -->
-                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-200/60 dark:border-slate-800/60 max-w-lg mx-auto lg:mx-0">
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-200/65 max-w-lg mx-auto lg:mx-0">
                         <div>
-                            <p class="text-2xl sm:text-3xl font-extrabold text-brand-600 dark:text-brand-400">98%</p>
-                            <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">Match Success</p>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-brand-600">98%</p>
+                            <p class="text-xs font-semibold text-slate-500">Match Success</p>
                         </div>
                         <div>
-                            <p class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">18 Verified</p>
-                            <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">Elite Educators</p>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-slate-900">21 Verified</p>
+                            <p class="text-xs font-semibold text-slate-500">Elite Educators</p>
                         </div>
                         <div>
                             <p class="text-2xl sm:text-3xl font-extrabold text-accent-500">38%+</p>
-                            <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">Grade Improvement</p>
+                            <p class="text-xs font-semibold text-slate-500">Grade Improvement</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right: Hero Graphic mockup -->
+                <!-- Right: Hero Graphic Mockup -->
                 <div class="lg:col-span-5 relative flex justify-center">
-                    <div class="relative w-full max-w-[420px] aspect-square rounded-3xl bg-gradient-to-br from-brand-500/5 to-accent-500/10 dark:from-brand-500/10 dark:to-accent-500/5 border border-white/40 dark:border-slate-800 shadow-2xl p-6 flex flex-col justify-between overflow-hidden">
+                    <div class="relative w-full max-w-[420px] aspect-square rounded-3xl bg-gradient-to-br from-brand-500/5 to-accent-500/10 border border-white/40 shadow-2xl p-6 flex flex-col justify-between overflow-hidden">
                         
                         <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-500/10 rounded-full blur-2xl"></div>
                         <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-accent-500/10 rounded-full blur-2xl"></div>
 
                         <!-- Top Interactive Widget mockup -->
-                        <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-3.5 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-lg flex items-center gap-3 relative z-10 transition-all hover:scale-[1.02]">
-                            <div class="w-10 h-10 rounded-xl bg-green-100 dark:bg-green-950/50 text-green-600 dark:text-green-400 flex items-center justify-center text-lg">
+                        <div class="bg-white/80 backdrop-blur-md p-3.5 rounded-2xl border border-slate-200/50 shadow-lg flex items-center gap-3 relative z-10 transition-all hover:scale-[1.02]">
+                            <div class="w-10 h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center text-lg">
                                 <i class="fa-solid fa-check-double"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-xs font-extrabold text-slate-900 dark:text-white truncate">Live Matching</p>
-                                <p class="text-[10px] font-semibold text-slate-500 dark:text-slate-400">Elite tutors matched near you</p>
+                                <p class="text-xs font-extrabold text-slate-900 truncate">Live Matching</p>
+                                <p class="text-[10px] font-semibold text-slate-500">Elite tutors matched near you</p>
                             </div>
                         </div>
 
                         <!-- Central Slogan Logo Graphic -->
                         <div class="flex-1 flex items-center justify-center relative my-6">
-                            <div class="relative p-6 rounded-3xl bg-white dark:bg-slate-850 shadow-lg border border-slate-100 dark:border-slate-800 text-center space-y-3 float-animation max-w-[200px]">
-                                <img src="logo.png" alt="TutorNxt Graduation Hat" class="w-16 h-16 mx-auto object-contain rounded-xl" onerror="this.onerror=null; this.src='logo.jpeg';">
+                            <div class="relative p-6 rounded-3xl bg-white shadow-lg border border-slate-100 text-center space-y-3 float-animation max-w-[200px]">
+                                <img src="logo.png" alt="TutorNxt Logo" class="w-16 h-16 mx-auto object-contain rounded-xl" onerror="this.onerror=null; this.src='logo.jpeg';">
                                 <div>
-                                    <h4 class="text-xs font-black text-slate-900 dark:text-white">TutorNxt</h4>
+                                    <h4 class="text-xs font-black text-slate-900">TutorNxt</h4>
                                     <p class="text-[8px] font-bold text-slate-450 uppercase tracking-widest mt-0.5">CONNECTING STUDENTS & TEACHERS</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Bottom Card Mockup -->
-                        <div class="bg-white/85 dark:bg-slate-900/85 backdrop-blur-md p-4 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-lg flex items-center gap-3.5 relative z-10 transition-all hover:scale-[1.02]">
+                        <div class="bg-white/85 backdrop-blur-md p-4 rounded-2xl border border-slate-200/50 shadow-lg flex items-center gap-3.5 relative z-10 transition-all hover:scale-[1.02]">
                             <div class="w-11 h-11 rounded-full bg-[#004aad] text-white flex items-center justify-center font-bold shrink-0">AK</div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center justify-between">
-                                    <p class="text-xs font-bold text-slate-900 dark:text-white truncate">Mr Amrit Kumar</p>
+                                    <p class="text-xs font-bold text-slate-900 truncate">Mr Amrit Kumar</p>
                                     <span class="inline-flex items-center gap-1 text-[10px] font-extrabold text-amber-500"><i class="fa-solid fa-star"></i> 4.8</span>
                                 </div>
-                                <p class="text-[10px] font-semibold text-slate-500 dark:text-slate-400 truncate">Physics</p>
+                                <p class="text-[10px] font-semibold text-slate-500 truncate">Physics</p>
                                 <div class="flex gap-1.5 mt-1.5">
-                                    <span class="text-[9px] font-bold px-1.5 py-0.5 bg-brand-100/60 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 rounded">Online & Offline</span>
-                                    <span class="text-[9px] font-bold px-1.5 py-0.5 bg-accent-100 dark:bg-accent-950/50 text-accent-600 dark:text-accent-400 rounded">3+ Yrs Exp</span>
+                                    <span class="text-[9px] font-bold px-1.5 py-0.5 bg-brand-100/60 text-brand-700 rounded">Online & Offline</span>
+                                    <span class="text-[9px] font-bold px-1.5 py-0.5 bg-accent-100 text-accent-600 rounded">3+ Yrs Exp</span>
                                 </div>
                             </div>
                         </div>
@@ -253,24 +245,24 @@
     </section>
 
     <!-- Interactive Match-Maker Wizard Section -->
-    <section id="match-maker" class="py-16 md:py-24 bg-white dark:bg-slate-950 relative border-t border-b border-slate-100 dark:border-slate-800/80">
+    <section id="match-maker" class="py-16 md:py-24 bg-white relative border-t border-b border-slate-100">
         <div class="max-w-4xl mx-auto px-4 sm:px-6">
             <div class="text-center space-y-4 mb-12">
-                <span class="text-brand-600 dark:text-brand-400 text-xs font-bold tracking-widest uppercase">Smart Matching Engine</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">Find Your Perfect Tutor In Seconds</h2>
-                <p class="text-slate-500 dark:text-slate-400 max-w-lg mx-auto">Fill out our dynamic interactive wizard below and we'll filter our top checked educators to match your accurate educational requirements.</p>
+                <span class="text-brand-600 text-xs font-bold tracking-widest uppercase">Smart Matching Engine</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Find Your Perfect Tutor In Seconds</h2>
+                <p class="text-slate-500 max-w-lg mx-auto">Fill out our dynamic interactive wizard below and we'll filter our top checked educators to match your accurate educational requirements.</p>
             </div>
 
             <!-- Wizard Card Container -->
-            <div class="bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
+            <div class="bg-slate-50 border border-slate-200/80 rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
                 <div class="absolute -top-12 -left-12 w-24 h-24 bg-brand-500/5 rounded-full blur-xl"></div>
                 <div class="absolute -bottom-12 -right-12 w-24 h-24 bg-accent-500/5 rounded-full blur-xl"></div>
 
                 <!-- Wizard Steps Header Progress -->
-                <div class="relative flex items-center justify-between mb-8 pb-4 border-b border-slate-200 dark:border-slate-800">
+                <div class="relative flex items-center justify-between mb-8 pb-4 border-b border-slate-200">
                     <div class="flex items-center gap-2">
                         <span id="stepBadge" class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs font-bold">1</span>
-                        <h3 id="stepTitle" class="text-sm font-bold text-slate-900 dark:text-white">Select Your Learning Mode</h3>
+                        <h3 id="stepTitle" class="text-sm font-bold text-slate-900">Select Your Learning Mode</h3>
                     </div>
                     <span id="stepProgressText" class="text-xs font-extrabold text-slate-400">Step 1 of 3</span>
                 </div>
@@ -280,28 +272,28 @@
                     <div id="wizardStep1" class="space-y-4">
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">How do you want to learn? (Select one option)</p>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <label class="relative flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm group has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex flex-col items-center justify-center p-6 bg-white rounded-2xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm group has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="learningMode" value="Online" class="sr-only" checked>
-                                <span class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 dark:bg-sky-950 dark:text-sky-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                                <span class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
                                     <i class="fa-solid fa-video"></i>
                                 </span>
-                                <span class="text-sm font-extrabold text-slate-900 dark:text-white">Online</span>
+                                <span class="text-sm font-extrabold text-slate-900">Online</span>
                                 <span class="text-[10px] text-center text-slate-400 mt-1">Live Interactive Class</span>
                             </label>
-                            <label class="relative flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm group has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex flex-col items-center justify-center p-6 bg-white rounded-2xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm group has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="learningMode" value="Home Tutor" class="sr-only">
-                                <span class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                                <span class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
                                     <i class="fa-solid fa-house-chimney"></i>
                                 </span>
-                                <span class="text-sm font-extrabold text-slate-900 dark:text-white">Home Tutor</span>
+                                <span class="text-sm font-extrabold text-slate-900">Home Tutor</span>
                                 <span class="text-[10px] text-center text-slate-400 mt-1">In-person classes at your home</span>
                             </label>
-                            <label class="relative flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm group has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex flex-col items-center justify-center p-6 bg-white rounded-2xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm group has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="learningMode" value="Offline at Tutor's Address" class="sr-only">
-                                <span class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                                <span class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
                                     <i class="fa-solid fa-school"></i>
                                 </span>
-                                <span class="text-sm font-extrabold text-slate-900 dark:text-white text-center leading-snug">Offline at Tutor's Address</span>
+                                <span class="text-sm font-extrabold text-slate-900 text-center leading-snug">Offline at Tutor's Address</span>
                                 <span class="text-[10px] text-center text-slate-400 mt-1">In-person classes at tutor's place</span>
                             </label>
                         </div>
@@ -311,24 +303,24 @@
                     <div id="wizardStep2" class="hidden space-y-4">
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">What is your academic level?</p>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            <label class="relative flex flex-col items-center p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex flex-col items-center p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="academicLevel" value="6th Grade" class="sr-only" checked>
-                                <span class="text-xs font-extrabold text-slate-900 dark:text-white">Primary (Upto 6th)</span>
+                                <span class="text-xs font-extrabold text-slate-900">Primary (Upto 6th)</span>
                                 <span class="text-[9px] text-slate-400 mt-1">Middle School Foundations</span>
                             </label>
-                            <label class="relative flex flex-col items-center p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex flex-col items-center p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="academicLevel" value="10th Grade" class="sr-only">
-                                <span class="text-xs font-extrabold text-slate-900 dark:text-white">Secondary (Upto 10th)</span>
+                                <span class="text-xs font-extrabold text-slate-900">Secondary (Upto 10th)</span>
                                 <span class="text-[9px] text-slate-400 mt-1">Board Foundations</span>
                             </label>
-                            <label class="relative flex flex-col items-center p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex flex-col items-center p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="academicLevel" value="12th Grade" class="sr-only">
-                                <span class="text-xs font-extrabold text-slate-900 dark:text-white">Senior Secondary (12th)</span>
+                                <span class="text-xs font-extrabold text-slate-900">Senior Secondary (12th)</span>
                                 <span class="text-[9px] text-slate-400 mt-1">Higher Secondary Board Focus</span>
                             </label>
-                            <label class="relative flex flex-col items-center p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex flex-col items-center p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="academicLevel" value="JEE" class="sr-only">
-                                <span class="text-xs font-extrabold text-slate-900 dark:text-white">Competitive Exams</span>
+                                <span class="text-xs font-extrabold text-slate-900">Competitive Exams</span>
                                 <span class="text-[9px] text-slate-400 mt-1">JEE / NEET Prep</span>
                             </label>
                         </div>
@@ -338,56 +330,56 @@
                     <div id="wizardStep3" class="hidden space-y-4">
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Which subject are you looking for?</p>
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                            <label class="relative flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="subject" value="Mathematics" class="sr-only" checked>
-                                <span class="text-xs font-extrabold text-slate-900 dark:text-white">Mathematics</span>
+                                <span class="text-xs font-extrabold text-slate-900">Mathematics</span>
                             </label>
-                            <label class="relative flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="subject" value="Physics" class="sr-only">
-                                <span class="text-xs font-extrabold text-slate-900 dark:text-white">Physics</span>
+                                <span class="text-xs font-extrabold text-slate-900">Physics</span>
                             </label>
-                            <label class="relative flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="subject" value="Accountancy" class="sr-only">
-                                <span class="text-xs font-extrabold text-slate-900 dark:text-white">Accountancy & Commerce</span>
+                                <span class="text-xs font-extrabold text-slate-900">Accountancy & Commerce</span>
                             </label>
-                            <label class="relative flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="subject" value="Science" class="sr-only">
-                                <span class="text-xs font-extrabold text-slate-900 dark:text-white">Science / Biology</span>
+                                <span class="text-xs font-extrabold text-slate-900">Science / Biology</span>
                             </label>
-                            <label class="relative flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="subject" value="Hindi" class="sr-only">
-                                <span class="text-xs font-extrabold text-slate-900 dark:text-white">Hindi Language</span>
+                                <span class="text-xs font-extrabold text-slate-900">Hindi Language</span>
                             </label>
-                            <label class="relative flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-transparent hover:border-brand-300 dark:hover:border-slate-700 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-950/20">
+                            <label class="relative flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="subject" value="English" class="sr-only">
-                                <span class="text-xs font-extrabold text-slate-900 dark:text-white">English & Arts</span>
+                                <span class="text-xs font-extrabold text-slate-900">English & Arts</span>
                             </label>
                         </div>
                     </div>
 
                     <!-- Wizard Actions Buttons -->
                     <div class="flex items-center justify-between pt-4">
-                        <button type="button" id="wizardBackBtn" class="invisible inline-flex items-center gap-1.5 text-xs font-extrabold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white transition-all">
+                        <button type="button" id="wizardBackBtn" class="invisible inline-flex items-center gap-1.5 text-xs font-extrabold text-slate-500 hover:text-slate-700 transition-all">
                             <i class="fa-solid fa-chevron-left"></i> Previous Step
                         </button>
-                        <button type="button" id="wizardNextBtn" class="inline-flex items-center gap-2 text-sm font-extrabold text-white bg-brand-600 dark:bg-brand-500 hover:bg-brand-700 dark:hover:bg-brand-600 px-6 py-3 rounded-xl shadow-lg transition-all active:scale-95">
+                        <button type="button" id="wizardNextBtn" class="inline-flex items-center gap-2 text-sm font-extrabold text-white bg-brand-600 hover:bg-brand-700 px-6 py-3 rounded-xl shadow-lg transition-all active:scale-95">
                             Next Step <i class="fa-solid fa-chevron-right"></i>
                         </button>
                     </div>
                 </form>
 
                 <!-- Step Match Result Overlay Dashboard -->
-                <div id="wizardResultSection" class="hidden absolute inset-0 bg-white dark:bg-slate-900 z-20 flex flex-col items-center justify-center p-6 text-center animate-fade-in">
-                    <div class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400 flex items-center justify-center text-3xl mb-4">
+                <div id="wizardResultSection" class="hidden absolute inset-0 bg-white z-20 flex flex-col items-center justify-center p-6 text-center animate-fade-in">
+                    <div class="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-3xl mb-4">
                         <i class="fa-solid fa-circle-check"></i>
                     </div>
-                    <h4 class="text-2xl font-black text-slate-900 dark:text-white">Matching Tutors Mapped!</h4>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 mb-6 max-w-md" id="wizardResultText">We have identified matching verified tutors matching your preferences. You can look at them directly below.</p>
+                    <h4 class="text-2xl font-black text-slate-900">Matching Tutors Mapped!</h4>
+                    <p class="text-sm text-slate-500 mt-2 mb-6 max-w-md" id="wizardResultText">We have identified verified tutors matching your preferences. You can view them directly below.</p>
                     <div class="flex gap-4">
-                        <button onclick="resetWizard()" class="text-xs font-extrabold px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-sans">
+                        <button onclick="resetWizard()" class="text-xs font-extrabold px-4 py-2.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-sans">
                             Reset Search
                         </button>
-                        <button onclick="applyWizardFilters()" class="text-xs font-extrabold px-5 py-2.5 bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600 text-white rounded-lg shadow-md font-sans">
+                        <button onclick="applyWizardFilters()" class="text-xs font-extrabold px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-lg shadow-md font-sans">
                             Browse Matching Tutors
                         </button>
                     </div>
@@ -398,12 +390,12 @@
     </section>
 
     <!-- Verified Tutors Directory Section (Homepage Preview) -->
-    <section id="find-tutors" class="py-16 md:py-24 bg-slate-50/50 dark:bg-slate-900/50">
+    <section id="find-tutors" class="py-16 md:py-24 bg-slate-50/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center space-y-4 mb-12">
-                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-widest uppercase">Verified Tutor Directory</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">Our Top-Rated Educators</h2>
-                <p class="text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto">Every tutor is rigorously vetted, subject to background verification, and trained on interactive teaching skills.</p>
+                <span class="text-xs font-bold text-brand-600 tracking-widest uppercase">Verified Tutor Directory</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">Our Top-Rated Educators</h2>
+                <p class="text-sm text-slate-500 max-w-lg mx-auto">Every tutor is rigorously vetted, subject to background verification, and trained on interactive teaching skills.</p>
             </div>
 
             <!-- Featured Tutors List Grid (4 Tutors Shown on Desktop) -->
@@ -422,11 +414,11 @@
     </section>
 
     <!-- Full Immersive Directory View Overlay -->
-    <div id="fullDirectoryView" class="fixed inset-0 z-50 bg-slate-50 dark:bg-slate-900 hidden flex-col w-full h-full overflow-y-auto">
+    <div id="fullDirectoryView" class="fixed inset-0 z-50 bg-slate-50 hidden flex-col w-full h-full overflow-y-auto">
         <!-- Overlay Header Navigation -->
-        <header class="sticky top-0 z-10 w-full backdrop-blur-md bg-white/90 dark:bg-slate-955/90 border-b border-slate-150 dark:border-slate-800 transition-all px-4 sm:px-8 py-4">
+        <header class="sticky top-0 z-10 w-full backdrop-blur-md bg-white/90 border-b border-slate-150 transition-all px-4 sm:px-8 py-4">
             <div class="max-w-7xl mx-auto flex items-center justify-between">
-                <button onclick="closeFullDirectory()" class="inline-flex items-center gap-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-brand-500 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 px-4 h-10 rounded-xl transition-all shadow-sm font-sans">
+                <button onclick="closeFullDirectory()" class="inline-flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-brand-500 bg-slate-100 hover:bg-slate-200 px-4 h-10 rounded-xl transition-all shadow-sm font-sans">
                     <i class="fa-solid fa-arrow-left"></i> Back to Home
                 </button>
                 <div class="flex items-center gap-2">
@@ -439,17 +431,17 @@
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full">
             <div class="space-y-6 mb-12">
                 <div class="text-center sm:text-left space-y-2">
-                    <span class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-widest uppercase">Verified Tutors Hub</span>
-                    <h2 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Complete Tutor Directory</h2>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Discover and match with certified local and online mentors across multiple disciplines.</p>
+                    <span class="text-xs font-bold text-brand-600 tracking-widest uppercase">Verified Tutors Hub</span>
+                    <h2 class="text-3xl font-extrabold tracking-tight text-slate-900">Complete Tutor Directory</h2>
+                    <p class="text-sm text-slate-500">Discover and match with certified local and online mentors across multiple disciplines.</p>
                 </div>
 
                 <!-- Custom Filter Inputs Panel with Location Filter -->
-                <div class="bg-white dark:bg-slate-950 p-6 rounded-3xl border border-slate-200/60 dark:border-slate-800/80 shadow-md grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-md grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                     <!-- Subject Filter -->
                     <div>
                         <label class="block text-[10px] font-black uppercase text-slate-400 tracking-wider mb-1.5">Subject Specialty</label>
-                        <select id="filterSubject" onchange="filterTutors()" class="w-full pl-3 pr-8 py-2.5 text-xs font-semibold rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-750 text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer">
+                        <select id="filterSubject" onchange="filterTutors()" class="w-full pl-3 pr-8 py-2.5 text-xs font-semibold rounded-lg bg-slate-50 border border-slate-200 text-slate-750 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer">
                             <option value="">All Subjects</option>
                             <option value="Mathematics">Mathematics</option>
                             <option value="Physics">Physics</option>
@@ -463,7 +455,7 @@
                     <!-- Mode Filter -->
                     <div>
                         <label class="block text-[10px] font-black uppercase text-slate-400 tracking-wider mb-1.5">Learning Mode</label>
-                        <select id="filterMode" onchange="filterTutors()" class="w-full pl-3 pr-8 py-2.5 text-xs font-semibold rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-750 text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer">
+                        <select id="filterMode" onchange="filterTutors()" class="w-full pl-3 pr-8 py-2.5 text-xs font-semibold rounded-lg bg-slate-50 border border-slate-200 text-slate-755 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer">
                             <option value="">All Learning Modes</option>
                             <option value="Online">Online Only</option>
                             <option value="Home Tutor">Home Tutor Only</option>
@@ -473,7 +465,7 @@
                     <!-- Location Filter -->
                     <div>
                         <label class="block text-[10px] font-black uppercase text-slate-400 tracking-wider mb-1.5">Location/City</label>
-                        <select id="filterLocation" onchange="filterTutors()" class="w-full pl-3 pr-8 py-2.5 text-xs font-semibold rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-750 text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer">
+                        <select id="filterLocation" onchange="filterTutors()" class="w-full pl-3 pr-8 py-2.5 text-xs font-semibold rounded-lg bg-slate-50 border border-slate-200 text-slate-755 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer">
                             <option value="">All Locations</option>
                             <option value="Kharagpur">Kharagpur</option>
                             <option value="Kalyani">Kalyani</option>
@@ -487,7 +479,7 @@
                     </div>
                     <!-- Clear Action -->
                     <div class="flex items-end">
-                        <button onclick="clearTutorFilters()" class="w-full py-2.5 text-xs font-bold text-slate-500 hover:text-white bg-slate-100 hover:bg-red-500 dark:bg-slate-900 dark:hover:bg-red-600 rounded-lg transition-all duration-200 shadow-sm font-sans">
+                        <button onclick="clearTutorFilters()" class="w-full py-2.5 text-xs font-bold text-slate-550 hover:text-white bg-slate-100 hover:bg-red-500 rounded-lg transition-all duration-200 shadow-sm font-sans">
                             <i class="fa-solid fa-trash-can mr-1.5"></i> Clear Filters
                         </button>
                     </div>
@@ -500,50 +492,48 @@
             </div>
 
             <!-- No results container -->
-            <div id="fullNoResults" class="hidden text-center py-16 bg-white dark:bg-slate-950 border border-slate-150 dark:border-slate-850 rounded-2xl p-6">
-                <i class="fa-solid fa-graduation-cap text-slate-300 dark:text-slate-700 text-5xl mb-3"></i>
-                <h4 class="text-lg font-bold text-slate-700 dark:text-slate-300">No Match Found</h4>
+            <div id="fullNoResults" class="hidden text-center py-16 bg-white border border-slate-150 rounded-2xl p-6">
+                <i class="fa-solid fa-graduation-cap text-slate-300 text-5xl mb-3"></i>
+                <h4 class="text-lg font-bold text-slate-700">No Match Found</h4>
                 <p class="text-xs text-slate-400 max-w-xs mx-auto mt-1">Try resetting or modifying your selected filters to match other verified teachers.</p>
             </div>
         </main>
     </div>
 
-    <!-- Price Section -->
-
     <!-- Become a Tutor Section -->
-    <section id="become-tutor" class="py-16 md:py-24 bg-slate-50 dark:bg-slate-900/40 relative border-t border-b border-slate-100 dark:border-slate-800/80">
+    <section id="become-tutor" class="py-16 md:py-24 bg-slate-50 relative border-t border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
                 <!-- Left Column: Tutor Onboarding Form -->
                 <div class="lg:col-span-5 order-2 lg:order-1 space-y-6">
-                    <div class="p-6 sm:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-xl space-y-6 relative">
-                        <h3 class="text-xl font-black text-slate-900 dark:text-white">Become a Tutor - Onboarding Form</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Fill out your professional details to submit your application directly to the TutorNxt onboarding team.</p>
+                    <div class="p-6 sm:p-8 bg-white border border-slate-200 rounded-3xl shadow-xl space-y-6 relative">
+                        <h3 class="text-xl font-black text-slate-900">Become a Tutor - Onboarding Form</h3>
+                        <p class="text-xs text-slate-500">Fill out your professional details to submit your application directly to the TutorNxt onboarding team.</p>
                         
                         <div class="space-y-3 text-xs">
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
-                                    <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Professional Name</label>
-                                    <input type="text" id="prevName" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Prof. Milan Dev">
+                                    <label class="block font-bold mb-1 text-slate-500">Professional Name</label>
+                                    <input type="text" id="prevName" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Prof. Milan Dev">
                                 </div>
                                 <div>
-                                    <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">WhatsApp Number</label>
-                                    <input type="tel" id="prevPhone" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-1 focus:ring-brand-500" value="+91 ">
+                                    <label class="block font-bold mb-1 text-slate-500">WhatsApp Number</label>
+                                    <input type="tel" id="prevPhone" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500" value="+91 ">
                                 </div>
                             </div>
                             <div>
-                                <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Qualifications & Degree</label>
-                                <input type="text" id="prevEdu" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. M.Sc. in Physics (IIT Kharagpur)">
+                                <label class="block font-bold mb-1 text-slate-500">Qualifications & Degree</label>
+                                <input type="text" id="prevEdu" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. M.Sc. in Physics (IIT Kharagpur)">
                             </div>
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
-                                    <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Expert Subject</label>
-                                    <input type="text" id="prevSubject" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Mathematics">
+                                    <label class="block font-bold mb-1 text-slate-500">Expert Subject</label>
+                                    <input type="text" id="prevSubject" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Mathematics">
                                 </div>
                                 <div>
-                                    <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Learning Mode</label>
-                                    <select id="prevMode" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-1 focus:ring-brand-500">
+                                    <label class="block font-bold mb-1 text-slate-500">Learning Mode</label>
+                                    <select id="prevMode" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500">
                                         <option value="Online">Online</option>
                                         <option value="Home Tutor">Home Tutor</option>
                                         <option value="Offline at Tutor's Address">Offline at Tutor's Address</option>
@@ -552,8 +542,8 @@
                             </div>
                             <div class="grid grid-cols-3 gap-2">
                                 <div class="col-span-2">
-                                    <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Can Teach Upto Class</label>
-                                    <select id="prevMaxClass" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-1 focus:ring-brand-500">
+                                    <label class="block font-bold mb-1 text-slate-500">Can Teach Upto Class</label>
+                                    <select id="prevMaxClass" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500">
                                         <option value="Primary (K-5)">Primary (K-5)</option>
                                         <option value="Middle School (6-8)">Middle School (6-8)</option>
                                         <option value="High School (9-10)">High School (9-10)</option>
@@ -562,13 +552,13 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Years Exp</label>
-                                    <input type="number" id="prevExp" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-1 focus:ring-brand-500" value="0" min="0">
+                                    <label class="block font-bold mb-1 text-slate-500">Years Exp</label>
+                                    <input type="number" id="prevExp" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500" value="0" min="0">
                                 </div>
                             </div>
                             <div>
-                                <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Weekly Free Slots Available</label>
-                                <input type="number" id="prevSlots" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-1 focus:ring-brand-500" value="3" min="1">
+                                <label class="block font-bold mb-1 text-slate-500">Weekly Free Slots Available</label>
+                                <input type="number" id="prevSlots" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500" value="3" min="1">
                             </div>
                         </div>
 
@@ -581,44 +571,44 @@
 
                 <!-- Right Column: Benefits of Teaching -->
                 <div class="lg:col-span-7 order-1 lg:order-2 space-y-6">
-                    <span class="text-brand-600 dark:text-brand-400 text-xs font-bold tracking-widest uppercase">Empower Other Minds</span>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">Grow Your Teaching Career With TutorNxt</h2>
-                    <p class="text-slate-600 dark:text-slate-300 text-base">Are you an expert educator, a skilled student, or a dedicated private coach? TutorNxt links you directly with verified students matching your schedules, preferred subjects, and physical location.</p>
+                    <span class="text-brand-600 text-xs font-bold tracking-widest uppercase">Empower Other Minds</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">Grow Your Teaching Career With TutorNxt</h2>
+                    <p class="text-slate-600 text-base">Are you an expert educator, a skilled student, or a dedicated private coach? TutorNxt links you directly with verified students matching your schedules, preferred subjects, and physical location.</p>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
                         <div class="flex gap-3">
-                            <span class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0">
+                            <span class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center shrink-0">
                                 <i class="fa-solid fa-hand-holding-dollar"></i>
                             </span>
                             <div>
-                                <h4 class="font-bold text-sm text-slate-900 dark:text-white">Transparent Commissions</h4>
+                                <h4 class="font-bold text-sm text-slate-900">Transparent Commissions</h4>
                                 <p class="text-xs text-slate-400 mt-1">A fair and competitive commission structure applied only upon successful matching. No upfront setup or registration fees.</p>
                             </div>
                         </div>
                         <div class="flex gap-3">
-                            <span class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0">
+                            <span class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center shrink-0">
                                 <i class="fa-solid fa-clock-rotate-left"></i>
                             </span>
                             <div>
-                                <h4 class="font-bold text-sm text-slate-900 dark:text-white">Flexible Schedules</h4>
+                                <h4 class="font-bold text-sm text-slate-900">Flexible Schedules</h4>
                                 <p class="text-xs text-slate-400 mt-1">Teach online or in-person. Accept bookings only on times slots set by you.</p>
                             </div>
                         </div>
                         <div class="flex gap-3">
-                            <span class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0">
+                            <span class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center shrink-0">
                                 <i class="fa-solid fa-shield-halved"></i>
                             </span>
                             <div>
-                                <h4 class="font-bold text-sm text-slate-900 dark:text-white">Verified Safeguard</h4>
+                                <h4 class="font-bold text-sm text-slate-900">Verified Safeguard</h4>
                                 <p class="text-xs text-slate-400 mt-1">Tutor profiles are certified, backed by trust and verified student reviews.</p>
                             </div>
                         </div>
                         <div class="flex gap-3">
-                            <span class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0">
+                            <span class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center shrink-0">
                                 <i class="fa-solid fa-chart-line"></i>
                             </span>
                             <div>
-                                <h4 class="font-bold text-sm text-slate-900 dark:text-white">Continuous Support</h4>
+                                <h4 class="font-bold text-sm text-slate-900">Continuous Support</h4>
                                 <p class="text-xs text-slate-400 mt-1">Gain analytics reporting, digital class boards, and counselor feedback.</p>
                             </div>
                         </div>
@@ -630,7 +620,7 @@
     </section>
 
     <!-- Live Reservation Scheduler Section -->
-    <section id="scheduler" class="py-16 md:py-24 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800/80">
+    <section id="scheduler" class="py-16 md:py-24 bg-white border-t border-slate-100">
         <div class="max-w-4xl mx-auto px-4 sm:px-6">
             <div class="bg-gradient-to-tr from-brand-600 to-accent-600 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
                 <div class="absolute -top-12 -right-12 w-48 h-48 bg-white/10 rounded-full blur-xl"></div>
@@ -644,23 +634,23 @@
                     </div>
 
                     <!-- Scheduler Form Widget -->
-                    <div class="lg:col-span-6 bg-white dark:bg-slate-900 rounded-2xl p-6 text-slate-800 dark:text-white shadow-lg space-y-4 text-xs font-semibold">
+                    <div class="lg:col-span-6 bg-white rounded-2xl p-6 text-slate-800 shadow-lg space-y-4 text-xs font-semibold">
                         <form id="schedulerForm" onsubmit="event.preventDefault(); handleSchedulerBooking();">
                             <div class="space-y-3">
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Student Name</label>
-                                        <input type="text" id="schedName" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-850 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Priyan Sen">
+                                        <label class="block font-bold mb-1 text-slate-500">Student Name</label>
+                                        <input type="text" id="schedName" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Priyan Sen">
                                     </div>
                                     <div>
-                                        <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Contact Number</label>
-                                        <input type="tel" id="schedPhone" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-850 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. +91 98765 43210">
+                                        <label class="block font-bold mb-1 text-slate-500">Contact Number</label>
+                                        <input type="tel" id="schedPhone" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. +91 98765 43210">
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Class Subject</label>
-                                        <input type="text" id="schedSubject" list="subjectSuggestions" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-850 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Physics / Calculus">
+                                        <label class="block font-bold mb-1 text-slate-500">Class Subject</label>
+                                        <input type="text" id="schedSubject" list="subjectSuggestions" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Physics / Calculus">
                                         <datalist id="subjectSuggestions">
                                             <option value="Mathematics">
                                             <option value="Physics">
@@ -673,22 +663,22 @@
                                         </datalist>
                                     </div>
                                     <div>
-                                        <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Date</label>
-                                        <input type="date" id="schedDate" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-850 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500">
+                                        <label class="block font-bold mb-1 text-slate-500">Date</label>
+                                        <input type="date" id="schedDate" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500">
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Method of Learning</label>
-                                        <select id="schedMode" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-850 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500">
+                                        <label class="block font-bold mb-1 text-slate-500">Method of Learning</label>
+                                        <select id="schedMode" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500">
                                             <option value="Home Tuition">Home Tuition (In-person)</option>
                                             <option value="Online Class">Online Class (Live)</option>
                                             <option value="Offline at Tutor's Address">Offline at Tutor's Address</option>
                                         </select>
                                     </div>
                                     <div>
-                                        <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Time Slot</label>
-                                        <select id="schedTime" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-850 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500">
+                                        <label class="block font-bold mb-1 text-slate-500">Time Slot</label>
+                                        <select id="schedTime" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500">
                                             <option>10:00 AM - 12:00 PM</option>
                                             <option>02:00 PM - 04:00 PM</option>
                                             <option>04:00 PM - 06:00 PM</option>
@@ -697,11 +687,11 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block font-bold mb-1 text-slate-500 dark:text-slate-400">Address / Location Details</label>
-                                    <input type="text" id="schedAddress" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-850 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Sector-2, Kharagpur, near post office">
+                                    <label class="block font-bold mb-1 text-slate-500">Address / Location Details</label>
+                                    <input type="text" id="schedAddress" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-850 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Sector-2, Kharagpur, near post office">
                                 </div>
                             </div>
-                            <button type="submit" class="w-full py-4 mt-4 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-accent-500 hover:to-brand-600 hover:-translate-y-0.5 hover:shadow-glow-pink text-white text-xs font-extrabold rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 font-sans">
+                            <button type="submit" class="w-full py-4 bg-brand-600 hover:bg-brand-700 text-white text-xs font-extrabold rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 font-sans">
                                 Confirm Demo Booking <i class="fa-solid fa-paper-plane text-[10px]"></i>
                             </button>
                         </form>
@@ -713,42 +703,42 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="py-16 md:py-24 bg-slate-50/50 dark:bg-slate-900/50">
+    <section class="py-16 md:py-24 bg-slate-50/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center space-y-4 mb-16">
-                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-widest uppercase">Success Stories</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">What Parents & Tutors Say</h2>
-                <p class="text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto">Real success feedback from local families and verified instructors currently active in our ecosystem.</p>
+                <span class="text-xs font-bold text-brand-600 tracking-widest uppercase">Success Stories</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">What Parents & Tutors Say</h2>
+                <p class="text-sm text-slate-500 max-w-lg mx-auto">Real success feedback from local families and verified instructors currently active in our ecosystem.</p>
             </div>
 
             <!-- Testimonial Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md space-y-4 flex flex-col justify-between">
-                    <p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300">"TutorNxt helped us match with an excellent physics tutor in Kharagpur for my Class 12 son. The trial booking system was seamless, and we received rapid updates on WhatsApp!"</p>
-                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-4 flex flex-col justify-between">
+                    <p class="text-xs leading-relaxed text-slate-605">"TutorNxt helped us match with an excellent physics tutor in Kharagpur for my Class 12 son. The trial booking system was seamless, and we received rapid updates on WhatsApp!"</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
                         <img class="w-9 h-9 rounded-full object-cover" src="https://placehold.co/100x100/004aad/ffffff?text=A" alt="Avatar">
                         <div>
-                            <h4 class="text-xs font-bold text-slate-955 dark:text-white">Ananya Ghosal</h4>
+                            <h4 class="text-xs font-bold text-slate-955">Ananya Ghosal</h4>
                             <p class="text-[10px] text-slate-400">Parent, Kharagpur</p>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md space-y-4 flex flex-col justify-between">
-                    <p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300">"TutorNXT has helped me expand my teaching reach and connect with dedicated, motivated students. The platform has made it easier to grow my tutoring journey while finding the right students to teach."</p>
-                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-4 flex flex-col justify-between">
+                    <p class="text-xs leading-relaxed text-slate-605">"TutorNxt has helped me expand my teaching reach and connect with dedicated, motivated students. The platform has made it easier to grow my tutoring journey while finding the right students to teach."</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
                         <img class="w-9 h-9 rounded-full object-cover" src="https://placehold.co/100x100/00c2ff/ffffff?text=M" alt="Avatar">
                         <div>
-                            <h4 class="text-xs font-bold text-slate-955 dark:text-white">Prof. Milan Dev</h4>
+                            <h4 class="text-xs font-bold text-slate-955">Prof. Milan Dev</h4>
                             <p class="text-[10px] text-slate-400">Mathematics Tutor (7+ Yrs Exp)</p>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md space-y-4 flex flex-col justify-between">
-                    <p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300">"The interactive dashboard features are fantastic. The weekly insights and matching algorithm connected me to a coding tutor who really customized the class to match my tempo."</p>
-                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-4 flex flex-col justify-between">
+                    <p class="text-xs leading-relaxed text-slate-605">"The interactive dashboard features are fantastic. The weekly insights and matching algorithm connected me to a coding tutor who really customized the class to match my tempo."</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
                         <img class="w-9 h-9 rounded-full object-cover" src="https://placehold.co/100x100/0f172a/ffffff?text=S" alt="Avatar">
                         <div>
-                            <h4 class="text-xs font-bold text-slate-955 dark:text-white">Siddharth K.</h4>
+                            <h4 class="text-xs font-bold text-slate-955">Siddharth K.</h4>
                             <p class="text-[10px] text-slate-400">Class 10 Student</p>
                         </div>
                     </div>
@@ -758,19 +748,19 @@
     </section>
 
     <!-- Meet Our CEO Section -->
-    <section class="py-16 md:py-24 bg-slate-50/40 dark:bg-slate-900/40 border-t border-slate-100 dark:border-slate-800">
+    <section class="py-16 md:py-24 bg-slate-50/40 border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center space-y-4 mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white relative inline-block pb-3">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 relative inline-block pb-3">
                     Meet Our CEO
                     <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-brand-500 rounded-full"></span>
                 </h2>
             </div>
 
-            <div class="bg-white dark:bg-slate-900/80 rounded-[2rem] border border-slate-150 dark:border-slate-800 shadow-xl overflow-hidden max-w-5xl mx-auto flex flex-col md:flex-row gap-8 sm:gap-12 p-6 sm:p-10">
+            <div class="bg-white rounded-[2rem] border border-slate-150 shadow-xl overflow-hidden max-w-5xl mx-auto flex flex-col md:flex-row gap-8 sm:gap-12 p-6 sm:p-10">
                 <div class="relative w-full md:w-[42%] aspect-[4/3] md:aspect-square rounded-2xl overflow-hidden shadow-md shrink-0">
                     <img src="ankit.jpeg" alt="Ankit Kumar" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x600/004aad/ffffff?text=Ankit+Kumar';">
-                    <div class="absolute bottom-4 left-4 right-4 bg-white/25 dark:bg-black/40 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-lg">
+                    <div class="absolute bottom-4 left-4 right-4 bg-white/25 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-lg">
                         <p class="text-[9px] uppercase font-black tracking-wider text-slate-100">Alumnus</p>
                         <p class="text-sm font-extrabold text-white flex items-center gap-1.5 mt-0.5">
                             IIT Kharagpur <span class="text-xs">🎓</span>
@@ -782,36 +772,36 @@
                 <div class="flex-1 flex flex-col justify-between py-2">
                     <div class="space-y-4">
                         <div class="flex flex-wrap gap-2 items-center">
-                            <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs font-black px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                            <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs font-black px-3 py-1 rounded-full bg-amber-500/10 text-amber-600">
                                 👑 CHIEF EXECUTIVE OFFICER (CEO)
                             </span>
-                            <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs font-black px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                            <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs font-black px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600">
                                 ❇️ PHYSICS EDUCATOR
                             </span>
                         </div>
 
                         <div>
-                            <h3 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">Ankit Kumar</h3>
-                            <p class="text-sm font-bold text-brand-500 dark:text-accent-400 mt-1">Physics Educator at 9 Education, Hyderabad</p>
+                            <h3 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">Ankit Kumar</h3>
+                            <p class="text-sm font-bold text-brand-500 mt-1">Physics Educator at 9 Education, Hyderabad</p>
                         </div>
 
-                        <p class="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-355">
+                        <p class="text-xs sm:text-sm leading-relaxed text-slate-600">
                             Ankit Kumar is the Chief Executive Officer of TutorNxt, guiding and inspiring our entire team of educators and product builders. Under his systematic stewardship, TutorNxt connects premium home and online tutors with ambitious students.
                         </p>
 
-                        <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200/50 dark:border-slate-800/60 mt-4">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/50 mt-4">
                             <p class="text-[9px] font-black uppercase text-slate-400 tracking-wider">Lead Educator & Guide</p>
-                            <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">
+                            <p class="text-[11px] sm:text-xs text-slate-500 leading-relaxed mt-1">
                                 Bringing his rigorous problem-solving approach from <strong>IIT Kharagpur</strong>, Ankit currently empowers JEE aspirants at <strong>9 Education, Hyderabad</strong>. He designs, reviews, and mentors our overall physics curriculum to ensure high-standard cognitive clarity.
                             </p>
                         </div>
                     </div>
 
                     <div class="flex flex-wrap items-center gap-3 mt-6">
-                        <a href="founder.html" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600 text-white font-extrabold text-xs px-5 py-3 rounded-xl transition-all shadow-md hover:shadow-brand-500/25 active:scale-[0.98] font-sans">
+                        <a href="founder.html" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs px-5 py-3 rounded-xl transition-all shadow-md hover:shadow-brand-500/25 active:scale-[0.98] font-sans">
                             <i class="fa-solid fa-crown"></i> Read Founder's Full Story
                         </a>
-                        <a href="https://www.linkedin.com/in/ankit-kumar-1300b4142/" target="_blank" class="inline-flex items-center gap-2 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 font-bold text-xs px-5 py-3 rounded-xl transition-all font-sans">
+                        <a href="https://www.linkedin.com/in/ankit-kumar-1300b4142/" target="_blank" class="inline-flex items-center gap-2 border border-slate-200 hover:bg-slate-50 text-slate-705 font-bold text-xs px-5 py-3 rounded-xl transition-all font-sans">
                             <i class="fa-brands fa-linkedin text-sm text-[#0077b5]"></i> Connect on LinkedIn
                         </a>
                     </div>
@@ -822,40 +812,40 @@
     </section>
 
     <!-- FAQ Accordion Section -->
-    <section class="py-16 md:py-24 bg-white dark:bg-slate-950">
+    <section class="py-16 md:py-24 bg-white">
         <div class="max-w-3xl mx-auto px-4 sm:px-6">
             <div class="text-center space-y-4 mb-12">
-                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-widest uppercase">FAQ Support</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white">Common Questions</h2>
+                <span class="text-xs font-bold text-brand-600 tracking-widest uppercase">FAQ Support</span>
+                <h2 class="text-3xl font-extrabold text-slate-900">Common Questions</h2>
             </div>
 
             <div class="space-y-4">
-                <div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-5 hover:bg-slate-50 dark:hover:bg-slate-900 cursor-pointer transition-all" onclick="toggleFaq(1)">
+                <div class="border border-slate-200 rounded-2xl p-5 hover:bg-slate-50 cursor-pointer transition-all" onclick="toggleFaq(1)">
                     <div class="flex items-center justify-between">
-                        <h4 class="text-sm font-bold text-slate-955 dark:text-white">How does the TutorNxt matching process work?</h4>
+                        <h4 class="text-sm font-bold text-slate-955">How does the TutorNxt matching process work?</h4>
                         <span id="faqIcon1" class="text-xs text-slate-400 transition-transform"><i class="fa-solid fa-chevron-down"></i></span>
                     </div>
-                    <p id="faqAnswer1" class="hidden text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
+                    <p id="faqAnswer1" class="hidden text-xs text-slate-500 mt-3 leading-relaxed">
                         TutorNxt leverages an intelligent matching database. You fill out our 3-step assistant details, and we rank verified teachers specializing in your standard and preferences immediately.
                     </p>
                 </div>
 
-                <div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-5 hover:bg-slate-50 dark:hover:bg-slate-900 cursor-pointer transition-all" onclick="toggleFaq(2)">
+                <div class="border border-slate-200 rounded-2xl p-5 hover:bg-slate-50 cursor-pointer transition-all" onclick="toggleFaq(2)">
                     <div class="flex items-center justify-between">
-                        <h4 class="text-sm font-bold text-slate-955 dark:text-white">Are all tutor profiles verified on the platform?</h4>
+                        <h4 class="text-sm font-bold text-slate-955">Are all tutor profiles verified on the platform?</h4>
                         <span id="faqIcon2" class="text-xs text-slate-400 transition-transform"><i class="fa-solid fa-chevron-down"></i></span>
                     </div>
-                    <p id="faqAnswer2" class="hidden text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
+                    <p id="faqAnswer2" class="hidden text-xs text-slate-500 mt-3 leading-relaxed">
                         Absolutely. Every tutor who registers submits academic qualifications, identity verification, and background proof before listings go public on the directory dashboard.
                     </p>
                 </div>
 
-                <div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-5 hover:bg-slate-50 dark:hover:bg-slate-900 cursor-pointer transition-all" onclick="toggleFaq(3)">
+                <div class="border border-slate-200 rounded-2xl p-5 hover:bg-slate-50 cursor-pointer transition-all" onclick="toggleFaq(3)">
                     <div class="flex items-center justify-between">
-                        <h4 class="text-sm font-bold text-slate-955 dark:text-white">Can I schedule a free trial or demo before committing?</h4>
+                        <h4 class="text-sm font-bold text-slate-955">Can I schedule a free trial or demo before committing?</h4>
                         <span id="faqIcon3" class="text-xs text-slate-400 transition-transform"><i class="fa-solid fa-chevron-down"></i></span>
                     </div>
-                    <p id="faqAnswer3" class="hidden text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
+                    <p id="faqAnswer3" class="hidden text-xs text-slate-500 mt-3 leading-relaxed">
                         Yes, TutorNxt offers direct demo requests. You can request up to 2 trial sessions with selected tutor cards absolutely free!
                     </p>
                 </div>
@@ -874,7 +864,7 @@
                         <div class="flex items-baseline font-extrabold tracking-tight text-lg sm:text-xl leading-none">
                             <span class="text-white">Tutor</span><span class="text-[#00c2ff]">Nxt</span>
                         </div>
-                        <span class="block text-[7px] text-slate-400 font-extrabold uppercase tracking-widest mt-1 leading-none">CONNECTING STUDENTS & TEACHERS</span>
+                        <span class="block text-[7px] text-slate-450 font-extrabold uppercase tracking-widest mt-1 leading-none">CONNECTING STUDENTS & TEACHERS</span>
                     </div>
                 </div>
                 <p class="text-xs leading-relaxed max-w-sm">TutorNxt is a tutor-student matching platform focused on personalized learning across diverse subjects and academic levels. We offer premium home tuition, online classes, and offline coaching options.</p>
@@ -920,31 +910,31 @@
 
     <!-- Interactive Terms of Service (TOS) Modal -->
     <div id="tosModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-4xl w-full border border-slate-100 dark:border-slate-800 shadow-2xl relative text-slate-800 dark:text-white overflow-hidden flex flex-col h-auto max-h-[90vh]">
+        <div class="bg-white rounded-3xl max-w-4xl w-full border border-slate-100 shadow-2xl relative text-slate-800 overflow-hidden flex flex-col h-auto max-h-[90vh]">
             
             <!-- Close Modal -->
-            <button onclick="closeTOSModal()" class="absolute top-4 right-4 z-30 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors p-1.5 rounded-lg bg-slate-100/50 dark:bg-slate-800/50" aria-label="Close Terms">
+            <button onclick="closeTOSModal()" class="absolute top-4 right-4 z-30 text-slate-400 hover:text-slate-600 transition-colors p-1.5 rounded-lg bg-slate-100/50" aria-label="Close Terms">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
 
             <!-- Modal Header -->
-            <div class="p-6 border-b border-slate-200/80 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-955/20 shrink-0">
+            <div class="p-6 border-b border-slate-200/80 bg-slate-50/50 shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-brand-500 text-white flex items-center justify-center text-lg shadow-md">
                         <i class="fa-solid fa-scale-balanced"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">Terms & Conditions</h3>
+                        <h3 class="text-xl font-extrabold tracking-tight text-slate-900">Terms & Conditions</h3>
                         <p class="text-xs text-slate-400 font-semibold mt-0.5">Please review the rules and guidelines regulating TutorNxt</p>
                     </div>
                 </div>
 
                 <!-- Tabs navigation -->
-                <div class="flex gap-4 mt-6 border-b border-slate-200 dark:border-slate-800">
-                    <button onclick="switchTOSTab('studentTOS')" id="tosTabBtn-student" class="tos-tab-btn pb-2.5 text-xs font-bold border-b-2 border-brand-500 text-brand-600 dark:text-white dark:border-brand-400 transition-all flex items-center gap-2">
+                <div class="flex gap-4 mt-6 border-b border-slate-200">
+                    <button onclick="switchTOSTab('studentTOS')" id="tosTabBtn-student" class="tos-tab-btn pb-2.5 text-xs font-bold border-b-2 border-brand-500 text-brand-600 transition-all flex items-center gap-2">
                         <i class="fa-solid fa-user-graduate"></i> For Students & Parents
                     </button>
-                    <button onclick="switchTOSTab('teacherTOS')" id="tosTabBtn-teacher" class="tos-tab-btn pb-2.5 text-xs font-bold border-b-2 border-transparent text-slate-450 hover:text-slate-600 dark:hover:text-slate-200 transition-all flex items-center gap-2">
+                    <button onclick="switchTOSTab('teacherTOS')" id="tosTabBtn-teacher" class="tos-tab-btn pb-2.5 text-xs font-bold border-b-2 border-transparent text-slate-450 hover:text-slate-600 transition-all flex items-center gap-2">
                         <i class="fa-solid fa-chalkboard-user"></i> For Teachers & Tutors
                     </button>
                 </div>
@@ -955,155 +945,155 @@
                 
                 <!-- STUDENT TERMS SECTION -->
                 <div id="tosTabContent-student" class="tos-tab-content space-y-4">
-                    <div class="p-4 rounded-2xl bg-brand-50/50 dark:bg-brand-950/25 border border-brand-100 dark:border-brand-900/30">
-                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
+                    <div class="p-4 rounded-2xl bg-brand-50/50 border border-brand-100">
+                        <p class="text-xs text-slate-650 leading-relaxed font-semibold">
                             Welcome to TutorNxt! We are delighted to have you as part of our mission to connect students with the right learning support. By registering as a student on TutorNxt, you agree to comply with and be bound by the following Terms & Conditions. Please read them carefully.
                         </p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">1</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">1</span>
                                 RESPECTFUL BEHAVIOR
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Students and parents must maintain polite and respectful communication with tutors and the TutorNxt team. Any rude, abusive, discriminatory, or inappropriate behavior will not be tolerated and may result in suspension or removal from the platform.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">2</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">2</span>
                                 ACCURATE INFORMATION
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Students must provide correct details regarding class, subject requirements, location, learning goals, and other necessary information. False or incomplete information may delay tutor matching or lead to cancellation of services.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">3</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">3</span>
                                 TIMELY FEE PAYMENT
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Students/parents are responsible for making fee payments on time as agreed with the tutor or platform. Delayed payments may affect class continuity and your access to TutorNxt services.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">4</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">4</span>
                                 CLASS DISCIPLINE
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Students should attend classes regularly and on time. If a class needs to be canceled or rescheduled, prior notice should be given to the tutor. Frequent last-minute cancellations may affect future bookings.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">5</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">5</span>
                                 TRIAL / DEMO CLASS
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Students may request a trial or demo class before confirming a tutor. Final decisions should be made based on the demo and suitability of the teaching style.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">6</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">6</span>
                                 HONEST FEEDBACK
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Students and parents should provide honest and constructive feedback about the tutor's teaching quality. This helps TutorNxt maintain high standards and improve the learning experience.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">7</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">7</span>
                                 SAFE LEARNING ENVIRONMENT
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Students/parents must provide a safe, comfortable, and respectful learning environment for tutors, especially during home or offline tuition sessions.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">8</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">8</span>
                                 NO DIRECT DEAL CIRCUMVENTION
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Students should not directly hire tutors introduced by TutorNxt without informing the platform. This helps maintain trust, transparency, and a fair ecosystem for all users.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">9</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">9</span>
                                 LEARNING RESPONSIBILITY
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 TutorNxt connects you with the right tutor, but your academic success depends on your own effort, consistency, preparation, and dedication towards learning.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">10</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">10</span>
                                 TUTOR CHANGE POLICY
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 If you are not satisfied with a tutor, you may request a replacement based on valid reasons and subject to tutor availability. TutorNxt will do its best to help you find a suitable match.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">11</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">11</span>
                                 PRIVACY & CONFIDENTIALITY
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Students and parents must respect the tutor's privacy and must not misuse personal contact details or any information shared. Do not share tutor details publicly or use for any non-academic purpose.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">12</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">12</span>
                                 PLATFORM RIGHTS
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 TutorNxt reserves the right to suspend or remove student accounts if these terms are violated, if any misconduct occurs, or if the platform's reputation is compromised.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">13</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">13</span>
                                 STUDENTS REQUIRED CONDITIONS
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Students must be sincere in learning, complete assignments (if given), attend classes regularly, and cooperate with the tutor. Any irresponsible behavior, lack of interest, or disruption during classes may result in termination of services.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">14</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">14</span>
                                 NO DISCUSSION OF FEES
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Tutors and students (or parents) are not allowed to discuss, negotiate, or share fee-related matters outside the platform's approved process. All financial transactions must remain within the platform's guidelines for safety and transparency.
                             </p>
                         </div>
                     </div>
 
-                    <div class="pt-4 border-t border-slate-150 dark:border-slate-800 text-center">
+                    <div class="pt-4 border-t border-slate-150 text-center">
                         <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center justify-center gap-2">
                             <i class="fa-solid fa-handshake"></i> Together, let's inspire learning, build confidence, and shape a brighter future for every student.
                         </p>
@@ -1112,135 +1102,135 @@
 
                 <!-- TEACHER TERMS SECTION -->
                 <div id="tosTabContent-teacher" class="tos-tab-content hidden space-y-4">
-                    <div class="p-4 rounded-2xl bg-brand-50/50 dark:bg-brand-950/25 border border-brand-100 dark:border-brand-900/30">
-                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
+                    <div class="p-4 rounded-2xl bg-brand-50/50 border border-brand-100">
+                        <p class="text-xs text-slate-650 leading-relaxed font-semibold">
                             Welcome to TutorNxt! We are delighted to have you as part of our mission to connect students with the right learning support. By registering as a teacher on TutorNxt, you agree to comply with and be bound by the following Terms & Conditions. Please read them carefully.
                         </p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">1</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">1</span>
                                 PROFESSIONAL CONDUCT
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Teachers must maintain the highest standards of professionalism, respect, and integrity while interacting with students, parents, and the TutorNxt team. Any form of rude, abusive, discriminatory, or unethical behavior will not be tolerated and may result in immediate suspension or permanent removal from the platform.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">2</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">2</span>
                                 ACCURATE INFORMATION
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 You must provide accurate, complete, and up-to-date information about your qualifications, teaching experience, subjects, skills, and availability. Submitting false, misleading, or incomplete information may lead to rejection of your profile or permanent ban.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">3</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">3</span>
                                 COMMITMENT TO TEACHING
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Once you accept a student or batch, you are expected to remain committed and deliver regular, quality classes as per the agreed schedule. Frequent cancellations or irregularity without a valid reason may affect your ratings, reviews, and future opportunities on the platform.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">4</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">4</span>
                                 FEES & PAYMENTS
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 TutorNxt acts as a bridge between students and teachers. Any platform fees, subscription charges, or commission (if applicable) will be clearly communicated. You agree to pay any applicable amounts on time and in the manner specified by TutorNxt. All payments are non-refundable unless stated otherwise.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">5</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">5</span>
                                 NO DIRECT DEAL CIRCUMVENTION
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Teachers are not allowed to bypass TutorNxt to engage in direct communication or transactions with students introduced through the platform without informing TutorNxt. Doing so violates our policy and may result in permanent removal from the platform.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">6</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">6</span>
                                 TRIAL / DEMO CLASSES
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 You may be required to take a demo or trial class, if requested by a student or parent, before finalizing the teaching arrangement. Please cooperate and showcase your teaching skills professionally.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">7</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">7</span>
                                 QUALITY OF TEACHING
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 You are expected to deliver quality education, be well-prepared for every class, use appropriate teaching methods, and contribute to the academic growth and confidence of your students.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">8</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">8</span>
                                 SAFETY & TRUST
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 You must ensure a safe, supportive, and respectful learning environment at all times. Any inappropriate behavior, harassment, or misconduct—online or offline—will lead to strict action, including legal proceedings if necessary.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">9</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">9</span>
                                 COMMUNICATION UPDATES
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 Keep open and transparent communication with students, parents, and the TutorNxt team. Inform us about student progress, schedule changes, issues, or if you are unable to continue classes.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">10</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">10</span>
                                 PROFILE VERIFICATION
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 You may be required to submit valid identity proof, educational certificates, and experience documents for verification. This helps us maintain trust and credibility on the platform.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">11</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">11</span>
                                 PLATFORM RIGHTS
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 TutorNxt reserves the right to approve, reject, suspend, or remove any teacher profile at its sole discretion, without prior notice, if any of these terms are violated or if the platform's reputation is compromised.
                             </p>
                         </div>
 
-                        <div class="p-4 bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-1">
-                            <h4 class="text-xs font-extrabold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                                <span class="w-5 h-5 rounded-md bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center text-[10px] text-brand-700 dark:text-brand-300 font-black">12</span>
+                        <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1">
+                            <h4 class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-md bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-black">12</span>
                                 REPUTATION OF THE PLATFORM
                             </h4>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
                                 You agree not to engage in any activity that may harm the reputation, credibility, or goodwill of TutorNxt. Let's work together to build a trusted learning community.
                             </p>
                         </div>
                     </div>
 
-                    <div class="pt-4 border-t border-slate-150 dark:border-slate-800 text-center">
+                    <div class="pt-4 border-t border-slate-150 text-center">
                         <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center justify-center gap-2">
                             <i class="fa-solid fa-handshake"></i> Together, let's inspire learning, build confidence, and shape a brighter future for every student.
                         </p>
@@ -1250,7 +1240,7 @@
             </div>
 
             <!-- Modal Footer Controls -->
-            <div class="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-955/20 flex justify-end shrink-0">
+            <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end shrink-0">
                 <button onclick="closeTOSModal()" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-transform active:scale-[0.98] font-sans">
                     I Understand
                 </button>
@@ -1261,27 +1251,27 @@
 
     <!-- Booking / Contact Modal Popups -->
     <div id="bookingModal" class="fixed inset-0 z-[60] bg-slate-955/50 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-100 dark:border-slate-800 shadow-2xl relative text-slate-800 dark:text-white">
-            <button onclick="closeBookingModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-100 shadow-2xl relative text-slate-800">
+            <button onclick="closeBookingModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 transition-colors">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             <div class="space-y-4">
                 <h4 class="text-xl font-extrabold bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent font-sans">Book Free Demo Lesson</h4>
-                <p class="text-xs text-slate-400 leading-relaxed">You are scheduling a session with <strong id="modalTutorName" class="text-slate-900 dark:text-white">the selected educator</strong>. Enter contact info below.</p>
+                <p class="text-xs text-slate-400 leading-relaxed">You are scheduling a session with <strong id="modalTutorName" class="text-slate-900">the selected educator</strong>. Enter contact info below.</p>
                 
                 <form id="modalForm" onsubmit="event.preventDefault(); handleModalSubmit();" class="space-y-3 pt-2 text-xs font-semibold">
                     <div>
                         <label class="block mb-1 text-slate-400">Student Name</label>
-                        <input type="text" id="modalStudentName" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Rohini Sen">
+                        <input type="text" id="modalStudentName" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Rohini Sen">
                     </div>
                     <div>
                         <label class="block mb-1 text-slate-400">WhatsApp / Phone Number</label>
-                        <input type="tel" id="modalStudentPhone" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. +91 99887 76655">
+                        <input type="tel" id="modalStudentPhone" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. +91 99887 76655">
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="block mb-1 text-slate-400">Class Grade</label>
-                            <select id="modalClass" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500">
+                            <select id="modalClass" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-1 focus:ring-brand-500">
                                 <option>K-5 (Primary)</option>
                                 <option>6-10 (Middle)</option>
                                 <option>11-12 (High School)</option>
@@ -1290,13 +1280,13 @@
                         </div>
                         <div>
                             <label class="block mb-1 text-slate-400">Subject Preference</label>
-                            <input type="text" id="modalSub" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-955 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Physics / Mathematics">
+                            <input type="text" id="modalSub" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-955 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Physics / Mathematics">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="block mb-1 text-slate-400">Method of Learning</label>
-                            <select id="modalMode" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500">
+                            <select id="modalMode" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-1 focus:ring-brand-500">
                                 <option value="Home Tuition">Home Tuition (In-person)</option>
                                 <option value="Online Class">Online Class (Live)</option>
                                 <option value="Offline at Tutor's Address">Offline at Tutor's Address</option>
@@ -1304,7 +1294,7 @@
                         </div>
                         <div>
                             <label class="block mb-1 text-slate-400">Address / Location Details</label>
-                            <input type="text" id="modalAddress" required class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Phase-2, Kalyani">
+                            <input type="text" id="modalAddress" required class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-1 focus:ring-brand-500" placeholder="e.g. Phase-2, Kalyani">
                         </div>
                     </div>
                     <button type="submit" class="w-full py-4 mt-4 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-accent-500 hover:to-brand-600 hover:-translate-y-0.5 hover:shadow-glow-pink text-white text-xs font-extrabold rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 font-sans">
@@ -1316,22 +1306,22 @@
     </div>
 
     <!-- IMMPERSIVE DYNAMIC EDUCATOR DASHBOARD (Full Screen/Large Layout) -->
-    <div id="teacherDashboardView" class="fixed inset-0 z-50 bg-slate-50 dark:bg-slate-955 hidden flex-col w-full h-full overflow-y-auto">
+    <div id="teacherDashboardView" class="fixed inset-0 z-50 bg-slate-50 hidden flex-col w-full h-full overflow-y-auto">
         <!-- Dashboard Header -->
-        <header class="sticky top-0 z-30 w-full backdrop-blur-md bg-white/95 dark:bg-slate-905/95 border-b border-slate-200/80 dark:border-slate-800 transition-all px-4 sm:px-8 py-4 shadow-sm">
+        <header class="sticky top-0 z-35 w-full backdrop-blur-md bg-white/95 border-b border-slate-200/80 transition-all px-4 sm:px-8 py-4 shadow-sm">
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                    <button onclick="closeTeacherDashboard()" class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-all">
+                    <button onclick="closeTeacherDashboard()" class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all">
                         <i class="fa-solid fa-arrow-left"></i>
                     </button>
                     <div>
-                        <h2 class="text-sm font-black text-slate-900 dark:text-white">Educator Professional Hub</h2>
+                        <h2 class="text-sm font-black text-slate-900">Educator Professional Hub</h2>
                         <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">TutorNxt Premium Network</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2.5">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                    <span id="dashActiveBadge" class="text-[10px] font-black uppercase text-emerald-600 dark:text-emerald-400 tracking-wider">Online Profile Active</span>
+                    <span id="dashActiveBadge" class="text-[10px] font-black uppercase text-emerald-600 tracking-wider">Online Profile Active</span>
                 </div>
             </div>
         </header>
@@ -1342,38 +1332,38 @@
                 <!-- LEFT COLUMN: Profile Header & Primary CTA Stats -->
                 <div class="lg:col-span-4 space-y-6">
                     <!-- Profile Card Box -->
-                    <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl p-6 shadow-md text-center relative overflow-hidden">
+                    <div class="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-md text-center relative overflow-hidden">
                         <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-brand-500 via-brand-600 to-accent-500"></div>
                         
-                        <!-- Clickable Zoom Avatar -->
+                        <!-- Clickable Zoom Avatar without any pulsing effect -->
                         <div class="relative w-28 h-28 mx-auto mt-4 group cursor-zoom-in" id="dashAvatarContainer">
                             <!-- Injected dynamically -->
                         </div>
 
                         <div class="mt-4 space-y-1">
-                            <h2 id="dashName" class="text-xl font-black text-slate-900 dark:text-white">Instructor Name</h2>
+                            <h2 id="dashName" class="text-xl font-black text-slate-900">Instructor Name</h2>
                             <p id="dashSubject" class="text-xs font-bold text-slate-400">Subject Specialist</p>
                             <p id="dashLocation" class="text-[11px] text-slate-505 font-bold"><i class="fa-solid fa-location-dot text-brand-500 mr-1 pb-1"></i> Location Details</p>
                         </div>
 
-                        <div class="grid grid-cols-3 gap-2 mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+                        <div class="grid grid-cols-3 gap-2 mt-6 pt-6 border-t border-slate-100">
                             <div>
-                                <p class="text-sm font-black text-slate-900 dark:text-white" id="dashStatExp">0 Yrs</p>
+                                <p class="text-sm font-black text-slate-900" id="dashStatExp">0 Yrs</p>
                                 <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Experience</p>
                             </div>
                             <div>
-                                <p class="text-sm font-black text-slate-900 dark:text-white" id="dashStatRating">4.8</p>
+                                <p class="text-sm font-black text-slate-900" id="dashStatRating">4.8</p>
                                 <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Rating</p>
                             </div>
                             <div>
-                                <p class="text-sm font-black text-slate-900 dark:text-white">100%</p>
+                                <p class="text-sm font-black text-slate-900">100%</p>
                                 <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Verified</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Direct Action Portal -->
-                    <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl p-6 shadow-md space-y-4">
+                    <div class="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-md space-y-4">
                         <h3 class="text-xs font-black uppercase text-slate-400 tracking-wider">Schedule Session</h3>
                         <p class="text-[11px] text-slate-550 leading-relaxed">Book a demo or start chat instantly.</p>
                         
@@ -1388,7 +1378,7 @@
                     </div>
 
                     <!-- Performance Index Widget -->
-                    <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl p-6 shadow-md space-y-4">
+                    <div class="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-md space-y-4">
                         <h3 class="text-xs font-black uppercase text-slate-400 tracking-wider">Verified Educator Metrics</h3>
                         <div class="space-y-3.5">
                             <div>
@@ -1396,7 +1386,7 @@
                                     <span class="text-slate-500">Student Match Index</span>
                                     <span class="text-brand-505">98%</span>
                                 </div>
-                                <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
                                     <div class="h-full bg-brand-500" style="width: 98%;"></div>
                                 </div>
                             </div>
@@ -1405,7 +1395,7 @@
                                     <span class="text-slate-500">Response Rate (Under 2 hrs)</span>
                                     <span class="text-emerald-505">96%</span>
                                 </div>
-                                <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
                                     <div class="h-full bg-emerald-500" style="width: 96%;"></div>
                                 </div>
                             </div>
@@ -1414,7 +1404,7 @@
                                     <span class="text-slate-500">Syllabus Completion Index</span>
                                     <span class="text-pink-505">100%</span>
                                 </div>
-                                <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
                                     <div class="h-full bg-pink-500" style="width: 100%;"></div>
                                 </div>
                             </div>
@@ -1425,50 +1415,50 @@
                 <!-- RIGHT COLUMN: Dashboard Navigation tabs & Workspace panels -->
                 <div class="lg:col-span-8 space-y-6">
                     <!-- Tab Selector Menu -->
-                    <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-2xl p-2 shadow-md flex flex-wrap gap-2">
-                        <button onclick="switchDashTab('overview')" id="dashTabBtn-overview" class="flex-1 py-3 text-center text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 bg-brand-50 text-brand-600 dark:bg-brand-950/60 dark:text-white font-sans">
+                    <div class="bg-white border border-slate-200/60 rounded-2xl p-2 shadow-md flex flex-wrap gap-2">
+                        <button onclick="switchDashTab('overview')" id="dashTabBtn-overview" class="flex-1 py-3 text-center text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 bg-brand-50 text-brand-600 font-sans">
                             <i class="fa-solid fa-user"></i> Core Profile
                         </button>
-                        <button onclick="switchDashTab('curriculum')" id="dashTabBtn-curriculum" class="flex-1 py-3 text-center text-xs font-black rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all flex items-center justify-center gap-1.5 font-sans">
+                        <button onclick="switchDashTab('curriculum')" id="dashTabBtn-curriculum" class="flex-1 py-3 text-center text-xs font-black rounded-xl text-slate-400 hover:text-slate-600 transition-all flex items-center justify-center gap-1.5 font-sans">
                             <i class="fa-solid fa-graduation-cap"></i> Syllabus & Course
                         </button>
-                        <button onclick="switchDashTab('reviews')" id="dashTabBtn-reviews" class="flex-1 py-3 text-center text-xs font-black rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all flex items-center justify-center gap-1.5 font-sans">
+                        <button onclick="switchDashTab('reviews')" id="dashTabBtn-reviews" class="flex-1 py-3 text-center text-xs font-black rounded-xl text-slate-400 hover:text-slate-600 transition-all flex items-center justify-center gap-1.5 font-sans">
                             <i class="fa-solid fa-star-half-stroke"></i> Student Reviews
                         </button>
                     </div>
 
                     <!-- Tab Contents Container -->
-                    <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-md">
+                    <div class="bg-white border border-slate-200/60 rounded-3xl p-6 sm:p-8 shadow-md">
                         <!-- Tab Content: Core Profile Overview -->
                         <div id="dashTabContent-overview" class="dash-tab-content space-y-6">
                             <div class="space-y-2">
                                 <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Academic Biography</h4>
-                                <p id="dashBio" class="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300 whitespace-pre-line">Bio text content</p>
+                                <p id="dashBio" class="text-xs sm:text-sm leading-relaxed text-slate-600 whitespace-pre-line">Bio text content</p>
                             </div>
 
-                            <div class="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+                            <div class="space-y-3 pt-4 border-t border-slate-100">
                                 <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Qualifications & Certifications</h4>
-                                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-150 dark:border-slate-850 flex items-start gap-4">
-                                    <span class="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0 text-base">
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-150 flex items-start gap-4">
+                                    <span class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0 text-base">
                                         <i class="fa-solid fa-award"></i>
                                     </span>
                                     <div>
-                                        <p id="dashQualifications" class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white">Degree qualifications text</p>
+                                        <p id="dashQualifications" class="text-xs sm:text-sm font-extrabold text-slate-900">Degree qualifications text</p>
                                         <p class="text-[10px] text-slate-400 font-semibold mt-0.5">Background check completed & verified</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+                            <div class="space-y-3 pt-4 border-t border-slate-100">
                                 <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Expertise Details</h4>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-955 border border-slate-150 dark:border-slate-850 space-y-1">
+                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-150 space-y-1">
                                         <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Active Tutoring Mode</p>
-                                        <p id="dashDetailsMode" class="text-xs font-bold text-slate-705 dark:text-slate-300">Mode details</p>
+                                        <p id="dashDetailsMode" class="text-xs font-bold text-slate-705">Mode details</p>
                                     </div>
-                                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-955 border border-slate-150 dark:border-slate-850 space-y-1">
+                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-150 space-y-1">
                                         <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Tutoring Limits</p>
-                                        <p id="dashDetailsRole" class="text-xs font-bold text-slate-705 dark:text-slate-300">Target Grade Levels</p>
+                                        <p id="dashDetailsRole" class="text-xs font-bold text-slate-705">Target Grade Levels</p>
                                     </div>
                                 </div>
                             </div>
@@ -1477,26 +1467,26 @@
                         <!-- Tab Content: Curriculum Outline -->
                         <div id="dashTabContent-curriculum" class="dash-tab-content hidden space-y-6">
                             <div class="space-y-2">
-                                <h3 class="text-base font-black text-slate-900 dark:text-white">Structured Teaching Plan & Syllabus Matrix</h3>
+                                <h3 class="text-base font-black text-slate-900">Structured Teaching Plan & Syllabus Matrix</h3>
                                 <p class="text-xs text-slate-550">Every tutor coordinates dynamic lessons to ensure rigorous syllabus milestones are matched. View default structures below.</p>
                             </div>
 
-                            <div class="p-4 rounded-2xl bg-brand-50/40 dark:bg-brand-950/20 border border-brand-100/50 dark:border-brand-900/40">
-                                <h4 class="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5 mb-1">
+                            <div class="p-4 rounded-2xl bg-brand-50/40 border border-brand-100/50">
+                                <h4 class="text-xs font-black text-slate-900 flex items-center gap-1.5 mb-1">
                                     <i class="fa-solid fa-circle-check text-green-505"></i> Phase-1: Diagnostic Assessment
                                 </h4>
                                 <p class="text-xs text-slate-500 leading-relaxed pl-5">Diagnostic test metrics compiled on Chapter-1 to analyze the core weaknesses of the student and customize textbook study pacing.</p>
                             </div>
 
-                            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-850">
-                                <h4 class="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5 mb-1">
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                                <h4 class="text-xs font-black text-slate-900 flex items-center gap-1.5 mb-1">
                                     <i class="fa-solid fa-circle-notch text-brand-500 animate-spin"></i> Phase-2: Board Standard Preparation
                                 </h4>
                                 <p class="text-xs text-slate-500 leading-relaxed pl-5">Dedicated conceptual analysis of CBSE/ICSE textbooks, solving exercise questions, and practicing short analytical definitions weekly.</p>
                             </div>
 
-                            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-850">
-                                <h4 class="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5 mb-1">
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                                <h4 class="text-xs font-black text-slate-900 flex items-center gap-1.5 mb-1">
                                     <i class="fa-solid fa-award text-amber-505"></i> Phase-3: Revision & Practice Papers
                                 </h4>
                                 <p class="text-xs text-slate-500 leading-relaxed pl-5">Solving previous 10-year question patterns, conducting live mockup writing tests under timed limits, and finalizing exam tips.</p>
@@ -1506,17 +1496,17 @@
                         <!-- Tab Content: Student Reviews Log -->
                         <div id="dashTabContent-reviews" class="dash-tab-content hidden space-y-6">
                             <div class="space-y-2">
-                                <h3 class="text-base font-black text-slate-900 dark:text-white">Student & Parent Evaluations</h3>
-                                <p class="text-xs text-slate-550">Honest performance feedback collected over the past active study sessions.</p>
+                                <h3 class="text-base font-black text-slate-900">Student & Parent Evaluations</h3>
+                                <p class="text-xs text-slate-555">Honest performance feedback collected over the past active study sessions.</p>
                             </div>
 
                             <div class="space-y-4">
-                                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-850 space-y-2">
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-2">
                                             <div class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center text-xs font-extrabold font-sans">SG</div>
                                             <div>
-                                                <h5 class="text-xs font-black text-slate-900 dark:text-white">Siddharth Ghosal</h5>
+                                                <h5 class="text-xs font-black text-slate-900">Siddharth Ghosal</h5>
                                                 <p class="text-[10px] text-slate-400">Class 12 Parent</p>
                                             </div>
                                         </div>
@@ -1525,12 +1515,12 @@
                                     <p class="text-xs text-slate-500 leading-relaxed italic">"Highly professional approach. The regular assessments helped clear fundamental misconceptions on difficult theories easily."</p>
                                 </div>
 
-                                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-850 space-y-2">
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-2">
                                             <div class="w-8 h-8 rounded-full bg-accent-500 text-white flex items-center justify-center text-xs font-extrabold font-sans">RK</div>
                                             <div>
-                                                <h5 class="text-xs font-black text-slate-900 dark:text-white">Rajeev K.</h5>
+                                                <h5 class="text-xs font-black text-slate-900">Rajeev K.</h5>
                                                 <p class="text-[10px] text-slate-400">Competitive Exam Student</p>
                                             </div>
                                         </div>
@@ -1560,42 +1550,42 @@
         </div>
     </div>
 
-    <!-- Tutor Details Modal Popup -->
+    <!-- Tutor Details Modal Popup (Fallback) -->
     <div id="detailsModal" class="fixed inset-0 z-50 bg-slate-955/60 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white dark:bg-slate-900 rounded-[2rem] max-w-2xl w-full border border-slate-100 dark:border-slate-800 shadow-2xl relative text-slate-800 dark:text-white overflow-hidden flex flex-col max-h-[90vh]">
+        <div class="bg-white rounded-[2rem] max-w-2xl w-full border border-slate-100 shadow-2xl relative text-slate-800 overflow-hidden flex flex-col max-h-[90vh]">
             
             <!-- Close Modal -->
-            <button onclick="closeDetailsModal()" class="absolute top-5 right-5 z-30 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors p-1.5 rounded-lg bg-slate-100/50 dark:bg-slate-800/50" aria-label="Close Profile">
+            <button onclick="closeDetailsModal()" class="absolute top-5 right-5 z-30 text-slate-400 hover:text-slate-600 transition-colors p-1.5 rounded-lg bg-slate-100/50" aria-label="Close Profile">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
 
             <!-- Header Panel -->
-            <div class="p-6 sm:p-8 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-955/20 flex flex-col sm:flex-row items-center gap-6 shrink-0">
+            <div class="p-6 sm:p-8 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row items-center gap-6 shrink-0">
                 <div id="detAvatar" class="shrink-0">
                     <!-- Set dynamically -->
                 </div>
                 <div class="text-center sm:text-left space-y-2 min-w-0 flex-1">
                     <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                        <h3 id="detName" class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white truncate">Instructor</h3>
-                        <span id="detRating" class="inline-flex items-center gap-1 text-[10px] font-black px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-955/40 text-amber-700 dark:text-amber-400">
+                        <h3 id="detName" class="text-xl sm:text-2xl font-black text-slate-900 truncate">Instructor</h3>
+                        <span id="detRating" class="inline-flex items-center gap-1 text-[10px] font-black px-2.5 py-1 rounded-full bg-amber-50 text-amber-705">
                             <i class="fa-solid fa-star"></i> 4.8 Rating
                         </span>
                     </div>
                     <p id="detSubject" class="text-xs sm:text-sm font-bold text-slate-400 truncate">Expert Specialty</p>
                     <div class="flex flex-wrap justify-center sm:justify-start gap-1.5 text-[9px] font-bold">
-                        <span id="detMode" class="px-2 py-0.5 rounded bg-brand-50 dark:bg-brand-955/40 text-brand-700 dark:text-brand-300">Mode</span>
-                        <span class="px-2 py-0.5 rounded bg-pink-50 dark:bg-pink-955/40 text-pink-700 dark:text-pink-300"><span id="detExp">0</span> Exp</span>
-                        <span class="px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-955/40 text-emerald-700 dark:text-emerald-300">Verified</span>
+                        <span id="detMode" class="px-2 py-0.5 rounded bg-brand-50 text-brand-700">Mode</span>
+                        <span class="px-2 py-0.5 rounded bg-pink-50 text-pink-700"><span id="detExp">0</span> Exp</span>
+                        <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">Verified</span>
                     </div>
                 </div>
             </div>
 
             <!-- Profile Tabs -->
-            <div class="px-6 sm:px-8 border-b border-slate-100 dark:border-slate-800 flex gap-6 shrink-0 bg-white dark:bg-slate-900">
-                <button onclick="switchTab('overview')" id="tabBtn-overview" class="tab-btn pb-3.5 pt-4 text-xs font-bold border-b-2 border-brand-500 text-brand-600 dark:text-white dark:border-brand-400 transition-all flex items-center gap-1.5 font-sans">
+            <div class="px-6 sm:px-8 border-b border-slate-100 flex gap-6 shrink-0 bg-white">
+                <button onclick="switchTab('overview')" id="tabBtn-overview" class="tab-btn pb-3.5 pt-4 text-xs font-bold border-b-2 border-brand-500 text-brand-600 transition-all flex items-center gap-1.5 font-sans">
                     <i class="fa-solid fa-user"></i> Overview
                 </button>
-                <button onclick="switchTab('background')" id="tabBtn-background" class="tab-btn pb-3.5 pt-4 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all flex items-center gap-1.5 font-sans">
+                <button onclick="switchTab('background')" id="tabBtn-background" class="tab-btn pb-3.5 pt-4 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-600 transition-all flex items-center gap-1.5 font-sans">
                     <i class="fa-solid fa-graduation-cap"></i> Qualifications
                 </button>
             </div>
@@ -1606,12 +1596,12 @@
                 <div id="tabContent-overview" class="tab-content space-y-4">
                     <div class="space-y-1.5">
                         <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">About Educator</h4>
-                        <p id="detBio" class="text-xs leading-relaxed text-slate-600 dark:text-slate-300 whitespace-pre-line">Bio text...</p>
+                        <p id="detBio" class="text-xs leading-relaxed text-slate-600 whitespace-pre-line">Bio text...</p>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-slate-100">
                         <div class="space-y-1">
                             <span class="text-[9px] font-black uppercase text-slate-400 tracking-wider">Primary Location</span>
-                            <p class="text-xs font-bold text-slate-700 dark:text-slate-350"><i class="fa-solid fa-location-dot text-brand-500 mr-1.5"></i><span id="detLocation">Location details</span></p>
+                            <p class="text-xs font-bold text-slate-700"><i class="fa-solid fa-location-dot text-brand-500 mr-1.5"></i><span id="detLocation">Location details</span></p>
                         </div>
                         <div class="space-y-1">
                             <span class="text-[9px] font-black uppercase text-slate-400 tracking-wider">Active Status</span>
@@ -1624,25 +1614,25 @@
                 <div id="tabContent-background" class="tab-content hidden space-y-4">
                     <div class="space-y-1.5">
                         <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Degrees & Academic Credentials</h4>
-                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-955 border border-slate-100 dark:border-slate-800 flex items-start gap-3">
-                            <span class="w-8 h-8 rounded-lg bg-brand-50 dark:bg-brand-955/60 text-brand-500 flex items-center justify-center shrink-0 text-sm">
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-brand-50 text-brand-505 flex items-center justify-center shrink-0 text-sm">
                                 <i class="fa-solid fa-award"></i>
                             </span>
                             <div>
-                                <p id="detQualifications" class="text-xs font-extrabold text-slate-900 dark:text-white">Qualifications detail</p>
+                                <p id="detQualifications" class="text-xs font-extrabold text-slate-900">Qualifications detail</p>
                                 <p class="text-[10px] text-slate-400 mt-0.5">Verified Academic Background</p>
                             </div>
                         </div>
                     </div>
                     <div class="space-y-1.5 pt-2">
                         <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Teaching Experience & Pedagogy</h4>
-                        <p id="detHistory" class="text-xs leading-relaxed text-slate-600 dark:text-slate-300">Teaching history timeline...</p>
+                        <p id="detHistory" class="text-xs leading-relaxed text-slate-600">Teaching history timeline...</p>
                     </div>
                 </div>
             </div>
 
             <!-- Footer Action Panel -->
-            <div class="p-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-955/20 flex flex-col sm:flex-row gap-3 shrink-0">
+            <div class="p-6 border-t border-slate-100 bg-slate-50 flex flex-col sm:flex-row gap-3 shrink-0">
                 <button id="detChatBtn" class="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95 font-sans">
                     <i class="fa-brands fa-whatsapp text-sm"></i> Chat with Representative
                 </button>
@@ -1654,7 +1644,7 @@
     </div>
 
     <!-- Global Toast Alert Element -->
-    <div id="toastNotification" class="fixed bottom-6 right-6 z-[70] transform translate-y-20 opacity-0 transition-all duration-300 ease-out bg-slate-900 dark:bg-slate-955 border border-slate-800 rounded-2xl p-4 shadow-2xl max-w-sm flex items-start gap-3 text-white pointer-events-none">
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-[70] transform translate-y-20 opacity-0 transition-all duration-300 ease-out bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-2xl max-w-sm flex items-start gap-3 text-white pointer-events-none">
         <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm shrink-0">
             <i class="fa-solid fa-bell animate-bounce"></i>
         </div>
@@ -1865,7 +1855,7 @@
                 location: "Kharagpur, West Bengal"
             },
             {
-                id: 14,
+                id: 15,
                 name: "Mr Pritam Pramanik",
                 subject: "Physics and Mathematics",
                 role: "Can Teach Physics upto 12th Grade and Mathematics upto 10th Grade",
@@ -1879,7 +1869,7 @@
                 location: "Dantan, Paschim Medinipur,West Bengal"
             },
             {
-                id: 15,
+                id: 16,
                 name: "Mr Anupam Routh",
                 subject: "Biological Science",
                 role: "Can Teach Biological Science upto 12th Grade",
@@ -1893,7 +1883,7 @@
                 location: "Raghunathpur Jhargram, West Bengal"
             },
             {
-                id: 16,
+                id: 17,
                 name: "Mr Satyam Kumar",
                 subject: "Physics and Computer Science",
                 role: "Physics and Computer Science Teacher upto 10th Grade (Online Classes)",
@@ -1907,7 +1897,7 @@
                 location: "Sagar, Madhya Pradesh"
             },
             {
-                id: 17,
+                id: 18,
                 name: "Ms Saumita Kumari",
                 subject: "Economics",
                 role: "Can Teach Economics upto 12th Grade",
@@ -1921,7 +1911,7 @@
                 location: "Patna, Bihar"
             },
             {
-                id: 18,
+                id: 19,
                 name: "Ms Arpita Majumdar ",
                 subject: "Maths and Science ",
                 role: "Can Teach Maths and Science upto 10th Grade",
@@ -1935,7 +1925,7 @@
                 location: "Jolaibari, Tripura"
             },
             {
-                id: 19,
+                id: 20,
                 name: "Mr Sayan Rana",
                 subject: "Math & Computer Science",
                 role: "Can Teach Math & Computer Science upto 10th Grade",
@@ -1949,7 +1939,7 @@
                 location: "Noida, Uttar Pradesh"
             },
             {
-                id: 20,
+                id: 21,
                 name: "Ms Pratiksha",
                 subject: "Science",
                 role: "Science Teacher for 11th and 12th Grade",
@@ -1963,7 +1953,7 @@
                 location: "Gulbarga, Karnataka"
             },
             {
-                id: 21,
+                id: 22,
                 name: "Mr Arjock Bose",
                 subject: "Mathematics",
                 role: "Mathematics Teacher for 6 to 10th Grade",
@@ -1979,18 +1969,13 @@
 
         ];
 
-        let activeTheme = 'light';
         let currentWizardStep = 1;
 
-        // Window Load Handler
+        // Window Load Handler - Forcing Permanent Light Mode
         window.onload = function() {
-            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-                activeTheme = 'dark';
-            } else {
-                document.documentElement.classList.remove('dark');
-                activeTheme = 'light';
-            }
+            // Clean dark classes to ensure light theme is permanent on load
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
 
             renderFeaturedTutors();
             renderFullTutorsGrid(tutorsData);
@@ -2074,7 +2059,7 @@
             const chosenSubject = document.querySelector('input[name="subject"]:checked').value;
 
             const resultText = document.getElementById('wizardResultText');
-            resultText.innerHTML = `We have successfully mapped customized profiles matching <strong class="text-brand-600 dark:text-brand-400">${chosenSubject}</strong> for academic standard <strong class="text-brand-600 dark:text-brand-400">${chosenLevel}</strong> under <strong class="text-brand-600 dark:text-brand-400">${chosenMode}</strong> classes! Click below to see listings.`;
+            resultText.innerHTML = `We have successfully mapped customized profiles matching <strong class="text-brand-600">${chosenSubject}</strong> for academic standard <strong class="text-brand-600">${chosenLevel}</strong> under <strong class="text-brand-600">${chosenMode}</strong> classes! Click below to see listings.`;
             
             document.getElementById('wizardResultSection').classList.remove('hidden');
         }
@@ -2111,10 +2096,10 @@
             const delay = index * 60;
             
             return `
-                <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 shadow-md hover:shadow-xl hover:scale-[1.01] transition-all duration-300 flex flex-col justify-between animate-card animate-card" style="animation-delay: ${delay}ms;">
+                <div class="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-md hover:shadow-xl hover:scale-[1.01] transition-all duration-300 flex flex-col justify-between animate-card animate-card" style="animation-delay: ${delay}ms;">
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
-                            <span class="inline-flex items-center gap-1 text-[10px] font-black px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-955/40 text-amber-705 dark:text-amber-400">
+                            <span class="inline-flex items-center gap-1 text-[10px] font-black px-2.5 py-1 rounded-full bg-amber-50 text-amber-705">
                                 <i class="fa-solid fa-star"></i> ${tutor.rating.split(' ')[0]}
                             </span>
                             <span class="text-xs font-bold text-slate-400 truncate max-w-[150px]"><i class="fa-solid fa-location-dot"></i> ${tutor.location.split(',')[0]}</span>
@@ -2129,23 +2114,23 @@
                                 </div>
                             </div>
                             <div class="min-w-0 flex-1">
-                                <h3 class="text-sm font-black text-slate-955 dark:text-white truncate hover:text-brand-500 transition-colors cursor-pointer" onclick="openTeacherDashboard(${tutor.id})">${tutor.name}</h3>
+                                <h3 class="text-sm font-black text-slate-955 truncate hover:text-brand-500 transition-colors cursor-pointer" onclick="openTeacherDashboard(${tutor.id})">${tutor.name}</h3>
                                 <p class="text-[11px] font-bold text-slate-400 truncate">${tutor.subject}</p>
                             </div>
                         </div>
 
                         <div class="flex flex-wrap gap-1.5 pt-2">
-                            <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-brand-55 dark:bg-brand-955/40 text-brand-700 dark:text-brand-300">${tutor.mode}</span>
-                            <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-pink-50 dark:bg-pink-955/40 text-pink-700 dark:text-pink-300">${tutor.exp} Exp</span>
-                            <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-955/40 text-emerald-700 dark:text-emerald-300 font-sans">Verified</span>
+                            <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-brand-55 text-brand-700">${tutor.mode}</span>
+                            <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-pink-50 text-pink-700">${tutor.exp} Exp</span>
+                            <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-sans">Verified</span>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-3 pt-6 mt-6 border-t border-slate-100 dark:border-slate-800">
-                        <button onclick="openTeacherDashboard(${tutor.id})" class="flex-1 py-2.5 text-center text-xs font-bold text-brand-600 hover:text-brand-700 bg-brand-50 hover:bg-brand-100 dark:text-brand-400 dark:hover:text-brand-300 dark:bg-brand-955/50 rounded-xl transition-all border border-brand-200 dark:border-brand-800 shadow-sm active:scale-95 font-sans">
+                    <div class="flex items-center gap-3 pt-6 mt-6 border-t border-slate-100">
+                        <button onclick="openTeacherDashboard(${tutor.id})" class="flex-1 py-2.5 text-center text-xs font-bold text-brand-600 hover:text-brand-700 bg-brand-50 hover:bg-brand-100 rounded-xl transition-all border border-brand-200 shadow-sm active:scale-95 font-sans">
                             View Profile
                         </button>
-                        <button onclick="openBookingModal('${tutor.name}', '${tutor.subject}')" class="flex-1 py-2.5 text-center text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600 rounded-xl transition-colors shadow-sm active:scale-95 font-sans">
+                        <button onclick="openBookingModal('${tutor.name}', '${tutor.subject}')" class="flex-1 py-2.5 text-center text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-xl transition-colors shadow-sm active:scale-95 font-sans">
                             Book Free Trial
                         </button>
                     </div>
@@ -2158,7 +2143,7 @@
             const grid = document.getElementById('featuredTutorGrid');
             if (!grid) return;
             grid.innerHTML = "";
-            const featuredList = tutorsData.slice(0, 4); // Fetch 4 elements
+            const featuredList = tutorsData.slice(0, 4); // Fetch first 4 elements
             featuredList.forEach((tutor, index) => {
                 const cardHtml = generateTutorCardHtml(tutor, index);
                 grid.insertAdjacentHTML('beforeend', cardHtml);
@@ -2263,7 +2248,7 @@
                 triggerDirectWhatsApp(tutor.name, "General Inquiry", "N/A", "N/A", "+91 97491 60796", "Anonymous Student/Parent", "N/A", "Home Tuition / Online");
             };
 
-            // Setup Zoom Avatar
+            // Setup Zoom Avatar without pulse blinking
             const avatarContainer = document.getElementById('dashAvatarContainer');
             avatarContainer.innerHTML = `
                 <img class="w-28 h-28 rounded-full object-cover border-4 border-brand-500/80 shadow-md transition-all duration-300 group-hover:scale-105" src="${tutor.img}" onerror="this.onerror=null; this.outerHTML='<div class=\\'w-28 h-28 rounded-full bg-gradient-to-br from-brand-600 to-accent-600 text-white flex items-center justify-center font-black text-3xl border-4 border-brand-500/80 shadow-md shrink-0\\'>${initials}</div>';">
@@ -2297,13 +2282,13 @@
 
             const buttons = document.querySelectorAll('[id^="dashTabBtn-"]');
             buttons.forEach(btn => {
-                btn.className = "flex-1 py-3 text-center text-xs font-black rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all flex items-center justify-center gap-1.5 font-sans";
+                btn.className = "flex-1 py-3 text-center text-xs font-black rounded-xl text-slate-400 hover:text-slate-600 transition-all flex items-center justify-center gap-1.5 font-sans";
             });
 
             document.getElementById(`dashTabContent-${tabId}`).classList.remove('hidden');
 
             const activeBtn = document.getElementById(`dashTabBtn-${tabId}`);
-            activeBtn.className = "flex-1 py-3 text-center text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 bg-brand-50 text-brand-600 dark:bg-brand-955/60 dark:text-white font-sans";
+            activeBtn.className = "flex-1 py-3 text-center text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 bg-brand-50 text-brand-600 font-sans";
         }
 
         // FULL-SCREEN HIGH-FIDELITY PHOTO LIGHTBOX INTERACTIVE COMPONENT
@@ -2334,15 +2319,6 @@
             }, 300);
         }
 
-        // PRESELECT DATES & TIMES VIA INTERACTIVE PLANNERS
-        function preSelectSlot(slotText) {
-            const tutorName = document.getElementById('dashName').textContent;
-            const tutorSubject = document.getElementById('dashSubject').textContent;
-            
-            openBookingModal(tutorName, tutorSubject);
-            showToast("Slot Pre-Selected", `Requested trial for ${slotText}.`);
-        }
-
         function openBookingModal(tutorName, subject) {
             document.getElementById('modalTutorName').textContent = tutorName;
             document.getElementById('modalSub').value = subject;
@@ -2358,7 +2334,7 @@
             modal.classList.remove('flex');
         }
 
-        // DIRECT DIRECT REDIRECTS FOR ENHANCED USER EXPERIENCE
+        // DIRECT WHATSAPP REDIRECT FOR ENHANCED USER EXPERIENCE
         function triggerDirectWhatsApp(tutorName, subject, date, time, studentPhone, studentName, address, learningMethod) {
             const cleanAdminNum = "919749160796"; 
 
@@ -2510,16 +2486,16 @@
 
             const buttons = document.querySelectorAll('.tos-tab-btn');
             buttons.forEach(btn => {
-                btn.classList.remove('border-brand-500', 'text-brand-600', 'dark:text-white', 'dark:border-brand-400');
+                btn.classList.remove('border-brand-500', 'text-brand-600');
                 btn.classList.add('border-transparent', 'text-slate-450');
             });
 
             if (tabId === 'studentTOS') {
                 document.getElementById('tosTabContent-student').classList.remove('hidden');
-                document.getElementById('tosTabBtn-student').classList.add('border-brand-500', 'text-brand-600', 'dark:text-white', 'dark:border-brand-400');
+                document.getElementById('tosTabBtn-student').classList.add('border-brand-500', 'text-brand-600');
             } else if (tabId === 'teacherTOS') {
                 document.getElementById('tosTabContent-teacher').classList.remove('hidden');
-                document.getElementById('tosTabBtn-teacher').classList.add('border-brand-500', 'text-brand-600', 'dark:text-white', 'dark:border-brand-400');
+                document.getElementById('tosTabBtn-teacher').classList.add('border-brand-500', 'text-brand-600');
             }
         }
     </script>
