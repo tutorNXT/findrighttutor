@@ -108,6 +108,44 @@
             overflow-wrap: break-word !important;
             word-break: normal !important;
         }
+
+        /* Elegant slide-up animations for Dashboard content */
+        @keyframes dashboardSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-dashboard-content {
+            animation: dashboardSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .dashboard-delay-1 { animation-delay: 100ms; opacity: 0; animation-fill-mode: forwards; }
+        .dashboard-delay-2 { animation-delay: 200ms; opacity: 0; animation-fill-mode: forwards; }
+        .dashboard-delay-3 { animation-delay: 300ms; opacity: 0; animation-fill-mode: forwards; }
+        .dashboard-delay-4 { animation-delay: 400ms; opacity: 0; animation-fill-mode: forwards; }
+
+        /* Fancy Glow effect for avatar background */
+        .avatar-glow::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(135deg, #004aad, #00c2ff);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.7;
+            filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+        .avatar-glow:hover::after {
+            opacity: 1;
+            filter: blur(12px);
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans overflow-x-hidden">
@@ -242,7 +280,9 @@
                             <div class="w-11 h-11 rounded-full bg-[#004aad] text-white flex items-center justify-center font-bold shrink-0">AK</div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center justify-between">
-                                    <p class="text-xs font-bold text-slate-900 truncate">Mr Amrit Kumar</p>
+                                    <p class="text-xs font-bold text-slate-900 truncate flex items-center gap-1.5">
+                                        Mr Amrit Kumar <img src="batch.jpg" alt="Verified" class="w-4 h-4 object-contain inline-block shrink-0">
+                                    </p>
                                     <span class="inline-flex items-center gap-1 text-[10px] font-extrabold text-amber-500"><i class="fa-solid fa-star"></i> 4.8</span>
                                 </div>
                                 <p class="text-[10px] font-semibold text-slate-500 truncate">Physics</p>
@@ -362,12 +402,16 @@
                                 <span class="text-xs font-extrabold text-slate-900">Science / Biology</span>
                             </label>
                             <label class="relative flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
+                                <input type="radio" name="subject" value="Arts" class="sr-only">
+                                <span class="text-xs font-extrabold text-slate-900">Arts</span>
+                            </label>
+                            <label class="relative flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="subject" value="Hindi" class="sr-only">
                                 <span class="text-xs font-extrabold text-slate-900">Hindi Language</span>
                             </label>
                             <label class="relative flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-transparent hover:border-brand-300 cursor-pointer transition-all shadow-sm has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50">
                                 <input type="radio" name="subject" value="English" class="sr-only">
-                                <span class="text-xs font-extrabold text-slate-900">English & Arts</span>
+                                <span class="text-xs font-extrabold text-slate-900">English & Literature</span>
                             </label>
                         </div>
                     </div>
@@ -460,11 +504,12 @@
                             <option value="">All Subjects</option>
                             <option value="Mathematics">Mathematics</option>
                             <option value="Physics">Physics</option>
+                            <option value="Arts">Arts</option>
                             <option value="Economics">Economics</option>
                             <option value="Accountancy">Accountancy & Commerce</option>
                             <option value="Science">Science / Bio Science</option>
                             <option value="Hindi">Hindi</option>
-                            <option value="English">English & Arts</option>
+                            <option value="English">English & Literature</option>
                             <option value="Computer">Computer Science</option>
                         </select>
                     </div>
@@ -707,6 +752,7 @@
                                             <option value="Accountancy">
                                             <option value="English">
                                             <option value="Hindi">
+                                            <option value="Arts">
                                         </datalist>
                                     </div>
                                 </div>
@@ -859,7 +905,9 @@
                         </div>
 
                         <div>
-                            <h3 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">Ankit Kumar</h3>
+                            <h3 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 flex items-center gap-2">
+                                Ankit Kumar <img src="batch.jpg" alt="Verified" class="w-6 h-6 object-contain inline-block shrink-0">
+                            </h3>
                             <p class="text-sm font-bold text-brand-500 mt-1">Physics Educator at 9 Education, Hyderabad</p>
                         </div>
 
@@ -1136,167 +1184,131 @@
         <header class="sticky top-0 z-35 w-full backdrop-blur-md bg-white/95 border-b border-slate-200/80 transition-all px-4 sm:px-8 py-4 shadow-sm">
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                    <button onclick="closeTeacherDashboard()" class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all">
+                    <button onclick="closeTeacherDashboard()" class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-705 border border-slate-200/60 transition-all active:scale-95 shadow-sm">
                         <i class="fa-solid fa-arrow-left"></i>
                     </button>
                     <div>
                         <h2 class="text-sm font-black text-slate-900">Educator Professional Hub</h2>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">TutorNxt Premium Network</p>
+                        <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest mt-0.5">TutorNxt Premium Network</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span id="dashActiveBadge" class="text-[10px] font-black uppercase text-emerald-600 tracking-wider">Online Profile Active</span>
                 </div>
             </div>
         </header>
 
         <!-- Main Dashboard Canvas -->
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full animate-dashboard-content">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <!-- LEFT COLUMN: Profile Header & Primary CTA Stats -->
+                <!-- LEFT COLUMN: Profile Info Card & Contact Actions -->
                 <div class="lg:col-span-4 space-y-6">
                     <!-- Profile Card Box -->
-                    <div class="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-md text-center relative overflow-hidden">
+                    <div class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-md text-center relative overflow-hidden group hover:shadow-xl transition-all duration-300">
                         <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-brand-500 via-brand-600 to-accent-500"></div>
                         
-                        <!-- Steady Avatar Box -->
-                        <div class="relative w-28 h-28 mx-auto mt-4 group cursor-zoom-in" id="dashAvatarContainer">
+                        <!-- Steady Avatar Box with hover-glow animation -->
+                        <div class="relative w-28 h-28 mx-auto mt-6 avatar-glow group cursor-zoom-in" id="dashAvatarContainer">
                             <!-- Injected dynamically -->
                         </div>
 
-                        <div class="mt-4 space-y-1">
-                            <h2 id="dashName" class="text-xl font-black text-slate-900">Instructor Name</h2>
-                            <p id="dashSubject" class="text-xs font-bold text-slate-400">Subject Specialist</p>
-                            <p id="dashLocation" class="text-[11px] text-slate-500 font-bold"><i class="fa-solid fa-location-dot text-brand-500 mr-1 pb-1"></i> Location Details</p>
+                        <div class="mt-6 space-y-1">
+                            <h2 id="dashName" class="text-2xl font-black text-slate-900 tracking-tight flex items-center justify-center gap-2 flex-wrap">Instructor Name</h2>
+                            <p id="dashSubject" class="text-xs font-extrabold text-brand-600 uppercase tracking-widest pt-1">Subject Specialist</p>
+                            <p id="dashLocation" class="text-xs text-slate-500 font-semibold pt-1.5"><i class="fa-solid fa-location-dot text-accent-500 mr-1.5"></i> Location Details</p>
                         </div>
 
-                        <div class="grid grid-cols-3 gap-2 mt-6 pt-6 border-t border-slate-100">
+                        <!-- Classy, High-Status Stats Grid instead of basic reviews -->
+                        <div class="grid grid-cols-3 gap-2 mt-8 pt-6 border-t border-slate-100">
                             <div>
-                                <p class="text-sm font-black text-slate-900" id="dashStatExp">0 Yrs</p>
-                                <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Experience</p>
+                                <p class="text-base font-black text-slate-900" id="dashStatExp">0 Yrs</p>
+                                <p class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider">Experience</p>
                             </div>
                             <div>
-                                <p class="text-sm font-black text-slate-900" id="dashStatRating">4.8</p>
-                                <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Rating</p>
+                                <p class="text-base font-black text-brand-600" id="dashStatMetric">Top 1%</p>
+                                <p class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider" id="dashStatMetricLabel">Educator</p>
                             </div>
                             <div>
-                                <p class="text-sm font-black text-slate-900">100%</p>
-                                <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Verified</p>
+                                <p class="text-base font-black text-slate-900">100%</p>
+                                <p class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider">Verified</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Direct Action Portal -->
-                    <div class="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-md space-y-4">
+                    <div class="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-md space-y-4 hover:shadow-lg transition-all">
                         <h3 class="text-xs font-black uppercase text-slate-400 tracking-wider">Schedule Session</h3>
-                        <p class="text-[11px] text-slate-500 leading-relaxed">Book a demo or start chat instantly.</p>
+                        <p class="text-xs text-slate-500 leading-relaxed">Instantly reserve a demo block or start messaging a guidance counselor to coordinate your learning plan.</p>
                         
                         <div class="space-y-2 pt-2">
-                            <button id="dashBookBtn" class="w-full py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95 font-sans">
+                            <button id="dashBookBtn" class="w-full py-4 bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95 font-sans">
                                 <i class="fa-solid fa-calendar-check text-sm"></i> Book Direct Free Trial
                             </button>
-                            <button id="dashChatBtn" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95 font-sans">
+                            <button id="dashChatBtn" class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95 font-sans">
                                 <i class="fa-brands fa-whatsapp text-sm"></i> Chat with Representative
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- RIGHT COLUMN: Dashboard Navigation tabs & Workspace panels -->
+                <!-- RIGHT COLUMN: Premium Academic Bio & Pedagogy Workspace -->
                 <div class="lg:col-span-8 space-y-6">
-                    <!-- Tab Selector Menu -->
-                    <div class="bg-white border border-slate-200/60 rounded-2xl p-2 shadow-md flex flex-wrap gap-2">
-                        <button onclick="switchDashTab('overview')" id="dashTabBtn-overview" class="flex-1 py-3 text-center text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 bg-brand-50 text-brand-600 font-sans">
-                            <i class="fa-solid fa-user"></i> Core Profile
-                        </button>
-                        <button onclick="switchDashTab('curriculum')" id="dashTabBtn-curriculum" class="flex-1 py-3 text-center text-xs font-black rounded-xl text-slate-400 hover:text-slate-600 transition-all flex items-center justify-center gap-1.5 font-sans">
-                            <i class="fa-solid fa-graduation-cap"></i> Syllabus & Course
-                        </button>
-                       <!-- <button onclick="switchDashTab('reviews')" id="dashTabBtn-reviews" class="flex-1 py-3 text-center text-xs font-black rounded-xl text-slate-400 hover:text-slate-600 transition-all flex items-center justify-center gap-1.5 font-sans">
-                            <i class="fa-solid fa-star-half-stroke"></i> Student Reviews -->
-                        </button>
-                    </div>
+                    <!-- Section Card Profile Info (Replaces Tab Container) -->
+                    <div class="bg-white border border-slate-200/80 rounded-[2rem] p-6 sm:p-10 shadow-md space-y-8">
+                        
+                        <!-- Biography Section -->
+                        <div class="space-y-3 animate-dashboard-content dashboard-delay-1">
+                            <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-widest flex items-center gap-2">
+                                <span class="w-1.5 h-3 bg-brand-500 rounded-full"></span> Academic Biography & Background
+                            </h4>
+                            <p id="dashBio" class="text-xs sm:text-sm leading-relaxed text-slate-600 whitespace-pre-line font-medium">Bio text content</p>
+                        </div>
 
-                    <!-- Tab Contents Container -->
-                    <div class="bg-white border border-slate-200/60 rounded-3xl p-6 sm:p-8 shadow-md">
-                        <!-- Tab Content: Core Profile Overview -->
-                        <div id="dashTabContent-overview" class="dash-tab-content space-y-6">
-                            <div class="space-y-2">
-                                <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Academic Biography</h4>
-                                <p id="dashBio" class="text-xs sm:text-sm leading-relaxed text-slate-600 whitespace-pre-line">Bio text content</p>
-                            </div>
+                        <!-- Classy Teaching Philosophy Quote Block -->
+                        <div class="p-6 rounded-2xl bg-gradient-to-r from-brand-50 to-sky-50 border border-brand-100/50 relative overflow-hidden animate-dashboard-content dashboard-delay-2">
+                            <span class="absolute -right-4 -bottom-6 text-9xl text-brand-200/30 font-serif pointer-events-none select-none">“</span>
+                            <h4 class="text-[10px] font-black uppercase text-brand-600 tracking-widest mb-2">Teaching Philosophy</h4>
+                            <p id="dashPhilosophy" class="text-xs sm:text-sm italic font-semibold text-slate-700 leading-relaxed relative z-10">
+                                "My absolute focus is transforming complex conceptual matrices into simple everyday models so students achieve deep learning momentum without pressure."
+                            </p>
+                        </div>
 
-                            <div class="space-y-3 pt-4 border-t border-slate-100">
-                                <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Qualifications & Certifications</h4>
-                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-150 flex items-start gap-4">
-                                    <span class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0 text-base">
-                                        <i class="fa-solid fa-award"></i>
-                                    </span>
-                                    <div>
-                                        <p id="dashQualifications" class="text-xs sm:text-sm font-extrabold text-slate-900">Degree qualifications text</p>
-                                        <p class="text-[10px] text-slate-400 font-semibold mt-0.5">Background check completed & verified</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-3 pt-4 border-t border-slate-100">
-                                <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Expertise Details</h4>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-150 space-y-1">
-                                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Active Tutoring Mode</p>
-                                        <p id="dashDetailsMode" class="text-xs font-bold text-slate-700">Mode details</p>
-                                    </div>
-                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-150 space-y-1">
-                                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Tutoring Limits</p>
-                                        <p id="dashDetailsRole" class="text-xs font-bold text-slate-700">Target Grade Levels</p>
-                                    </div>
+                        <!-- Qualifications Card -->
+                        <div class="space-y-3 pt-2 border-t border-slate-100 animate-dashboard-content dashboard-delay-2">
+                            <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-widest flex items-center gap-2">
+                                <span class="w-1.5 h-3 bg-brand-500 rounded-full"></span> Academic Qualifications & Certifications
+                            </h4>
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/60 flex items-start gap-4 hover:bg-slate-100/50 transition-colors">
+                                <span class="w-11 h-11 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 text-lg shadow-sm">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </span>
+                                <div>
+                                    <p id="dashQualifications" class="text-xs sm:text-sm font-extrabold text-slate-900">Degree qualifications text</p>
+                                    <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider mt-1 flex items-center gap-1">
+                                        <i class="fa-solid fa-circle-check text-emerald-500"></i> TutorNxt Background Verified & Certified Educator
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Tab Content: Curriculum Outline -->
-                        <div id="dashTabContent-curriculum" class="dash-tab-content hidden space-y-6">
-                            <div class="space-y-2">
-                                <h3 class="text-base font-black text-slate-900">Structured Teaching Plan & Syllabus Matrix</h3>
-                                <p class="text-xs text-slate-500">Every tutor coordinates dynamic lessons to ensure rigorous syllabus milestones are matched. View structures below.</p>
-                            </div>
-                            <div class="p-4 rounded-2xl bg-brand-50/40 border border-brand-100/50">
-                                <h4 class="text-xs font-black text-slate-900 flex items-center gap-1.5 mb-1">
-                                    <i class="fa-solid fa-circle-check text-green-500"></i> Phase-1: Diagnostic Assessment
-                                </h4>
-                                <p class="text-xs text-slate-500 leading-relaxed pl-5">Diagnostic test metrics compiled on Chapter-1 to analyze the core weaknesses of the student and customize textbook study pacing.</p>
-                            </div>
-                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                                <h4 class="text-xs font-black text-slate-900 flex items-center gap-1.5 mb-1">
-                                    <i class="fa-solid fa-circle-notch text-brand-500 animate-spin"></i> Phase-2: Board Standard Preparation
-                                </h4>
-                                <p class="text-xs text-slate-500 leading-relaxed pl-5">Dedicated conceptual analysis of CBSE/ICSE textbooks, solving exercise questions, and practicing short analytical definitions weekly.</p>
-                            </div>
-                        </div>
-
-                        <!-- Tab Content: Student Reviews Log -->
-                        <div id="dashTabContent-reviews" class="dash-tab-content hidden space-y-6">
-                            <div class="space-y-2">
-                                <h3 class="text-base font-black text-slate-900">Student & Parent Evaluations</h3>
-                                <p class="text-xs text-slate-500 font-sans">Honest performance feedback collected over the past active study sessions.</p>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2 font-sans">
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center text-xs font-extrabold font-sans">SG</div>
-                                            <div>
-                                                <h5 class="text-xs font-black text-slate-900">Siddharth Ghosal</h5>
-                                                <p class="text-[10px] text-slate-400">Class 12 Parent</p>
-                                            </div>
-                                        </div>
-                                        <span class="text-xs font-extrabold text-amber-500"><i class="fa-solid fa-star"></i> 5.0</span>
-                                    </div>
-                                    <p class="text-xs text-slate-500 leading-relaxed italic">"Highly professional approach. The regular assessments helped clear fundamental misconceptions on difficult theories easily."</p>
+                        <!-- Expertise details Specs -->
+                        <div class="space-y-3 pt-2 border-t border-slate-100 animate-dashboard-content dashboard-delay-4">
+                            <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-widest flex items-center gap-2">
+                                <span class="w-1.5 h-3 bg-brand-500 rounded-full"></span> Target Specifications
+                            </h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-150 hover:bg-slate-100/50 transition-colors space-y-1">
+                                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Active Tutoring Mode</p>
+                                    <p id="dashDetailsMode" class="text-xs font-extrabold text-slate-700">Mode details</p>
+                                </div>
+                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-150 hover:bg-slate-100/50 transition-colors space-y-1">
+                                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Teaching Limits</p>
+                                    <p id="dashDetailsRole" class="text-xs font-extrabold text-slate-700">Target Grade Levels</p>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -1886,8 +1898,8 @@
                 <div class="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-md hover:shadow-xl hover:scale-[1.01] transition-all duration-300 flex flex-col justify-between animate-card" style="animation-delay: ${delay}ms; opacity: 1;">
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
-                            <span class="inline-flex items-center gap-1 text-[10px] font-black px-2.5 py-1 rounded-full bg-amber-50 text-amber-705">
-                                <i class="fa-solid fa-star"></i> ${tutor.rating.split(' ')[0]}
+                            <span class="inline-flex items-center gap-1 text-[10px] font-black px-2.5 py-1 rounded-full bg-amber-50 text-amber-750">
+                                <i class="fa-solid fa-graduation-cap"></i> Elite Teacher
                             </span>
                             <span class="text-xs font-bold text-slate-400 truncate max-w-[150px]"><i class="fa-solid fa-location-dot"></i> ${tutor.location.split(',')[0]}</span>
                         </div>
@@ -1901,7 +1913,9 @@
                                 </div>
                             </div>
                             <div class="min-w-0 flex-1">
-                                <h3 class="text-sm font-black text-slate-900 truncate hover:text-brand-500 transition-colors cursor-pointer" onclick="openTeacherDashboard(${tutor.id})">${tutor.name}</h3>
+                                <h3 class="text-sm font-black text-slate-900 truncate hover:text-brand-500 transition-colors cursor-pointer flex items-center gap-1.5" onclick="openTeacherDashboard(${tutor.id})">
+                                    ${tutor.name} <img src="batch.jpg" alt="Verified" class="w-4 h-4 object-contain inline-block shrink-0">
+                                </h3>
                                 <p class="text-[11px] font-bold text-slate-400 truncate">${tutor.subject}</p>
                             </div>
                         </div>
@@ -2014,12 +2028,42 @@
 
             const initials = tutor.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
-            document.getElementById('dashName').textContent = tutor.name;
+            document.getElementById('dashName').innerHTML = `${tutor.name} <img src="batch.jpg" alt="Verified" class="w-6 h-6 object-contain inline-block align-middle shrink-0 ml-1">`;
             document.getElementById('dashSubject').textContent = tutor.subject;
             document.getElementById('dashLocation').innerHTML = `<i class="fa-solid fa-location-dot text-brand-500 mr-1.5"></i>${tutor.location}`;
             document.getElementById('dashStatExp').textContent = tutor.exp;
-            document.getElementById('dashStatRating').textContent = tutor.rating.split(' ')[0];
-            document.getElementById('dashBio').textContent = tutor.bio;
+            
+            // Dynamic Status Metric instead of Reviews (attractive & classy)
+            const experienceYears = parseInt(tutor.exp) || 1;
+            const metricValue = document.getElementById('dashStatMetric');
+            const metricLabel = document.getElementById('dashStatMetricLabel');
+            
+            if (experienceYears >= 10) {
+                metricValue.textContent = "98%";
+                metricLabel.textContent = "Exam Success";
+            } else if (experienceYears >= 5) {
+                metricValue.textContent = "Top 3%";
+                metricLabel.textContent = "Rank Mentor";
+            } else {
+                metricValue.textContent = "Top 5%";
+                metricLabel.textContent = "Rising Star";
+            }
+
+            // Populate Bio and dynamically generate premium Philosophy quote relative to their subject
+            document.getElementById('dashBio').textContent = tutor.history || tutor.bio;
+            
+            let philosophyQuote = `"My ultimate educational focus is to transform complex conceptual formulas into simple, visual models so that students achieve outstanding learning momentum naturally."`;
+            if (tutor.subject.toLowerCase().includes("math")) {
+                philosophyQuote = `"Mathematics is not about learning steps; it is about recognizing patterns. I teach students to think logically so they can solve any unseen problem with absolute confidence."`;
+            } else if (tutor.subject.toLowerCase().includes("physics") || tutor.subject.toLowerCase().includes("science")) {
+                philosophyQuote = `"Physics and Science are the languages of the universe. By connecting textbook theories directly to real-world visual examples, we ignite deep cognitive clarity."`;
+            } else if (tutor.subject.toLowerCase().includes("account") || tutor.subject.toLowerCase().includes("econ")) {
+                philosophyQuote = `"Commerce and Economics represent the structure of our society. I believe in giving students a strong practical grasp of market mechanics alongside systematic board standards."`;
+            } else if (tutor.subject.toLowerCase().includes("hindi") || tutor.subject.toLowerCase().includes("english")) {
+                philosophyQuote = `"Language fluency opens cognitive doors. My class structures encourage interactive speaking, structured grammar foundations, and comfortable literary exploration."`;
+            }
+            document.getElementById('dashPhilosophy').textContent = philosophyQuote;
+
             document.getElementById('dashQualifications').textContent = tutor.qualifications;
             document.getElementById('dashDetailsMode').textContent = tutor.mode;
             document.getElementById('dashDetailsRole').textContent = tutor.role;
@@ -2028,13 +2072,13 @@
                 openBookingModal(tutor.name, tutor.subject);
             };
             document.getElementById('dashChatBtn').onclick = function() {
-                triggerDirectWhatsApp(tutor.name, "General Inquiry", "N/A", "N/A", "+91 97491 60796", "Anonymous Student/Parent", "N/A", "Home Tuition / Online", "N/A");
+                triggerDirectWhatsApp(tutor.name, "General Inquiry", "N/A", "N/A", "+91 97491 60796", "Anonymous Student/Parent", "N/A", tutor.mode, "N/A");
             };
 
             const avatarContainer = document.getElementById('dashAvatarContainer');
             avatarContainer.innerHTML = `
-                <img class="w-28 h-28 rounded-full object-cover border-4 border-brand-500/80 shadow-md transition-all duration-300 group-hover:scale-105" src="${tutor.img}" onerror="handleDashboardAvatarError(this, '${initials}');">
-                <div class="absolute inset-0 bg-black/45 rounded-full opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all pointer-events-none">
+                <img class="w-28 h-28 rounded-full object-cover border-4 border-white shadow-lg transition-all duration-300 group-hover:scale-105 relative z-10" src="${tutor.img}" onerror="handleDashboardAvatarError(this, '${initials}');">
+                <div class="absolute inset-0 bg-black/45 rounded-full opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all pointer-events-none z-20">
                     <i class="fa-solid fa-magnifying-glass-plus text-white text-base"></i>
                 </div>
             `;
@@ -2042,11 +2086,19 @@
                 openLargePhoto(tutor.img, tutor.name);
             };
 
-            switchDashTab('overview');
+            // Trigger animation resets
+            const container = document.getElementById('teacherDashboardView');
+            container.classList.remove('hidden');
+            container.classList.add('flex');
+            
+            // Re-trigger CSS entrance animations smoothly
+            const animatedElements = container.querySelectorAll('.animate-dashboard-content');
+            animatedElements.forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight; /* trigger reflow */
+                el.style.animation = null;
+            });
 
-            const dashView = document.getElementById('teacherDashboardView');
-            dashView.classList.remove('hidden');
-            dashView.classList.add('flex');
             document.body.classList.add('overflow-hidden');
         }
 
@@ -2055,21 +2107,6 @@
             dashView.classList.add('hidden');
             dashView.classList.remove('flex');
             document.body.classList.remove('overflow-hidden');
-        }
-
-        function switchDashTab(tabId) {
-            const contents = document.querySelectorAll('.dash-tab-content');
-            contents.forEach(content => content.classList.add('hidden'));
-
-            const buttons = document.querySelectorAll('[id^="dashTabBtn-"]');
-            buttons.forEach(btn => {
-                btn.className = "flex-1 py-3 text-center text-xs font-black rounded-xl text-slate-400 hover:text-slate-600 transition-all flex items-center justify-center gap-1.5 font-sans";
-            });
-
-            document.getElementById(`dashTabContent-${tabId}`).classList.remove('hidden');
-
-            const activeBtn = document.getElementById(`dashTabBtn-${tabId}`);
-            activeBtn.className = "flex-1 py-3 text-center text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 bg-brand-50 text-brand-600 font-sans";
         }
 
         function openLargePhoto(imgSrc, name) {
