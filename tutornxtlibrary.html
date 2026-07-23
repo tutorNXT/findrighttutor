@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutorNXT GyanKosh - Knowledge without Limits</title>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Razorpay Official Checkout SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#004aad', // Royal Blue from logo
+                            600: '#003d96', 
+                            700: '#002f75',
+                            900: '#001c47',
+                        },
+                        accent: {
+                            400: '#38bdf8', 
+                            500: '#00c2ff', // Vibrant cyan from logo
+                            600: '#009ecc',
+                        },
+                        tide: {
+                            default: '#0e111a', // Tide Dark Theme Background
+                            blue: '#14213d',
+                            button: '#2463eb',
+                            accent: '#3cd37a'
+                        }
+                    },
+                    boxShadow: {
+                        'glow-brand': '0 0 20px rgba(0, 74, 173, 0.2)',
+                        'glow-accent': '0 0 25px rgba(0, 194, 255, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Deluxe book hover perspective */
+        .book-wrapper {
+            perspective: 1000px;
+        }
+        .book-cover {
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .book-wrapper:hover .book-cover {
+            transform: rotateY(-18deg) translateZ(10px);
+        }
+
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        .hover-float {
+            animation: subtle-float 3s ease-in-out infinite;
+        }
+
+        /* Entry animation for directory blocks */
+        @keyframes fullDirectoryEntrance {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-directory-entrance {
+            animation: fullDirectoryEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans overflow-x-hidden min-h-screen flex flex-col justify-between">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 border-b border-slate-100 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-2.5 group py-2">
+                <img src="logo.png" alt="TutorNxt Logo" class="h-10 sm:h-12 w-auto object-contain rounded-xl transition-transform duration-200 group-hover:scale-[1.02]" onerror="this.onerror=null; this.src='logo.jpeg';">
+                <div class="flex flex-col">
+                    <div class="flex items-baseline font-extrabold tracking-tight text-xl sm:text-2xl leading-none">
+                        <span class="text-[#004aad]">Tutor</span><span class="text-[#00c2ff]">NXT</span> <span class="text-xs text-brand-600 font-black ml-1 uppercase tracking-wider">GyanKosh</span>
+                    </div>
+                    <span class="block text-[8px] text-slate-400 font-extrabold uppercase tracking-widest mt-1 leading-none">KNOWLEDGE WITHOUT LIMITS</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                <a href="index.html" class="hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html#find-tutors" class="hover:text-brand-500 transition-colors">Find Tutors</a>
+                <a href="founder.html" class="hover:text-brand-500 transition-colors flex items-center gap-1"><i class="fa-solid fa-crown text-[10px]"></i> Founder</a>
+                <a href="#" class="text-brand-600 font-bold border-b-2 border-brand-500 pb-1">GyanKosh</a>
+            </nav>
+
+            <!-- Action buttons -->
+            <div class="flex items-center gap-3">
+                
+                <a href="index.html" class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 px-4 sm:px-5 h-10 sm:h-11 rounded-xl transition-all shadow-md shadow-brand-500/10">
+                    <i class="fa-solid fa-arrow-left"></i> Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Library Header Hero Section -->
+    <section class="relative overflow-hidden pt-8 pb-12 bg-gradient-to-br from-brand-900 via-brand-700 to-slate-900 text-white">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-600/20 via-transparent to-transparent pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-white/10 border border-white/10 text-accent-400 uppercase tracking-wider">
+                <i class="fa-solid fa-book-open"></i> Knowledge without Limits
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                TutorNXT <span class="bg-gradient-to-r from-accent-400 to-teal-300 bg-clip-text text-transparent">GyanKosh</span>
+            </h1>
+            <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+                Knowledge without limits — Explore handpicked guides, textbook notes, and structured academic volumes compiled by elite tutors. Secure lifetime access keys to direct file packages.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Workspace Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full space-y-8">
+        
+        <!-- Dynamic Category Filters Navigation -->
+        <div class="bg-white p-4 rounded-3xl border border-slate-200/80 shadow-md flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap gap-2">
+                <button onclick="filterShelf('All')" id="filterBtn-All" class="filter-shelf-btn px-4 py-2 bg-brand-600 text-white text-xs font-bold rounded-xl transition-all">
+                    All Shelves
+                </button>
+                <button onclick="filterShelf('Arts')" id="filterBtn-Arts" class="filter-shelf-btn px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-650 text-xs font-bold rounded-xl transition-all">
+                    Arts Note Guides
+                </button>
+                <button onclick="filterShelf('Mathematics')" id="filterBtn-Mathematics" class="filter-shelf-btn px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-650 text-xs font-bold rounded-xl transition-all">
+                    Math Systems
+                </button>
+                <button onclick="filterShelf('Physics')" id="filterBtn-Physics" class="filter-shelf-btn px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-650 text-xs font-bold rounded-xl transition-all">
+                    Physics Formulas
+                </button>
+                <button onclick="filterShelf('Science')" id="filterBtn-Science" class="filter-shelf-btn px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-650 text-xs font-bold rounded-xl transition-all">
+                    Bio Science
+                </button>
+            </div>
+            <div class="text-[11px] text-slate-400 font-extrabold uppercase tracking-wider pr-2" id="shelfCount">
+                Active Catalog
+            </div>
+        </div>
+
+        <!-- Dynamic Shelf Books Container Grid -->
+        <div id="shelfGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamically injected via script -->
+        </div>
+
+        <!-- No matches found notification box -->
+        <div id="shelfEmpty" class="hidden text-center py-20 bg-white border border-slate-200 rounded-3xl p-6">
+            <i class="fa-solid fa-book-journal-whills text-slate-300 text-5xl mb-3"></i>
+            <h4 class="text-base font-bold text-slate-700">Shelf Section Vacant</h4>
+            <p class="text-xs text-slate-400 max-w-xs mx-auto mt-1">Try adjusting your category filters to find available guides.</p>
+        </div>
+
+    </main>
+
+    <!-- Razorpay API Key Settings Modal -->
+    <div id="razorpayKeyModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-800 shadow-2xl relative animate-directory-entrance">
+            <button onclick="closeRazorpayConfigModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="space-y-5">
+                <div class="text-center space-y-1 pb-3 border-b border-slate-800">
+                    <div class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center mx-auto text-xl border border-blue-500/20 mb-2">
+                        <i class="fa-solid fa-credit-card"></i>
+                    </div>
+                    <h3 class="text-lg font-black text-white">Razorpay Account Gateway Settings</h3>
+                    <p class="text-[11px] text-slate-400">Configure your Razorpay Key ID to accept real-time payments.</p>
+                </div>
+
+                <div class="space-y-3 text-left">
+                    <label class="block text-xs font-bold text-slate-300">Razorpay Key ID (`rzp_live_...` or `rzp_test_...`):</label>
+                    <input type="text" id="razorpayKeyInput" placeholder="e.g. rzp_live_xxxxxxxxxxxxxx" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs font-mono text-emerald-400 focus:outline-none focus:border-brand-500">
+                    <p class="text-[10px] text-slate-500 leading-relaxed">
+                        Find this in your <a href="https://dashboard.razorpay.com/" target="_blank" class="text-brand-400 underline">Razorpay Dashboard</a> under <strong>Account Settings &gt; API Keys</strong>.
+                    </p>
+                </div>
+
+                <div class="pt-2 flex gap-3">
+                    <button onclick="closeRazorpayConfigModal()" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-all">
+                        Cancel
+                    </button>
+                    <button onclick="saveRazorpayKey()" class="flex-1 py-3 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold rounded-xl shadow-lg transition-all">
+                        Save Key ID
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full-Screen Interactive Document & PDF Viewer Page -->
+    <div id="pdfViewer" class="fixed inset-0 z-50 bg-slate-950 hidden flex-col w-full h-full text-white overflow-hidden">
+        <!-- PDF Viewer Top Navigation Toolbar -->
+        <header class="h-14 bg-slate-900 border-b border-slate-850 flex items-center justify-between px-4 sm:px-6 shadow-md shrink-0">
+            <div class="flex items-center gap-3">
+                <button onclick="closePDFViewer()" class="h-9 px-3.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-left"></i> Exit Reader
+                </button>
+                <div class="h-4 w-[1px] bg-slate-800 hidden sm:block"></div>
+                <h2 id="pdfViewerTitle" class="text-xs sm:text-sm font-black tracking-tight text-white truncate max-w-[180px] sm:max-w-xs">E-Book Notes Reader</h2>
+            </div>
+
+            <!-- Page indicators & Action operations -->
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="flex items-center bg-slate-800 rounded-lg p-1 text-[10px] sm:text-xs font-bold gap-2">
+                    <button class="px-1.5 py-0.5 hover:bg-slate-700 rounded"><i class="fa-solid fa-chevron-left"></i></button>
+                    <span>Page <span id="pdfCurrentPage">1</span> of 12</span>
+                    <button class="px-1.5 py-0.5 hover:bg-slate-700 rounded"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <!-- Premium Dynamic Gated Save Button -->
+                <button id="pdfDownloadBtn" onclick="handlePDFDownloadAction()" class="h-9 px-3.5 bg-brand-600 hover:bg-brand-700 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5">
+                    <i id="pdfDownloadIcon" class="fa-solid fa-lock text-[10px]"></i> <span id="pdfDownloadText">Unlock Full PDF (₹1)</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dynamic Simulated PDF Page Canvas Container -->
+        <main class="flex-1 bg-slate-900 overflow-y-auto p-4 sm:p-8 flex justify-center">
+            <div class="w-full max-w-4xl bg-white text-slate-800 rounded-2xl shadow-2xl p-6 sm:p-12 min-h-[1100px] flex flex-col justify-between">
+                
+                <!-- PDF Content (Dynamically Rendered depending on matching Book ID) -->
+                <div id="pdfContentArea" class="space-y-8 font-serif leading-relaxed">
+                    <!-- Dynamic verified book data injected via JS -->
+                </div>
+
+                <!-- PDF Document Footer decoration -->
+                <div class="border-t border-slate-105 pt-6 mt-12 text-center text-[10px] text-slate-400 font-sans flex items-center justify-between">
+                    <span>TutorNxt Premium Academy Publications Group</span>
+                    <span>Classified Notes • Authorized Access Only</span>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification Overlay -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-[70] transform translate-y-20 opacity-0 transition-all duration-300 ease-out bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-2xl max-w-sm flex items-start gap-3 text-white pointer-events-none">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm shrink-0">
+            <i class="fa-solid fa-bell animate-bounce"></i>
+        </div>
+        <div class="space-y-0.5">
+            <h5 id="toastTitle" class="text-xs font-extrabold">Notification</h5>
+            <p id="toastMessage" class="text-[10px] text-slate-400 leading-relaxed">System information verified.</p>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 mt-16 shrink-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div class="flex items-center gap-2.5">
+                <img src="logo.png" alt="TutorNxt Logo" class="h-8 w-auto object-contain bg-white rounded-lg p-0.5" onerror="this.onerror=null; this.src='logo.jpeg';">
+                <p>&copy; 2026 TutorNXT GyanKosh. Knowledge without Limits. Managed by Amrit Kumar (CTO).</p>
+            </div>
+            <div class="flex gap-6">
+                <a href="index.html" class="hover:text-white transition-colors">TutorNxt Home</a>
+                <a href="founder.html" class="hover:text-white transition-colors">Founder Bio</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT STATE ENGINE AND DATABASE -->
+    <script>
+        // Default Premium Library Catalog Books Dataset
+        let libraryBooks = [
+            {
+                id: 101,
+                title: "Complete Arts Reference Guide - Class 12",
+                author: "Mr Rinku Sir",
+                grade: "Class 11-12",
+                subject: "Arts",
+                gradient: "from-amber-500 to-orange-600",
+                description: "Compiled directly by our elite Arts Guide. Covers systematic notes on History, Political Science, Geography, and Social Sciences. Features standard exam guidelines, essay formats, and conceptual board breakdowns.",
+                unlocked: false,
+                downloads: 412
+            },
+            {
+                id: 102,
+                title: "Core Mathematics Foundations",
+                author: "Prof. Milan Dev",
+                grade: "Class 9-10",
+                subject: "Mathematics",
+                gradient: "from-brand-600 to-indigo-800",
+                description: "Perfect introductory handbook to coordinate high school arithmetic, algebraic series, coordinate geometry models, and trigonometric ratios with interactive illustrative practice sets.",
+                unlocked: false,
+                downloads: 189
+            },
+            {
+                id: 103,
+                title: "Physics JEE & NEET Formula Packet",
+                author: "Mr Amrit Kumar",
+                grade: "JEE/NEET Prep",
+                subject: "Physics",
+                gradient: "from-pink-500 to-rose-700",
+                description: "Comprehensive quick formula references, dimensional formulas, thermodynamic equations, and electrostatic derivations engineered for lightning revision sessions.",
+                unlocked: false,
+                downloads: 524
+            },
+            {
+                id: 104,
+                title: "Conceptual Foundations of Biology & Science",
+                author: "Mr Anupam Routh",
+                grade: "Class 9-10",
+                subject: "Science",
+                gradient: "from-emerald-600 to-teal-800",
+                description: "Systematic conceptual notes mapping life process structures, molecular cell models, and practical chemical classification reactions.",
+                unlocked: false,
+                downloads: 98
+            }
+        ];
+
+        // Simulated High Quality Textbook Pages Database
+        const notePublications = {
+            101: `
+                <div class="space-y-6 text-slate-800">
+                    <div class="border-b-2 border-slate-900 pb-4">
+                        <span class="text-xs uppercase tracking-widest text-slate-400 font-sans font-bold">Class 12 History Master Series</span>
+                        <h1 class="text-2xl sm:text-3xl font-black mt-1 text-slate-900 font-sans">Chapter 1: Bricks, Beads and Bones</h1>
+                        <p class="text-xs text-brand-600 font-bold mt-1 font-sans">Verified Course Notes compiled by Mr Rinku Sir</p>
+                    </div>
+
+                    <div class="space-y-4 text-sm sm:text-base">
+                        <h3 class="text-lg font-bold text-slate-900 font-sans">1. Introduction to the Harappan Civilisation</h3>
+                        <p>
+                            The Indus Valley Civilisation is also called the <strong>Harappan Culture</strong>. Archaeologists use the term "culture" for a group of objects, distinctive in style, that are usually found together within a specific geographical area and period of time. In the case of Harappa, these distinctive objects include seals, beads, weights, stone blades and even baked bricks.
+                        </p>
+                        
+                        <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-amber-500 my-4 font-sans text-xs sm:text-sm">
+                            <strong>Key Concept:</strong> These objects were found from areas as far apart as Afghanistan, Jammu, Baluchistan (Pakistan) and Gujarat. Named after Harappa, the first site where this unique culture was discovered.
+                        </div>
+
+                        <h3 class="text-lg font-bold text-slate-900 font-sans mt-6">2. Subsistence Strategies of the Harappans</h3>
+                        <p>
+                            The Harappans ate a wide range of plant and animal products, including fish and fowl. Archaeologists have been able to reconstruct dietary practices from finds of charred grains and seeds.
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 mt-2">
+                            <li><strong>Agriculture:</strong> Finds of grains include wheat, barley, lentil, chickpea and sesame. Millets are found from sites in Gujarat. Finds of rice are relatively rare.</li>
+                            <li><strong>Animal Domestication:</strong> Animal bones found at Harappan sites include those of cattle, sheep, goat, buffalo and pig.</li>
+                        </ul>
+
+                        <h3 class="text-lg font-bold text-slate-900 font-sans mt-6">3. Unique Architectural Innovations</h3>
+                        <p>
+                            Perhaps the most unique feature of the Harappan Civilisation was the development of planned urban centres. If we look at the layout of <strong>Mohenjodaro</strong>, we find that the settlement is divided into two sections, one smaller but higher (Citadel) and the other much larger but lower (Lower Town).
+                        </p>
+                    </div>
+                </div>
+            `,
+            102: `
+                <div class="space-y-6 text-slate-800">
+                    <div class="border-b-2 border-slate-900 pb-4">
+                        <span class="text-xs uppercase tracking-widest text-slate-400 font-sans font-bold">Class 9-10 Advanced Math Systems</span>
+                        <h1 class="text-2xl sm:text-3xl font-black mt-1 text-slate-900 font-sans">Quadratic Functions & Trigonometric Foundations</h1>
+                        <p class="text-xs text-brand-600 font-bold mt-1 font-sans">Verified Practice Handbook by Prof. Milan Dev</p>
+                    </div>
+
+                    <div class="space-y-4 text-sm sm:text-base">
+                        <h3 class="text-lg font-bold text-slate-900 font-sans">1. The Quadratic Formula Derivation</h3>
+                        <p>
+                            For any standard quadratic equation represented as:
+                            <br><span class="block text-center my-4 font-mono font-bold text-lg text-slate-900 bg-slate-50 p-2.5 rounded-xl">ax² + bx + c = 0 &nbsp;&nbsp;&nbsp; (where a ≠ 0)</span>
+                            We can solve for the roots of the equation by using the standard quadratic formula derived through completing the square method:
+                            <br><span class="block text-center my-4 font-mono font-bold text-lg text-brand-600 bg-brand-50/50 p-2.5 rounded-xl">x = [-b ± √(b² - 4ac)] / 2a</span>
+                        </p>
+
+                        <h3 class="text-lg font-bold text-slate-900 font-sans mt-6">2. Concept of the Discriminant (D)</h3>
+                        <p>
+                            The quantity inside the radical sign, <strong>D = b² - 4ac</strong>, is known as the discriminant. It tells us about the nature of the roots:
+                        </p>
+                        <ul class="list-disc pl-6 space-y-2 mt-2">
+                            <li>If <strong>D > 0</strong>, the roots are real and distinct.</li>
+                            <li>If <strong>D = 0</strong>, the roots are real and equal (coincident).</li>
+                            <li>If <strong>D < 0</strong>, the roots are imaginary (complex conjugates).</li>
+                        </ul>
+                    </div>
+                </div>
+            `,
+            103: `
+                <div class="space-y-6 text-slate-800">
+                    <div class="border-b-2 border-slate-900 pb-4">
+                        <span class="text-xs uppercase tracking-widest text-slate-400 font-sans font-bold">JEE & NEET Physics Formula Packet</span>
+                        <h1 class="text-2xl sm:text-3xl font-black mt-1 text-slate-900 font-sans">Electrostatics & Electric Fields Formulas</h1>
+                        <p class="text-xs text-brand-600 font-bold mt-1 font-sans">High-Standard Revision Sheet by Mr Amrit Kumar</p>
+                    </div>
+
+                    <div class="space-y-4 text-sm sm:text-base">
+                        <h3 class="text-lg font-bold text-slate-900 font-sans">1. Coulomb's Law of Electrostatic Force</h3>
+                        <p>
+                            The electrostatic force of attraction or repulsion between two static point charges is directly proportional to the product of the magnitudes of charges and inversely proportional to the square of the distance between them:
+                            <br><span class="block text-center my-4 font-mono font-bold text-lg text-slate-900 bg-slate-50 p-2.5 rounded-xl">F = (1 / 4πε₀) * (|q₁q₂| / r²)</span>
+                            Where the constant <strong>k = (1 / 4πε₀) ≈ 9 × 10⁹ N·m²/C²</strong> in vacuum.
+                        </p>
+
+                        <h3 class="text-lg font-bold text-slate-900 font-sans mt-6">2. Electric Field Intensity (E)</h3>
+                        <p>
+                            Electric field due to a point charge <strong>q</strong> at a distance of <strong>r</strong>:
+                            <br><span class="block text-center my-4 font-mono font-bold text-lg text-brand-600 bg-brand-50/50 p-2.5 rounded-xl">E = (1 / 4πε₀) * (q / r²)</span>
+                        </p>
+                    </div>
+                </div>
+            `,
+            104: `
+                <div class="space-y-6 text-slate-800">
+                    <div class="border-b-2 border-slate-900 pb-4">
+                        <span class="text-xs uppercase tracking-widest text-slate-400 font-sans font-bold">Class 9-10 Bio-Science Foundations</span>
+                        <h1 class="text-2xl sm:text-3xl font-black mt-1 text-slate-900 font-sans">Molecular Foundations of Cell Division</h1>
+                        <p class="text-xs text-brand-600 font-bold mt-1 font-sans">Verified Biology Note Set by Mr Anupam Routh</p>
+                    </div>
+
+                    <div class="space-y-4 text-sm sm:text-base">
+                        <h3 class="text-lg font-bold text-slate-900 font-sans">1. Mitosis vs Meiosis Cell Division</h3>
+                        <p>
+                            Cells divide and multiply to sustain life. There are two primary biological processes of division depending on the target somatic or germ cell type.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4 font-sans text-xs">
+                            <div class="p-4 bg-emerald-50 border border-emerald-100 rounded-xl">
+                                <h4 class="font-bold text-emerald-800 text-sm mb-1">MITOSIS</h4>
+                                <p class="text-slate-600">Occurs in somatic cells. Produces two identical diploid (2n) daughter cells. Essential for growth, repair, and tissue maintenance.</p>
+                            </div>
+                            <div class="p-4 bg-teal-50 border border-teal-100 rounded-xl">
+                                <h4 class="font-bold text-teal-800 text-sm mb-1">MEIOSIS</h4>
+                                <p class="text-slate-600">Occurs in sex/germ cells. Produces four non-identical haploid (n) gametes. Introduces genetic recombination via crossing over.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        let currentActiveShelfFilter = "All";
+        let currentlyViewingBookId = null;
+        // Pre-configured with Live Razorpay Key ID
+        let razorpayKeyId = localStorage.getItem('tutornxt_razorpay_key') || 'rzp_live_TGrnAczjpD4XUM';
+
+        // Initialize and local storage state persistence loader
+        window.onload = function() {
+            // Restore unlocked state from memory
+            const unlockedRegistry = localStorage.getItem('tutorNxtUnlockedBooks');
+            if (unlockedRegistry) {
+                try {
+                    const unlockedIds = JSON.parse(unlockedRegistry);
+                    libraryBooks.forEach(book => {
+                        if (unlockedIds.includes(book.id)) {
+                            book.unlocked = true;
+                        }
+                    });
+                } catch(e) {
+                    console.error("Registry restore error", e);
+                }
+            }
+
+            renderShelfCatalog();
+        };
+
+        // Filter shelf by category
+        function filterShelf(category) {
+            currentActiveShelfFilter = category;
+            
+            // Update active button styles
+            const buttons = document.querySelectorAll('.filter-shelf-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'hover:bg-slate-200');
+            });
+            
+            const activeBtn = document.getElementById(`filterBtn-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-100', 'hover:bg-slate-200');
+                activeBtn.classList.add('bg-brand-600', 'text-white');
+            }
+            
+            renderShelfCatalog();
+        }
+
+        // Razorpay API Key Configuration Modal Helpers
+        function openRazorpayConfigModal() {
+            const modal = document.getElementById('razorpayKeyModal');
+            const input = document.getElementById('razorpayKeyInput');
+            input.value = razorpayKeyId || 'rzp_live_TGrnAczjpD4XUM';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeRazorpayConfigModal() {
+            const modal = document.getElementById('razorpayKeyModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        function saveRazorpayKey() {
+            const input = document.getElementById('razorpayKeyInput').value.trim();
+            if (!input) {
+                showToast("Key Required", "Please enter your Razorpay Key ID (e.g. rzp_live_... or rzp_test_...).");
+                return;
+            }
+            razorpayKeyId = input;
+            localStorage.setItem('tutornxt_razorpay_key', razorpayKeyId);
+            closeRazorpayConfigModal();
+            showToast("Razorpay Key Saved", "Real-time payment gateway configured successfully.");
+        }
+
+        // Render the Dynamic Book Catalogue Grid
+        function renderShelfCatalog() {
+            const shelfGrid = document.getElementById('shelfGrid');
+            const emptyState = document.getElementById('shelfEmpty');
+            const counterText = document.getElementById('shelfCount');
+            
+            if (!shelfGrid) return;
+            shelfGrid.innerHTML = "";
+
+            // Filter logic
+            const filteredBooks = libraryBooks.filter(book => {
+                return currentActiveShelfFilter === "All" || book.subject === currentActiveShelfFilter;
+            });
+
+            // Empty checker
+            if (filteredBooks.length === 0) {
+                emptyState.classList.remove('hidden');
+                shelfGrid.classList.add('hidden');
+                counterText.textContent = "0 Books Found";
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            shelfGrid.classList.remove('hidden');
+            counterText.textContent = `${filteredBooks.length} Book(s) Available`;
+
+            // Loop cards
+            filteredBooks.forEach((book, index) => {
+                const bookCardHtml = `
+                    <div class="bg-white border border-slate-200/80 rounded-[2rem] p-5 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between book-wrapper">
+                        <div class="space-y-4">
+                            
+                            <!-- Book Graphic Sleeve Header representation -->
+                            <div class="relative w-full aspect-[4/3] rounded-2xl bg-gradient-to-br ${book.gradient} p-5 flex flex-col justify-between text-white shadow-inner overflow-hidden book-cover">
+                                <div class="absolute inset-0 bg-white/5 backdrop-blur-[1px] pointer-events-none"></div>
+                                <div class="flex items-center justify-between z-10">
+                                    <span class="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded bg-black/30 backdrop-blur-md">
+                                        ${book.subject} Spec
+                                    </span>
+                                    <span class="text-[10px] font-bold text-white/80">
+                                        <i class="fa-solid fa-bookmark"></i> ${book.grade}
+                                    </span>
+                                </div>
+                                
+                                <div class="space-y-1.5 z-10">
+                                    <h4 class="text-base sm:text-lg font-black leading-snug drop-shadow-sm truncate-2-lines">${book.title}</h4>
+                                    <p class="text-[10px] text-white/70 font-semibold uppercase tracking-wider">BY ${book.author} <img src="batch.jpg" alt="Verified" class="w-3.5 h-3.5 object-contain inline-block shrink-0 rounded-full align-middle ml-0.5" onerror="this.style.display='none'"></p>
+                                </div>
+
+                                <div class="flex items-center justify-between z-10 pt-2 border-t border-white/15">
+                                    <span class="text-[10px] text-white/60 font-semibold">TutorNxt Verified Notes</span>
+                                    <span class="text-[10px] text-white/90 font-bold"><i class="fa-solid fa-fire"></i> ${book.downloads} downloads</span>
+                                </div>
+                            </div>
+
+                            <!-- Description detail -->
+                            <div class="space-y-2">
+                                <p class="text-[11px] leading-relaxed text-slate-500 font-semibold">${book.description}</p>
+                            </div>
+                        </div>
+
+                        <!-- Payment validation action buttons -->
+                        <div class="pt-5 mt-5 border-t border-slate-100 flex items-center gap-3">
+                            <button onclick="readOnlineSample(${book.id})" class="flex-1 py-2.5 text-center text-xs font-bold text-brand-600 hover:text-brand-700 bg-brand-50 hover:bg-brand-100 rounded-xl border border-brand-200 transition-all active:scale-95">
+                                <i class="fa-solid fa-eye mr-1"></i> Preview Sample
+                            </button>
+                            
+                            ${book.unlocked ? `
+                                <button onclick="openPDFViewer(${book.id})" class="flex-1 py-2.5 text-center text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5 font-sans">
+                                    <i class="fa-solid fa-book-open"></i> Read Full PDF
+                                </button>
+                            ` : `
+                                <button onclick="triggerRazorpayCheckout(${book.id})" class="flex-1 py-2.5 text-center text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5 font-sans">
+                                    <i class="fa-solid fa-bolt text-[10px]"></i> Get PDF (₹1)
+                                </button>
+                            `}
+                        </div>
+                    </div>
+                `;
+                shelfGrid.innerHTML += bookCardHtml;
+            });
+        }
+
+        // Real-Time Razorpay Gateway Execution
+        function triggerRazorpayCheckout(bookId) {
+            const book = libraryBooks.find(b => b.id === bookId);
+            if (!book) return;
+
+            // Prompt key if not set
+            if (!razorpayKeyId) {
+                showToast("Configuration Needed", "Please enter your Razorpay Key ID first.");
+                openRazorpayConfigModal();
+                return;
+            }
+
+            // Ensure Razorpay SDK is available
+            if (typeof Razorpay === 'undefined') {
+                showToast("Gateway Error", "Razorpay SDK could not be loaded. Please check your internet connection.");
+                return;
+            }
+
+            // Razorpay Standard Checkout Options (Amount in Paise = 100 = ₹1.00)
+            const options = {
+                "key": razorpayKeyId,
+                "amount": 100, // ₹1.00 INR
+                "currency": "INR",
+                "name": "TutorNXT GyanKosh",
+                "description": `Unlock ${book.title}`,
+                "image": "logo.png",
+                "handler": function (response) {
+                    // Payment Successful Callback
+                    book.unlocked = true;
+                    book.downloads += 1;
+                    
+                    updateUnlockedRegistryMemory(book.id);
+                    renderShelfCatalog();
+                    
+                    showToast("Payment Successful!", `Razorpay Txn ID: ${response.razorpay_payment_id}`);
+                    
+                    // Automatically open PDF reader
+                    setTimeout(() => {
+                        openPDFViewer(book.id);
+                    }, 600);
+                },
+                "prefill": {
+                    "name": "Student Reader",
+                    "email": "student@tutornxt.com",
+                    "contact": "9876543210"
+                },
+                "notes": {
+                    "book_id": book.id.toString(),
+                    "book_title": book.title,
+                    "platform": "TutorNXT GyanKosh"
+                },
+                "theme": {
+                    "color": "#004aad"
+                }
+            };
+
+            try {
+                const rzp = new Razorpay(options);
+                
+                rzp.on('payment.failed', function (response) {
+                    showToast("Payment Failed", response.error.description || "Transaction was cancelled.");
+                });
+
+                rzp.open();
+            } catch (err) {
+                console.error("Razorpay Execution Error:", err);
+                showToast("Gateway Error", "Invalid Razorpay Key ID. Please update your API key in settings.");
+                openRazorpayConfigModal();
+            }
+        }
+
+        // Local PDF / Note Reader viewer invocation system
+        function openPDFViewer(bookId) {
+            const book = libraryBooks.find(b => b.id === bookId);
+            if (!book) return;
+
+            currentlyViewingBookId = bookId;
+            document.getElementById('pdfViewerTitle').textContent = book.title;
+            const contentArea = document.getElementById('pdfContentArea');
+            
+            // Render basic preview or full pages
+            if (book.unlocked) {
+                contentArea.innerHTML = notePublications[bookId] || `<p class="p-6 text-center text-slate-500 font-sans text-xs font-semibold">Authorized document contents loading soon...</p>`;
+            } else {
+                // If the book is locked, render the free chapter with a high-fidelity locked preview banner
+                let previewHTML = notePublications[bookId] || '';
+                previewHTML += `
+                    <div class="relative mt-12 pt-10 border-t border-dashed border-slate-300 text-center space-y-4 bg-gradient-to-b from-transparent to-slate-50 p-8 rounded-3xl">
+                        <div class="absolute inset-0 bg-white/45 backdrop-blur-[1.5px] rounded-3xl"></div>
+                        <div class="relative z-10 space-y-3">
+                            <div class="w-14 h-14 bg-slate-900 text-sky-400 rounded-full flex items-center justify-center mx-auto text-xl shadow-md border border-slate-800">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+                            <h4 class="text-lg font-black text-slate-900 tracking-tight font-sans">Remaining Study Pages are Locked</h4>
+                            <p class="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">You are reading a free sample. To unlock the full set of high-resolution classroom notes and enable downloads, please complete the ₹1 Razorpay checkout.</p>
+                            <button onclick="closePDFViewer(); triggerRazorpayCheckout(${bookId});" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all active:scale-95 font-sans">
+                                Pay ₹1 via Razorpay & Unlock Entire Book
+                            </button>
+                        </div>
+                    </div>
+                `;
+                contentArea.innerHTML = previewHTML;
+            }
+
+            // Update Save button context dynamically
+            const downloadBtn = document.getElementById('pdfDownloadBtn');
+            const downloadIcon = document.getElementById('pdfDownloadIcon');
+            const downloadText = document.getElementById('pdfDownloadText');
+
+            if (book.unlocked) {
+                downloadBtn.className = "h-9 px-3.5 bg-emerald-600 hover:bg-emerald-700 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer";
+                downloadIcon.className = "fa-solid fa-download";
+                downloadText.textContent = "Save offline";
+            } else {
+                downloadBtn.className = "h-9 px-3.5 bg-brand-600 hover:bg-brand-700 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-brand-500/10";
+                downloadIcon.className = "fa-solid fa-lock text-[10px]";
+                downloadText.textContent = "Unlock Full PDF (₹1)";
+            }
+            
+            const viewer = document.getElementById('pdfViewer');
+            viewer.classList.remove('hidden');
+            viewer.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        // Handle Download Action based on premium active checkout
+        function handlePDFDownloadAction() {
+            if (!currentlyViewingBookId) return;
+            const book = libraryBooks.find(b => b.id === currentlyViewingBookId);
+            if (!book) return;
+
+            if (book.unlocked) {
+                triggerFileDownload(book.title);
+            } else {
+                closePDFViewer();
+                triggerRazorpayCheckout(currentlyViewingBookId);
+                showToast("Download Gated", "Please complete the ₹1 Razorpay transaction to enable offline downloads.");
+            }
+        }
+
+        function closePDFViewer() {
+            const viewer = document.getElementById('pdfViewer');
+            viewer.classList.add('hidden');
+            viewer.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+            currentlyViewingBookId = null;
+        }
+
+        // Preview sample note term (Displays limited sample context in reader)
+        function readOnlineSample(bookId) {
+            const book = libraryBooks.find(b => b.id === bookId);
+            if (!book) return;
+
+            showToast("Opening Note Sample", `Loading free trial chapter for ${book.title}...`);
+            setTimeout(() => {
+                openPDFViewer(bookId);
+            }, 500);
+        }
+
+        // PDF download implementation after paying
+        function triggerFileDownload(title) {
+            if (!currentlyViewingBookId) return;
+            const book = libraryBooks.find(b => b.id === currentlyViewingBookId);
+            if (!book || !book.unlocked) {
+                showToast("Action Gated", "Please complete secure transaction first to activate downloads.");
+                return;
+            }
+
+            showToast("Saving Offline Copy", `Packaging secure note copy of ${title} onto your storage...`);
+            
+            // Mock file output trigger download
+            setTimeout(() => {
+                const element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(`TutorNXT GyanKosh Certified Academic E-Book Resource Packet\nSlogan: Knowledge without Limits\nBook: ${title}\n\nAll verified notes unlocked and backed up under payment order reference key.`));
+                element.setAttribute('download', `${title.replace(/\s+/g, '_')}_Licensed_Notes.txt`);
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            }, 1200);
+        }
+
+        // Local Storage persistent unlocked history syncing
+        function updateUnlockedRegistryMemory(unlockedId) {
+            let currentRegistry = [];
+            const saved = localStorage.getItem('tutorNxtUnlockedBooks');
+            if (saved) {
+                try {
+                    currentRegistry = JSON.parse(saved);
+                } catch(e) {}
+            }
+            
+            if (!currentRegistry.includes(unlockedId)) {
+                currentRegistry.push(unlockedId);
+                localStorage.setItem('tutorNxtUnlockedBooks', JSON.stringify(currentRegistry));
+            }
+        }
+
+        // Global Alert Toasts System
+        function showToast(title, msg) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMessage').textContent = msg;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
